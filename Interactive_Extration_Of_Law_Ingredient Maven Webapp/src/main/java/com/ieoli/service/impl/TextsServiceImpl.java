@@ -1,0 +1,72 @@
+package com.ieoli.service.impl;
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.util.Arrays;
+import java.util.List;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
+
+import com.ieoli.dao.ResultEntityMapper;
+import com.ieoli.dao.TextEntityMapper;
+import com.ieoli.entity.TextEntity;
+import com.ieoli.entity.TextEntityExample;
+import com.ieoli.service.TextsService;
+@Service("textsservice")
+public class TextsServiceImpl implements TextsService {
+	
+	@Resource
+	private TextEntityMapper textMapper;
+	@Resource
+	private ResultEntityMapper resultMapper;
+
+	@Override
+	public TextEntity getTextByID(int id) {
+		// TODO Auto-generated method stub
+		return textMapper.selectByPrimaryKey(id);
+	}
+	
+	@Override
+	public void updateText(TextEntity text){
+		
+		textMapper.updateByPrimaryKeySelective(text);
+	}
+
+	@Override
+	public List<TextEntity> getHandledText() {
+		// TODO Auto-generated method stub
+		TextEntityExample textExample=new TextEntityExample();
+		textExample.createCriteria().andCountEqualTo(3);
+		List<TextEntity> texts=textMapper.selectByExample(textExample);
+		return texts;
+	}
+
+	@Override
+	public void generateFile(int textid,int resultid,String path) throws IOException {
+		// TODO Auto-generated method stub
+		String article=textMapper.selectByPrimaryKey(textid).getArticle();
+		String label=resultMapper.selectByPrimaryKey(resultid).getLabel();
+		String word[]=article.split("\\$");
+		String labels[]=label.split("\\$");
+		Arrays.sort(labels);
+		//去除单词编号
+		for(int i=0;i<labels.length;i++){
+			String withoutNum[]=labels[i].split("_");
+			labels[i]=withoutNum[1];
+		}
+		File text=new File(path);
+		FileOutputStream outputStream = new FileOutputStream(text);
+		BufferedWriter bufferedWriter=new BufferedWriter(new OutputStreamWriter(outputStream));
+		for(int i=0;i<word.length&&i<labels.length;i++){
+			bufferedWriter.write(word[i]+"    "+labels[i]+"\r\n");
+		}
+		bufferedWriter.flush();
+		bufferedWriter.close();
+	}
+
+}
