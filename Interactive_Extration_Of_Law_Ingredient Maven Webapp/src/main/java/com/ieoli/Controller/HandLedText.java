@@ -18,7 +18,7 @@ public class HandLedText {
 	@Resource
 	private TextsService ts;
 	@SuppressWarnings("null")
-	@RequestMapping("ShowHandLedText")
+	@RequestMapping("/ShowHandLedText")
 	public void ShowHandLedText(HttpServletRequest request,
 			HttpServletResponse response) throws Exception{
 		
