@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 import javax.annotation.Resource;
 
@@ -67,6 +68,33 @@ public class TextsServiceImpl implements TextsService {
 		}
 		bufferedWriter.flush();
 		bufferedWriter.close();
+	}
+
+	@Override
+	public TextEntity getTextByModel(int id) {
+		// TODO Auto-generated method stub
+		TextEntityExample tee = new TextEntityExample();
+		tee.createCriteria().andModelidEqualTo(id);
+		List<TextEntity> te = textMapper.selectByExample(tee);
+		int number;
+		Random random =new Random(System.currentTimeMillis());
+		if(te.size()>1)
+		{
+			number = random.nextInt()%(te.size());
+		}else if(te.size()>=0)
+		{
+			number=0;
+		}else {
+			return null;
+		}
+		return te.get(number);
+		
+	}
+
+	@Override
+	public void insertFile(TextEntity text) {
+		// TODO Auto-generated method stub
+		textMapper.insert(text);
 	}
 
 }

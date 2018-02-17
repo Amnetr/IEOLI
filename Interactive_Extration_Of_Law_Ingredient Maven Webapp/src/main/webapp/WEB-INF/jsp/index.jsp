@@ -90,7 +90,7 @@
 								<form role="form" id="login" action="SendMail" method="post" target = "nm_iframe">
 									<div class="form-group">
 										<label for="Mail">Mail</label>
-										<input type="text" name="Mail" placeholder="MailAddress..." class="form-username form-control" id="form-username">
+										<input type="text" name="username" placeholder="MailAddress..." class="form-username form-control" id="form-username">
 									</div>
 									<div class="form-group">
 									</div>

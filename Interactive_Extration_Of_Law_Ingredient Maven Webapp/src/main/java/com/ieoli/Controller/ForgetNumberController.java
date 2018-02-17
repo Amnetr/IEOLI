@@ -34,12 +34,12 @@ UserService userService;
 				maView.setViewName("/WEB-INF/jsp/index.jsp");//登录页面
 			}else {
 				maView.addObject("Result", "No such people");
-				maView.setViewName("/WEB-INF/jsp/forgetPwd");//忘记密码页面
+				maView.setViewName("/WEB-INF/jsp/forgetPwd.jsp");//忘记密码页面
 			}
 			
 		}else {
 			maView.addObject("Result", "Wrong Code");
-			maView.setViewName("/WEB-INF/jsp/forgetPwd");//忘记密码页面
+			maView.setViewName("/WEB-INF/jsp/forgetPwd.jsp");//忘记密码页面
 		}
 		return maView;
 		
