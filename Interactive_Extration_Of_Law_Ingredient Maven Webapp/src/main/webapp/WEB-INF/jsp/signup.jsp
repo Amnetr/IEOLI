@@ -8,7 +8,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>登录</title>
+    <title>注册</title>
 
     <script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
     <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
@@ -19,7 +19,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <body>
     <div class="container">
         <div class="form row">    
-        	<h3 class="form-title"align="center">登录</h3>
+        	<h3 class="form-title"align="center">注册</h3>
             <div class="form-horizontal col-md-offset-3" id="login_form" >
                 <div class="col-md-9">
                     <div class="form-group">
@@ -31,16 +31,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <input class="form-control required" type="password" placeholder="密码" id="password" name="password" maxlength="8"/>
                     </div>
                     <div class="form-group">
-                        <label class="checkbox">
-                            <input type="checkbox" name="remember" value="1"/>记住密码
-                        </label>
-                    </div>
-                    <div class="form-group col-md-offset-9">
-                        <button type="button" class="btn btn-forget pull-left" name="forget">忘记密码</button>
-                        <button onclick="window.location.href='signup.html' " type="button" class="btn btn-login pull-right" name="login">注册</button>
+                    	<i class="fa fa-lock fa-lg"></i>
+                        <input class="form-control required" type="password" placeholder="再次输入密码" id="repassword" name="repassword" maxlength="8"/>
                     </div>
                     <div class="form-group col-md-offset-6"align="center">
-                        <button onclick="window.location.href='selectType.html' " type="submit" class="btn btn-success " name="submit">登录</button>
+                        <button onclick="window.location.href='login.html' "type="submit" class="btn btn-success " name="submit">确认</button>
                     </div>
                 </div>
             </div>
