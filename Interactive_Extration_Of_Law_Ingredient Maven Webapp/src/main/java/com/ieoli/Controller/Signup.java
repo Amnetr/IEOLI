@@ -17,37 +17,37 @@ import com.ieoli.service.UserService;
 public class Signup {
 	@Resource
 	UserService userService;
-@RequestMapping("/Signup")
-public  ModelAndView getCode(HttpServletRequest request,
+@RequestMapping("Signup")
+public  void getCode(HttpServletRequest request,
 		HttpServletResponse response,HttpSession session) throws Exception {
 	int yanzheng = (int)session.getAttribute("code");
 	String code = request.getParameter("code");
-	ModelAndView mavAndView = new ModelAndView();
 	String username = request.getParameter("username");
 	String password = request.getParameter("password");
 	String actor = request.getParameter("actor");
 	UserEntity user = new UserEntity();
 	user.setUsername(username);
 	user.setUserpassword(EncoderPlus.getMD5(password));
-	user.setUsertype(Integer.parseInt(actor));
+	user.setUsertype(Integer.parseInt("1"));//sasfaf
 	String failed = "邮箱已存在";
 	if(userService.getUserByUsername(username)!=null)
 	{
 		response.getOutputStream().write(failed.getBytes());
-		mavAndView.setViewName("/WEB-INF/jsp/Signup.jsp");//注册页面
-		mavAndView.addObject("Result", "False");
-		return mavAndView;
+
 	}
 	if(Integer.parseInt(code)==yanzheng)
 	{
 		userService.Signup(user);
-		mavAndView.setViewName("/WEB-INF/jsp/index.jsp");
-		mavAndView.addObject("Result", "True");
+	
+		String st="success";
+		response.getOutputStream().write(st.getBytes());
+		
 	}else {
-		mavAndView.setViewName("/WEB-INF/jsp/Signup.jsp");//注册页面
-		mavAndView.addObject("Result", "False");
+		
+		String st="验证码错误！";
+		response.getOutputStream().write(st.getBytes());
 	}
-	return mavAndView;
+	
 	//yanzheng为发到邮箱的验证码
 }
 }

@@ -23,7 +23,7 @@ public class EncoderPlus {
 		    } catch (Exception e) {  
 		        e.printStackTrace();  
 		    }  
-		    return md5str+getMD5("Password");  
+		   return md5str;  
 		    }  
 		  
 	 public static String bytesToHex(byte[] bytes) {  

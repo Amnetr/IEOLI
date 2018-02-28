@@ -40,9 +40,10 @@ UserService userService;
 			mav.addObject("Result", "success");
 			mav.addObject("username", username);
 		}else {
-			mav.addObject("Result", "failed");
+			mav.setViewName("/WEB-INF/jsp/index.jsp");//失败
+			mav.addObject("Result", "账号或密码错误！");
 		}
-		return null;
+		return mav;
 	}
 
 }

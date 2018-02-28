@@ -21,6 +21,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <div class="form row">    
         	<h3 class="form-title"align="center">登录</h3>
             <div class="form-horizontal col-md-offset-3" id="login_form" >
+            <form role="form" id="login" action="weblogin" method="post" class="login-form">
                 <div class="col-md-9">
                     <div class="form-group">
                     	<i class="fa fa-user fa-lg"></i><!--图标-->
@@ -29,6 +30,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <div class="form-group">
                     	<i class="fa fa-lock fa-lg"></i>
                         <input class="form-control required" type="password" placeholder="密码" id="password" name="password" maxlength="8"/>
+                        <br><font color="red">${Result }</font>
                     </div>
                     <div class="form-group">
                         <label class="checkbox">
@@ -36,13 +38,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         </label>
                     </div>
                     <div class="form-group col-md-offset-9">
-                        <button type="button" class="btn btn-forget pull-left" name="forget">忘记密码</button>
-                        <button onclick="window.location.href='signup.html' " type="button" class="btn btn-login pull-right" name="login">注册</button>
-                    </div>
+                        <button onclick="window.location.href='page?path=forgetnumber' " type="button" class="btn btn-forget pull-left" name="forget">忘记密码</button>
+                        <button onclick="window.location.href='page?path=signup' " type="button" class="btn btn-login pull-right" name="login">注册</button>
+                    	
+                      </div>
                     <div class="form-group col-md-offset-6"align="center">
                         <button onclick="window.location.href='selectType.html' " type="submit" class="btn btn-success " name="submit">登录</button>
                     </div>
                 </div>
+                </form>
             </div>
         </div>
     </div>

@@ -17,7 +17,7 @@ import com.ieoli.service.UserService;
 public class SendMailController {
 	@Resource
 	UserService userService;
-@RequestMapping("/SendMail")
+@RequestMapping("SendMail")
 public  void getCode(HttpServletRequest request,
 		HttpServletResponse response,HttpSession session) throws Exception {
 	String mail = request.getParameter("username");

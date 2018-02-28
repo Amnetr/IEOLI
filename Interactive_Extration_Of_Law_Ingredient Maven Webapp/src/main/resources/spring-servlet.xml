@@ -65,7 +65,6 @@
 			<property name="mappings">
 			<props>
 				<prop key="/index.action">indexController</prop>
-
 			
 				
 			</props>
