@@ -18,12 +18,11 @@ public class ForgetNumberController {
 @Resource
 UserService userService;
 	@RequestMapping("/forgetpassword")
-	ModelAndView handleRequestInternal(HttpServletRequest request,
+	void handleRequestInternal(HttpServletRequest request,
 			HttpServletResponse response,HttpSession session) throws Exception {
 		int code = (int)session.getAttribute("code");
 		String passwordString = EncoderPlus.getMD5(request.getParameter("password"));
 		String hiscode=request.getParameter("code");
-		ModelAndView maView = new ModelAndView();
 		if(Integer.parseInt(hiscode)==code)
 		{
 			if(userService.getUserByUsername((String)session.getAttribute("username"))!=null)
@@ -31,17 +30,14 @@ UserService userService;
 				UserEntity user = new UserEntity();
 				user = userService.getUserByUsername((String)session.getAttribute("username"));
 				user.setUserpassword(passwordString);
-				maView.setViewName("/WEB-INF/jsp/index.jsp");//登录页面
+				response.getOutputStream().write("success".getBytes());
 			}else {
-				maView.addObject("Result", "No such people");
-				maView.setViewName("/WEB-INF/jsp/forgetPwd.jsp");//忘记密码页面
+				response.getOutputStream().write("existed".getBytes());
 			}
 			
 		}else {
-			maView.addObject("Result", "Wrong Code");
-			maView.setViewName("/WEB-INF/jsp/forgetPwd.jsp");//忘记密码页面
+			response.getOutputStream().write("wrongcode".getBytes());
 		}
-		return maView;
 		
 	}
 }

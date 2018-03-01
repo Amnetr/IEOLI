@@ -22,7 +22,7 @@ public  void getCode(HttpServletRequest request,
 		HttpServletResponse response,HttpSession session) throws Exception {
 	String mail = request.getParameter("username");
 	session.setAttribute("username", mail);
-	String failed="邮箱格式不正确";
+	String failed="failed";
 	if(mail ==""||mail==null)
 	{
 		response.getOutputStream().write(failed.getBytes());

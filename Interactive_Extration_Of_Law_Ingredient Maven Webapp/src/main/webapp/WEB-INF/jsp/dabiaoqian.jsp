@@ -1,3 +1,9 @@
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -35,7 +41,7 @@
 </nav>
 <div id="timeline" class="container-timeline">
   <div class="timeline-block">
-    <div class="vertical-timeline-icon lazur-bg"> <i class="fa fa-user-md"></i>
+    <div class="vertical-timeline-icon lazur-bg"> <i class="fa fa-user-md"
 	</div>
   </div>
 </div>

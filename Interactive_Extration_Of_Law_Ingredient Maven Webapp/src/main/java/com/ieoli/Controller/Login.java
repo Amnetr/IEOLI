@@ -24,17 +24,18 @@ UserService userService;
 		ModelAndView mav = new ModelAndView();
 		String username= request.getParameter("username");
 		String passwdString = request.getParameter("password");
-		String actorString =request.getParameter("actor");
+		
 		UserEntity user = new UserEntity();
 		user.setUsername(username);
 		user.setUserpassword(passwdString);
 		if(userService.login(user))
 		{
-			if(actorString.equals("1"))
+			int actortype =userService.getUserByUsername(username).getUsertype();
+			if(actortype==1)
 			{
-				mav.setViewName("/WEB-INF/jsp/uploadhome.jsp");//上传人员的主页
+				mav.setViewName("/WEB-INF/jsp/chakanModel.jsp");//上传人员的主页
 			}else {
-				mav.setViewName("/WEB-INF/jsp/labelhome.jsp");//打标签人员主页
+				mav.setViewName("/WEB-INF/jsp/selectType.jsp");//打标签人员主页
 			}
 			session.setAttribute("user", userService.getUserByUsername(username));
 			mav.addObject("Result", "success");

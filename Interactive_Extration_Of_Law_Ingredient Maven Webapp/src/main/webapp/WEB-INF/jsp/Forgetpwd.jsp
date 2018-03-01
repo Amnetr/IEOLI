@@ -4,19 +4,21 @@ String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
 
-<!DOCTYPE html>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
-<head>
+  <head>
     <meta charset="UTF-8">
-    <title>注册</title>
+    <title>忘记密码</title>
 
     <script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
     <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
+  </head>
+  
+  <body>
+   <body>
 <script type="text/javascript" charset="UTF-8" >
 function sendmail(){
 		//alert(obj.id+obj.name);
@@ -52,7 +54,7 @@ function check()
 	if(reg.test(cod))
 	{
 	$.ajax({
-			url:"Signup",
+			url:"forgetpassword",
 			data:{username:aname,code:cod,password:password,actor:actor},
 			method:"post",
 			//dataType:"json"
@@ -62,7 +64,7 @@ function check()
 			window.location.href ="page?path=index";
 			}else if(result=="existed")
 			{
-			alert("用户名已存在");
+			alert("用户名不存在");
 			}
 			else
 			{
@@ -84,7 +86,7 @@ function check()
 </script>
     <div class="container">
         <div class="form row">    
-        	<h3 class="form-title"align="center">注册</h3>
+        	<h3 class="form-title"align="center">找回密码</h3>
             <div class="form-horizontal col-md-offset-3" id="login_form" >
                 <div class="col-md-9">
                 	
@@ -99,12 +101,8 @@ function check()
                     </div>
                     <div class="form-group">
                     	<i class="fa fa-lock fa-lg"></i>
-                        <input class="form-control required" type="password" placeholder="密码" id="password" name="password" maxlength="8"/>
+                        <input class="form-control required" type="password" placeholder="新密码" id="password" name="password" maxlength="8"/>
                     </div>
-                    <form action="" method="post"> 
-<label><input id="actor" name="actor" type="radio" value="0" checked="checked" />作为标记人员注册 </label> 
-<label><input id="actor" name="actor" type="radio" value="1" />作为投放人员注册 </label> 
-</form> 
                     <div class="form-group">
                     	<i class="fa fa-lock fa-lg"></i>
                         <input class="form-control required" type="password" placeholder="再次输入密码" id="repassword" name="repassword" maxlength="8"/>
@@ -118,4 +116,5 @@ function check()
         </div>
     </div>
 </body>
+  </body>
 </html>

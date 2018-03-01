@@ -1,3 +1,8 @@
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,7 +29,7 @@
            <li><a>欢迎你，投放人员</a></li>
                <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                    ${user.name}<b class="caret"></b>
+                    ${user.username}<b class="caret"></b>
                 </a>
                 <ul class="dropdown-menu pull-left">
                     <li><a href="userInformation?userID=${user.userid }">查看我的信息</a></li>
@@ -48,9 +53,9 @@
      		<table align="center" width="960px">
      		<tr>
 				<td align="center"><p><font face="幼圆" size="+2" color=#9A9A9A style="font-weight:bold">上传模型</font></p></td>
-				<td align="center" valign="top"><img src="../Desktop/dw项目站点/1.png"/></td>
+				<td align="center" valign="top"><img src="../img/1.png"/></td>
 				<td align="center"><p><font face="幼圆" size="+2" style="font-weight: bolder">查看/修改模型</font></p></td>
-				<td align="center" valign="top"><img src="../Desktop/dw项目站点/2.png"/></td>
+				<td align="center" valign="top"><img src="../img/2.png"/></td>
 				<td align="center"><p><font face="幼圆" size="+2" color=#9A9A9A style="font-weight: bold">查看/下载</font></p></td>
      		</tr>
      		</table>

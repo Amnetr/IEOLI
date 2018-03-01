@@ -28,12 +28,12 @@ public  void getCode(HttpServletRequest request,
 	UserEntity user = new UserEntity();
 	user.setUsername(username);
 	user.setUserpassword(EncoderPlus.getMD5(password));
-	user.setUsertype(Integer.parseInt("1"));//sasfaf
-	String failed = "邮箱已存在";
+	user.setUsertype(Integer.parseInt(actor));//sasfaf
+	String failed = "existed";
 	if(userService.getUserByUsername(username)!=null)
 	{
 		response.getOutputStream().write(failed.getBytes());
-
+return;
 	}
 	if(Integer.parseInt(code)==yanzheng)
 	{
@@ -44,7 +44,7 @@ public  void getCode(HttpServletRequest request,
 		
 	}else {
 		
-		String st="验证码错误！";
+		String st="wrongcode";
 		response.getOutputStream().write(st.getBytes());
 	}
 	

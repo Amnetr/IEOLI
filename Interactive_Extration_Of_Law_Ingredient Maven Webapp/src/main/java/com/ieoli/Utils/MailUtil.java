@@ -46,7 +46,7 @@ public class MailUtil {
      * @throws MessagingException 异常
      * @throws UnsupportedEncodingException 异常
      */
-    public static void sendMail(String to, String subject, String html) throws MessagingException,UnsupportedEncodingException {
+    public static void sendMail(String to, String subject, String html) throws MessagingException,UnsupportedEncodingException,Exception {
         MimeMessage mimeMessage = mailSender.createMimeMessage();
         // 设置utf-8或GBK编码，否则邮件会有乱码
         MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage, true, "UTF-8");

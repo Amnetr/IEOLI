@@ -32,18 +32,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <input class="form-control required" type="password" placeholder="密码" id="password" name="password" maxlength="8"/>
                         <br><font color="red">${Result }</font>
                     </div>
-                    <div class="form-group">
-                        <label class="checkbox">
-                            <input type="checkbox" name="remember" value="1"/>记住密码
-                        </label>
-                    </div>
                     <div class="form-group col-md-offset-9">
-                        <button onclick="window.location.href='page?path=forgetnumber' " type="button" class="btn btn-forget pull-left" name="forget">忘记密码</button>
+                        <button onclick="window.location.href='page?path=Forgetpwd' " type="button" class="btn btn-forget pull-left" name="forget">忘记密码</button>
                         <button onclick="window.location.href='page?path=signup' " type="button" class="btn btn-login pull-right" name="login">注册</button>
                     	
                       </div>
                     <div class="form-group col-md-offset-6"align="center">
-                        <button onclick="window.location.href='selectType.html' " type="submit" class="btn btn-success " name="submit">登录</button>
+                        <button type="submit" class="btn btn-success " name="submit">登录</button>
                     </div>
                 </div>
                 </form>
