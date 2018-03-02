@@ -45,7 +45,14 @@ function check()
 	var password     = document.getElementById("password").value;
 	var repassword   = document.getElementById("repassword").value;
 	var cod          = document.getElementById("code").value;
-	var actor 		 = document.getElementById("actor").value;
+	var radios 		 = document.getElementsByName("actor");
+	var actor;
+	for(var i=0;i<radios.length;i++){
+    if(radios[i].checked){
+      actor = radios[i].value;
+    break;
+    }
+    }
 	var reg = /^-?\d+$/; 
 	if (password==repassword)
 	{
@@ -59,6 +66,7 @@ function check()
 			success:function(result){
 			if(result=="success")
 			{
+			alert("注册成功");
 			window.location.href ="page?path=index";
 			}else if(result=="existed")
 			{
@@ -102,8 +110,8 @@ function check()
                         <input class="form-control required" type="password" placeholder="密码" id="password" name="password" maxlength="8"/>
                     </div>
                     <form action="" method="post"> 
-<label><input id="actor" name="actor" type="radio" value="0" checked="checked" />作为标记人员注册 </label> 
-<label><input id="actor" name="actor" type="radio" value="1" />作为投放人员注册 </label> 
+<label><input id="radios" name="actor" type="radio" value="0" checked="checked"/>作为标记人员注册  </label> 
+<label><input id="radios" name="actor" type="radio" value="1" />作为投放人员注册 </label> 
 </form> 
                     <div class="form-group">
                     	<i class="fa fa-lock fa-lg"></i>

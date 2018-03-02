@@ -8,4 +8,5 @@ public interface ModelService {
 
 	List<ModelEntity> getModels();
 	void insertModel(String description);
+	void updateModel(int id,String description);
 }

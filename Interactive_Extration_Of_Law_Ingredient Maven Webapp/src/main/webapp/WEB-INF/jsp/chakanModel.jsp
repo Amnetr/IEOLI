@@ -3,11 +3,12 @@
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="utf-8">
-    <title>投放人员·下载模型</title>
+    <title>投放人员·上传、修改模型</title>
 	<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<link href="system-default.css">
 	
@@ -18,6 +19,32 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <link rel="stylesheet" href="bootstrap-multiselect-master/dist/css/bootstrap-multiselect.css" type="text/css"/>
 </head>
 <body>
+<script type="text/javascript" charset="UTF-8" >
+function smedit()
+{
+	var desc = document.getElementById("textar").value;
+	var radios 		 = document.getElementsByName("models");
+	var modelid=-1;
+	for(var i=0;i<radios.length;i++){
+    if(radios[i].checked){
+      modelid = radios[i].value;
+    break;
+    }
+    }
+	$.ajax({
+			url:"UploadModels",
+			data:{modelid:modelid,description:desc},
+			method:"post",
+			//dataType:"json"
+			success:function(result){
+			window.location.reload();  
+			alert("成功");
+			
+			}
+		});
+}
+
+</script>
 
 <nav class="navbar navbar-default" role="navigation">
 	<div class="container-fluid">
@@ -53,31 +80,31 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      		<table align="center" width="960px">
      		<tr>
 				<td align="center"><p><font face="幼圆" size="+2" color=#9A9A9A style="font-weight:bold">上传模型</font></p></td>
-				<td align="center" valign="top"><img src="../img/1.png"/></td>
+				<td align="center" valign="top"><img src="./img/1.png"/></td>
 				<td align="center"><p><font face="幼圆" size="+2" style="font-weight: bolder">查看/修改模型</font></p></td>
-				<td align="center" valign="top"><img src="../img/2.png"/></td>
+				<td align="center" valign="top"><img src="./img/2.png"/></td>
 				<td align="center"><p><font face="幼圆" size="+2" color=#9A9A9A style="font-weight: bold">查看/下载</font></p></td>
      		</tr>
      		</table>
      		</div>
      		
      		<div style="margin: 40px">
-     <form role="form">
+     
   <div class="form-group">
-    <label for="name" style="font-size: 20px">选择文本模型</label>
+    <label for="name" style="font-size: 20px">选择文本模型(若不选则为新增模型)</label>
     
     <div class="form-group" style="margin: 30px">    
      <table align="center" width="960px">
      		<tr>
-				<td align="center"><label class="radio-inline">
-        <input type="radio" value="option1" name="sex" >模型1
-      </label></td>
-				<td align="center" valign="top"><label class="radio-inline">
-        <input type="radio" value="option2" name="sex">模型2
-      </label></td>
-				<td align="center"><label class="radio-inline">
-        <input type="radio" value="option3" name="sex">模型3
-      </label></td>
+				<td align="left">  <c:forEach items="${list}" var="model">
+				<div class="caption" align="left">
+				<label><input id="radios" name="models" type="radio" value="${model.modelid}"/>序号:${model.modelid} </label> 
+								<p id="modeldescription">介绍：${model.modeldescription}</p>
+								<p align="center">
+								</p>
+								</div>
+				</c:forEach></td>
+				
 			
      		</tr>
      		</table>
@@ -85,15 +112,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     
       <div class="form-group" style="margin: 30px">    
       <label for="name" style="font-size:20px;"  >规则</label>
-      <textarea class="form-control" rows="10" name=uploadarea style="width: 810px"></textarea>
+      <textarea class="form-control" rows="10" id="textar" name=uploadarea style="width: 810px"></textarea>
     
     </div>
     
   </div>
   
-  <button type="submit" class="btn btn-default">提交/修改</button>
-  <button type="submit" class="btn btn-default">完成</button>
-</form>
+  <button onclick="smedit()" class="btn btn-default" name="button">新增/修改</button>
    			</div>
     			
      </div>
@@ -102,7 +127,4 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <!--选择模型类型-->
 
 </body>
-<script type="text/javascript">
-    $('#select-single').multiselect();
-</script>
 </html>

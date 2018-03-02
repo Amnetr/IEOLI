@@ -4,11 +4,13 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.springframework.stereotype.Service;
+
 import com.ieoli.dao.ModelEntityMapper;
 import com.ieoli.entity.ModelEntity;
 import com.ieoli.entity.ModelEntityExample;
 import com.ieoli.service.ModelService;
-
+@Service("modelservice")
 public class ModelServiceImpl implements ModelService{
 
 	@Resource
@@ -19,6 +21,7 @@ public class ModelServiceImpl implements ModelService{
 		 List<ModelEntity> lists;
 		 ModelEntityExample me = new ModelEntityExample();
 		 me.createCriteria();
+		 me.or().andModeldescriptionIsNotNull();
 		 lists = mapper.selectByExample(me);
 		 return lists;
 	}
@@ -29,6 +32,14 @@ public class ModelServiceImpl implements ModelService{
 		meEntity.setModeldescription(description);
 		mapper.insert(meEntity);
 		
+	}
+	@Override
+	public void updateModel(int id, String description) {
+		// TODO Auto-generated method stub
+		ModelEntity meEntity = new ModelEntity();
+		meEntity.setModelid(id);
+		meEntity.setModeldescription(description);
+		mapper.updateByPrimaryKey(meEntity);
 	}
 
 }

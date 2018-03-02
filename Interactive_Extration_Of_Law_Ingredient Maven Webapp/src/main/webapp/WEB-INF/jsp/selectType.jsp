@@ -3,6 +3,7 @@
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <!DOCTYPE html>
 <html>
@@ -27,17 +28,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     
     <div>
         <ul class="nav navbar-nav pull-right">
-           <li><a>欢迎你，标注人员</a></li>
+           <li><a>欢迎你，${username }</a></li>
                <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"> 人员名字<b class="caret"></b>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">选项 <b class="caret"></b>
                 </a>
                 <ul class="dropdown-menu pull-left">
-                    <li><a href="#">查看我的信息</a></li>
-                    <li><a href="#"></a></li>
                     <li class="divider"></li>
-                    <li><a href="#">修改我的信息</a></li>
-                    <li class="divider"></li>
-                    <li><a href="#">退出登录</a></li>
+                    <li><a href="index.action">退出登录</a></li>
                 </ul>
             </li>
         </ul>
@@ -58,118 +55,27 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <p>查看规则</p>   		
 <div class="panel-group" id="accordion">	
     <div class="panel panel-default">
-        <div class="panel-heading">
-            <h4 class="panel-title">
-                <a data-toggle="collapse" data-parent="#accordion" 
-                href="#collapseOne">Option1
-                </a>
-            </h4>
-        </div>
-        <div id="collapseOne" class="panel-collapse collapse">
-            <div class="panel-body">
-                Nihil anim keffiyeh helvetica, craft beer labore wes anderson 
-                cred nesciunt sapiente ea proident. Ad vegan excepteur butcher 
-                vice lomo.
-            </div>
-        </div>
+        <c:forEach items="${list}" var="model">
+                       <div class="col-xs-6 col-md-3">
+						<div class="thumbnail">
+							<div class="caption" align="center">
+								<p id="modelid" name="userID">序号:${model.modelid}</p>
+								<p id="modeldescription">介绍：${model.modeldescription}</p>
+								<p align="center">
+								    <a href="setTask?models=${ model.modelid}" target="_blank" class="btn btn-info" role="button">选择</a>
+									
+								</p>
+							</div>
+						</div>
+					</div>
+                    </c:forEach>
     </div>
     
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h4 class="panel-title">
-                <a data-toggle="collapse" data-parent="#accordion" 
-                href="#collapseTwo">Option2
-            </a>
-            </h4>
-        </div>
-        <div id="collapseTwo" class="panel-collapse collapse">
-        <div class="panel-body">
-            Nihil anim keffiyeh helvetica, craft beer labore wes anderson 
-            cred nesciunt sapiente ea proident. Ad vegan excepteur butcher 
-            vice lomo.
-        </div>
-        </div>
-    </div>
-    
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h4 class="panel-title">
-                <a data-toggle="collapse" data-parent="#accordion" 
-                href="#collapseThree">Option3
-                </a>
-            </h4>
-        </div>
-        <div id="collapseThree" class="panel-collapse collapse">
-            <div class="panel-body">
-                Nihil anim keffiyeh helvetica, craft beer labore wes anderson 
-                cred nesciunt sapiente ea proident. Ad vegan excepteur butcher 
-                vice lomo.
-            </div>
-        </div>
-    </div>
-    
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h4 class="panel-title">
-                <a data-toggle="collapse" data-parent="#accosrdion" 
-                href="#collapseFour">Option4
-                </a>
-            </h4>
-        </div>
-        <div id="collapseFour" class="panel-collapse collapse ">
-            <div class="panel-body">
-                Nihil anim keffiyeh helvetica, craft beer labore wes anderson 
-                cred nesciunt sapiente ea proident. Ad vegan excepteur butcher 
-                vice lomo.
-            </div>
-        </div>
-    </div>
-    
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h4 class="panel-title">
-                <a data-toggle="collapse" data-parent="#accordion" 
-                href="#collapseFive">Option5
-                </a>
-            </h4>
-        </div>
-        <div id="collapseFive" class="panel-collapse collapse ">
-            <div class="panel-body">
-                Nihil anim keffiyeh helvetica, craft beer labore wes anderson 
-                cred nesciunt sapiente ea proident. Ad vegan excepteur butcher 
-                vice lomo.
-            </div>
-        </div>
-    </div>
-    
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h4 class="panel-title">
-                <a data-toggle="collapse" data-parent="#accordion" 
-                href="#collapseSix">Option6
-                </a>
-            </h4>
-        </div>
-        <div id="collapseSix" class="panel-collapse collapse ">
-            <div class="panel-body">
-                Nihil anim keffiyeh helvetica, craft beer labore wes anderson 
-                cred nesciunt sapiente ea proident. Ad vegan excepteur butcher 
-                vice lomo.
-            </div>
-        </div>
+
     </div>
 </div> 	
 
-<p>选择类型</p>
-  <select id="select-single">
-    <option value="1">Option 1</option>
-    <option value="2">Option 2</option>
-    <option value="3">Option 3</option>
-    <option value="4">Option 4</option>
-    <option value="5">Option 5</option>
-    <option value="6">Option 6</option>
-</select>
-  	<button onclick="window.location.href='selectText.html' " type="submit" class="complete">完成</button>
+
 	</body>
 </html>
  
