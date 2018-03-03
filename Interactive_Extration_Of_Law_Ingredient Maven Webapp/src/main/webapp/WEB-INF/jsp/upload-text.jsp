@@ -16,8 +16,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
 	<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<!--下拉复选框插件-->
-	<script type="text/javascript" src="bootstrap-multiselect-master/dist/js/bootstrap-multiselect.js"></script>
-<link rel="stylesheet" href="bootstrap-multiselect-master/dist/css/bootstrap-multiselect.css" type="text/css"/>
 </head>
 <body>
 <script type="text/javascript" charset="UTF-8" >
@@ -28,15 +26,12 @@ function upload()
 	$.ajax({
 			url:"UploadTexts",
 			data:formData,
-						//data:{push:type},
 					type: 'POST',
                     cache: false,
 						 contentType: false,  
 				          processData: false,
-			//dataType:"json"
 			success:function(result){
-			window.location.reload();  
-			alert("成功");
+			alert("上传成功");
 			}
 		});
 }
@@ -100,7 +95,7 @@ function upload()
 								</div>
 				</c:forEach>
 				  <input type="file"   name="file" multiple/>	<br />	
-				    <button onclick="upload()" class="btn btn-default" name="button">提交</button>
+				   <input type="button" id="Insert" class=" form-control btn btn-primary" value="上传文件" onclick="upload()" >
 				</td>
 				    
      		</tr>

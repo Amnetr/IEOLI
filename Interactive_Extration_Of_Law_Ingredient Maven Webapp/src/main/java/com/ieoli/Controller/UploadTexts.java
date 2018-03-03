@@ -30,7 +30,7 @@ public class UploadTexts {
 	@Resource
 	ModelService ms;
 	  @RequestMapping("/UploadTexts")
-	    public ModelAndView  springUpload(HttpServletRequest request,HttpSession session,HttpServletResponse response) throws IllegalStateException, IOException
+	    public void  springUpload(HttpServletRequest request,HttpSession session,HttpServletResponse response) throws IllegalStateException, IOException
 	    {
 		  if (request.getCharacterEncoding() == null) {
 			  request.setCharacterEncoding("UTF-8");//你的编码格式
@@ -98,11 +98,11 @@ public class UploadTexts {
 	            }
 	           
 	        }
-	        ModelAndView mav = new ModelAndView();
-	        mav.setViewName("/WEB-INF/jsp/upload-texts.jsp");
-	        List<ModelEntity> lists = ms.getModels();
-			mav.addObject("list", lists);
-			mav.addObject("sus", "上传成功");
-			return mav;
-	    }
+	      //  ModelAndView mav = new ModelAndView();
+	       // mav.setViewName("/WEB-INF/jsp/upload-texts.jsp");
+	       // List<ModelEntity> lists = ms.getModels();
+		//	mav.addObject("list", lists);
+	//		mav.addObject("sus", "上传成功");
+		response.getOutputStream().write("success".getBytes("utf-8"));
+	    }                                                                                                                   
 }

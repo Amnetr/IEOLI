@@ -39,10 +39,10 @@ public class TextsServiceImpl implements TextsService {
 	}
 
 	@Override
-	public List<TextEntity> getHandledText() {
+	public List<TextEntity> getHandledText(int modelid) {
 		// TODO Auto-generated method stub
 		TextEntityExample textExample=new TextEntityExample();
-		textExample.createCriteria().andCountEqualTo(3);
+		textExample.createCriteria().andCountEqualTo(3).andModelidEqualTo(modelid);
 		List<TextEntity> texts=textMapper.selectByExample(textExample);
 		return texts;
 	}

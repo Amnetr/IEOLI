@@ -1,5 +1,6 @@
 package com.ieoli.Controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -8,31 +9,39 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSON;
+import com.ieoli.entity.ModelEntity;
 import com.ieoli.entity.TextEntity;
+import com.ieoli.service.ModelService;
 import com.ieoli.service.TextsService;
 
 @Controller
 public class HandLedText {
 	@Resource
 	private TextsService ts;
+	@Resource
+	ModelService ms;
 	@SuppressWarnings("null")
 	@RequestMapping("/ShowHandLedText")
-	public void ShowHandLedText(HttpServletRequest request,
+	public ModelAndView ShowHandLedText(HttpServletRequest request,
 			HttpServletResponse response) throws Exception{
 		
+		
+		
 		response.setCharacterEncoding("UTF-8");
-		
-		
-		List<TextEntity> texts=ts.getHandledText();
-		List<String> textNames = null;
-		for(int i=0;i<texts.size();i++){
+		ModelAndView mav = new ModelAndView();
+		String modelid = request.getParameter("modelid");
+		//List<ModelEntity> lists = ms.getModels();
+	//	mav.addObject("list", lists);
+		List<TextEntity> texts=ts.getHandledText(Integer.parseInt(modelid));
+		ArrayList<String> textNames = new ArrayList<String>();
+	/*	for(int i=0;i<texts.size();i++){
 			textNames.add(texts.get(i).getTextname());
-		}
-		
-		String jsonString=JSON.toJSONString(textNames);
-		response.getWriter().write(jsonString);
-		response.getWriter().close();
+		}*/
+		mav.addObject("textNames",texts);
+		mav.setViewName("WEB-INF/jsp/download.jsp");
+		return mav;
 	}
 }

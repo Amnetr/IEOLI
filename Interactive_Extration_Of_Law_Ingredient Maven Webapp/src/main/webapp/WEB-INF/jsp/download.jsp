@@ -3,6 +3,7 @@
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <!DOCTYPE html>
 <html>
@@ -19,6 +20,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <link rel="stylesheet" href="bootstrap-multiselect-master/dist/css/bootstrap-multiselect.css" type="text/css"/>
 </head>
 <body>
+<script type="text/javascript" charset="UTF-8" >
+function showhandled(modelid)
+{
+	
+	$.ajax({
+			url:"ShowHandLedText",
+			data:{modelid:modelid},
+			method:"post",
+			//dataType:"json"
+			success: function(info) {
+    console.log(info);
+}
+		});
+}
+
+</script>
 
 <nav class="navbar navbar-default" role="navigation">
 	<div class="container-fluid">
@@ -63,18 +80,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <div class="form-group">
     <label for="name" style="font-size: 20px">选择文本模型</label>
     
-    <div class="form-group" style="margin: 30px">    
+ <div class="form-group" style="margin: 30px">    
      <table align="center" width="960px">
      		<tr>
-				<td align="center"><label class="radio-inline">
-        <input type="radio" value="option1" name="sex" >模型1
-      </label></td>
-				<td align="center" valign="top"><label class="radio-inline">
-        <input type="radio" value="option2" name="sex">模型2
-      </label></td>
-				<td align="center"><label class="radio-inline">
-        <input type="radio" value="option3" name="sex">模型3
-      </label></td>
+				<td align="left">  <c:forEach items="${list}" var="model">
+				<div class="caption" align="left">
+				<label><input id="radios" onclick= "showhandled('${model.modelid}')"name="models" type="radio" value="${model.modelid}"/>序号:${model.modelid} </label> 
+								<p id="modeldescription">介绍：${model.modeldescription}</p>
+								<p align="center">
+								</p>
+								</div>
+				</c:forEach></td>
+				
 			
      		</tr>
      		</table>
@@ -89,46 +106,30 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<tr>
 					
 					<th width="400px">文件名</th>
-					<th width="200px">文件大小</th>
+					<th width="200px">文件号</th>
 					<th width="400px">操作</th>
 					
 				</tr>
 			</thead>
 			<tbody>
 				
-					<tr>
-						<td>
-							<div>
-								<a href="#nowhere" >XXXXXXXXXXXXXXXXXXXXXXXXXXX</a>
-							
-							</div>	
-						</td>
-						<td>
-							<span >1024KB</span>	
-						</td>
-						
-						<td>
-							<a href="#nowhere">下载</a>
-						</td>
-					</tr>
 					
-					<c:foreach items="${list}" var="file">
+					<c:forEach items="${textNames}" var="file">
 					<tr>
 						<td>
 							<div>
-								<a href="#nowhere" >${file.name}</a>
-							
+								<a href="#nowhere" >${file.textname}</a>
 							</div>	
 						</td>
 						<td>
-							<span >${file.size}</span>	
+							<span >${file.textid}</span>	
 						</td>
 						
 						<td>
 							<a href="#nowhere">下载</a>
 						</td>
 					</tr>
-				</c:foreach>
+				</c:forEach>
 				
 					
 								

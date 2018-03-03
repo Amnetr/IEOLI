@@ -29,8 +29,6 @@ import com.ieoli.service.TextsService;
 public class PageController extends AbstractController{
 @Resource
 ModelService ms;
-@Resource
-private TextsService ts;
 	@RequestMapping(value="/page")
 	protected ModelAndView handleRequestInternal(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
@@ -43,16 +41,9 @@ private TextsService ts;
 		{
 		case "upload-text":
 		case "chakanModel":
+		case "download":
 			List<ModelEntity> lists = ms.getModels();
 			mav.addObject("list", lists);
-			break;
-		case "download":
-			List<TextEntity> texts=ts.getHandledText();
-			ArrayList<String> textNames = new ArrayList<String>();
-			for(int i=0;i<texts.size();i++){
-				textNames.add(texts.get(i).getTextname());
-			}
-			mav.addObject("list",textNames);
 			break;
 		}
 		return mav;
