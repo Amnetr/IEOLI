@@ -34,7 +34,6 @@ ModelService ms;
 		UserEntity user = new UserEntity();
 		user.setUsername(username);
 		user.setUserpassword(passwdString);
-		mav.addObject("username", user.getUsername());
 		if(userService.login(user))
 		{
 			int actortype =userService.getUserByUsername(username).getUsertype();

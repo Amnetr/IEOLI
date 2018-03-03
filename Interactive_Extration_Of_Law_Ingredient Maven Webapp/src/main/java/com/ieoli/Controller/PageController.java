@@ -2,7 +2,10 @@ package com.ieoli.Controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -17,9 +20,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 
+import com.ieoli.entity.ModelEntity;
+import com.ieoli.entity.TextEntity;
+import com.ieoli.service.ModelService;
+import com.ieoli.service.TextsService;
+
 @Controller
 public class PageController extends AbstractController{
-
+@Resource
+ModelService ms;
+@Resource
+private TextsService ts;
 	@RequestMapping(value="/page")
 	protected ModelAndView handleRequestInternal(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
@@ -28,6 +39,22 @@ public class PageController extends AbstractController{
 		String pages = "/WEB-INF/jsp/"+a+".jsp";
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName(pages);
+		switch(a)
+		{
+		case "upload-text":
+		case "chakanModel":
+			List<ModelEntity> lists = ms.getModels();
+			mav.addObject("list", lists);
+			break;
+		case "download":
+			List<TextEntity> texts=ts.getHandledText();
+			ArrayList<String> textNames = new ArrayList<String>();
+			for(int i=0;i<texts.size();i++){
+				textNames.add(texts.get(i).getTextname());
+			}
+			mav.addObject("list",textNames);
+			break;
+		}
 		return mav;
 	}
 }

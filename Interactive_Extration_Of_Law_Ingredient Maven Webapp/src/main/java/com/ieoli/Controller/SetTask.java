@@ -8,13 +8,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSON;
 import com.ieoli.entity.TextEntity;
 import com.ieoli.service.TextsService;
-
+@Controller
 public class SetTask {
 	@Resource
 	TextsService ts;
@@ -26,13 +27,9 @@ public class SetTask {
 		String[] stringlist;
 		String article = te.getArticle();
 		stringlist  = article.split("$");
-		String jsonString;
-		jsonString = JSON.toJSONString(stringlist);
-		response.setCharacterEncoding("UTF-8");
-		response.getWriter().write(jsonString);
-		response.getWriter().close();
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/WEB-INF/jsp/setLabels.jsp");//打标签页面
+		mav.addObject("list", stringlist);
+		mav.setViewName("/WEB-INF/jsp/dabiaoqian.jsp");//打标签页面
 		return mav;
 	}
 }

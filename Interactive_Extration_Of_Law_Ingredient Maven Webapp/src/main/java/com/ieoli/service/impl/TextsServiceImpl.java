@@ -75,18 +75,19 @@ public class TextsServiceImpl implements TextsService {
 		// TODO Auto-generated method stub
 		TextEntityExample tee = new TextEntityExample();
 		tee.createCriteria().andModelidEqualTo(id);
-		List<TextEntity> te = textMapper.selectByExample(tee);
+		List<TextEntity> te = textMapper.selectByExampleWithBLOBs(tee);
 		int number;
 		Random random =new Random(System.currentTimeMillis());
 		if(te.size()>1)
 		{
-			number = random.nextInt()%(te.size());
+			number = random.nextInt(te.size());
 		}else if(te.size()>=0)
 		{
 			number=0;
 		}else {
 			return null;
 		}
+		TextEntity pEntity = te.get(number);
 		return te.get(number);
 		
 	}

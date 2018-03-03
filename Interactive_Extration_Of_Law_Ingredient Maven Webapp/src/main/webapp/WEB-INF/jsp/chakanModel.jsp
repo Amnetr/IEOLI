@@ -59,12 +59,7 @@ function smedit()
                     ${user.username}<b class="caret"></b>
                 </a>
                 <ul class="dropdown-menu pull-left">
-                    <li><a href="userInformation?userID=${user.userid }">查看我的信息</a></li>
-                    <li><a href="#"></a></li>
-                    <li class="divider"></li>
-                    <li><a href="userChangeInformation?userID=${user.userid }">修改我的信息</a></li>
-                    <li class="divider"></li>
-                    <li><a href="#">退出登录</a></li>
+                        <a href="index.action">退出登录</a>
                 </ul>
             </li>
         </ul>
@@ -79,11 +74,11 @@ function smedit()
      	<div style="margin:20px">
      		<table align="center" width="960px">
      		<tr>
-				<td align="center"><p><font face="幼圆" size="+2" color=#9A9A9A style="font-weight:bold">上传模型</font></p></td>
-				<td align="center" valign="top"><img src="./img/1.png"/></td>
+				<td align="center"><a href="page?path=upload-text"><font face="幼圆" size="+2"  color=#9A9A9A style="font-weight:bold">上传文本</font></a></td>
+							<td align="center" valign="top"><img src="./img/1.png"/></td>
 				<td align="center"><p><font face="幼圆" size="+2" style="font-weight: bolder">查看/修改模型</font></p></td>
-				<td align="center" valign="top"><img src="./img/2.png"/></td>
-				<td align="center"><p><font face="幼圆" size="+2" color=#9A9A9A style="font-weight: bold">查看/下载</font></p></td>
+								<td align="center" valign="top"><img src="./img/2.png"/></td>
+				<td align="center"><a href="page?path=download"><font face="幼圆" size="+2" color=#9A9A9A style="font-weight: bold">查看/下载</font></a></td>
      		</tr>
      		</table>
      		</div>

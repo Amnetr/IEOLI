@@ -5,26 +5,38 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Iterator;
+import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.ieoli.entity.ModelEntity;
 import com.ieoli.entity.TextEntity;
+import com.ieoli.service.ModelService;
 import com.ieoli.service.TextsService;
-
+@Controller
 public class UploadTexts {
 	@Resource TextsService tService;
+	@Resource
+	ModelService ms;
 	  @RequestMapping("/UploadTexts")
-	    public void  springUpload(HttpServletRequest request,HttpSession session) throws IllegalStateException, IOException
+	    public ModelAndView  springUpload(HttpServletRequest request,HttpSession session,HttpServletResponse response) throws IllegalStateException, IOException
 	    {
-		  String modelid = request.getParameter("model");
+		  if (request.getCharacterEncoding() == null) {
+			  request.setCharacterEncoding("UTF-8");//你的编码格式
+			  }
+
+		  String modelid = request.getParameter("models");
 		  int id = Integer.parseInt(modelid);
 	        	         //将当前上下文初始化给  CommonsMutipartResolver （多部分解析器）
 	        CommonsMultipartResolver multipartResolver=new CommonsMultipartResolver(
@@ -35,54 +47,62 @@ public class UploadTexts {
 	            //将request变成多部分request
 	            MultipartHttpServletRequest multiRequest=(MultipartHttpServletRequest)request;
 	           //获取multiRequest 中所有的文件名
-	            Iterator iter=multiRequest.getFileNames();
+	            Iterator<String> iter=multiRequest.getFileNames();
 	             
 	            while(iter.hasNext())
 	            {
 	                //一次遍历所有文件
-	                MultipartFile file=multiRequest.getFile(iter.next().toString());
-	                if(file!=null)
-	                {
-	                	String path = session.getServletContext().getRealPath("/")+"texts\\"+file.getOriginalFilename();
-	                	File f =new File(path);
-	                	    	file.transferTo(f);
-	                	    	TextEntity te = new TextEntity();
-	                	    	te.setCount(0);
-	                	    	te.setModelid(id);
-	                	    	te.setTextname(file.getOriginalFilename());
-	                	    	BufferedReader reader = null;
-	                	    	String allString = "";
-	                	    	try {
-									reader = new BufferedReader(new FileReader(f));
-									String tempString = null;
-									while((tempString =reader.readLine())!=null)
-									{
-										allString+=tempString+"$";
-									}
-									reader.close();
-								} catch (Exception e) {
-									// TODO: handle exception
-									e.printStackTrace();
-								}finally{
-									if(reader!=null)
-									{
-										 try {
-							                    reader.close();
-							                } catch (IOException e1) {
-							                }
-									}
+	            	List<MultipartFile> fileList=multiRequest.getFiles(iter.next());  
+	            	if(fileList.size()>0)
+	            	{
+	            		Iterator<MultipartFile> fileite=fileList.iterator();  
+	            		while(fileite.hasNext())
+	            		{
+	            			 MultipartFile file=fileite.next();  
+	            			 String path = session.getServletContext().getRealPath("/")+"texts\\"+file.getOriginalFilename();
+	 	                	File f =new File(path);
+	 	                	file.transferTo(f);
+	 	                	TextEntity te = new TextEntity();
+                	    	te.setCount(0);
+                	    	te.setModelid(id);
+                	    	te.setTextname(file.getOriginalFilename());
+                	    	BufferedReader reader = null;
+                	    	String allString = "";
+                	    	try {
+								reader = new BufferedReader(new FileReader(f));
+								String tempString = null;
+								while((tempString =reader.readLine())!=null)
+								{
+									tempString = new String(tempString.getBytes("GBK"),"utf-8");
+									allString+=tempString+"$";
 								}
-	                	    	te.setArticle(allString);
-	                	    	tService.insertFile(te);
-	                	    	  System.out.println(path);
-	                	    	  
-	                    //上传
-	                    
-	                }
-	                 
+								reader.close();
+							} catch (Exception e) {
+								// TODO: handle exception
+								e.printStackTrace();
+							}finally{
+								if(reader!=null)
+								{
+									 try {
+						                    reader.close();
+						                } catch (IOException e1) {
+						                }
+								}
+							}
+                	    	te.setArticle(allString);
+                	    	tService.insertFile(te);
+	 	                	 System.out.println(path);
+	            		}
+	            		
+	            	}
 	            }
 	           
 	        }
-	 
+	        ModelAndView mav = new ModelAndView();
+	        mav.setViewName("/WEB-INF/jsp/upload-texts.jsp");
+	        List<ModelEntity> lists = ms.getModels();
+			mav.addObject("list", lists);
+			mav.addObject("sus", "上传成功");
+			return mav;
 	    }
 }
