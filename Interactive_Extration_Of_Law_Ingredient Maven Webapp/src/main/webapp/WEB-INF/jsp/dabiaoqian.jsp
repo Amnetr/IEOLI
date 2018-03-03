@@ -60,10 +60,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<body>
 <nav class="navbar navbar-default" role="navigation">
       <div class="container-fluid">
-    <div class="navbar-header"> <a class="navbar-brand" href="#">投放人员系统</a> </div>
+    <div class="navbar-header"> <a class="navbar-brand" href="#">标注人员系统</a> </div>
     <div>
           <ul class="nav navbar-nav pull-right">
-        <li><a>欢迎你，投放人员</a></li>
+        <li><a>欢迎你</a></li>
         <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown"> ${user.username}<b class="caret"></b> </a>
               <ul class="dropdown-menu pull-left">
             <a href="index.action">退出登录</a>

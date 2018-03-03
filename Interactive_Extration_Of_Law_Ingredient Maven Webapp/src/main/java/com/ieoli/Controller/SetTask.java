@@ -1,5 +1,6 @@
 package com.ieoli.Controller;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -26,9 +27,15 @@ public class SetTask {
 		TextEntity te = ts.getTextByModel(id);
 		String[] stringlist;
 		String article = te.getArticle();
-		stringlist  = article.split("$");
+		stringlist  = article.split("\\$");
+		ArrayList<String> wordList = new ArrayList<String>();
+		for(int i = 0 ; i<stringlist.length;i++)
+		{
+			String[] temp = stringlist[i].split("\\_");
+			wordList.add(temp[0]);
+		}
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("list", stringlist);
+		mav.addObject("list", wordList);
 		mav.setViewName("/WEB-INF/jsp/dabiaoqian.jsp");//打标签页面
 		return mav;
 	}
