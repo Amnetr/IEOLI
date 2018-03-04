@@ -102,7 +102,7 @@ $.ajax({
     </div>
     
       <div class="form-group" style="margin: 30px">    
-      <label for="name" style="font-size:20px;"  >下载</label>
+      <label for="name" style="font-size:20px;"  >下载（建议右键-目标另存为）</label>
      
 <div>
 		<table class="table">
@@ -131,7 +131,7 @@ $.ajax({
 						
 						<td>
 							<!--  <input type="button" id="Insert" class=" form-control btn btn-primary" value="下载" onclick="download('${textss.textname}')">-->
-							 <a href="download?filename=${textss.textname}">下载</a>
+							 <a href="./texts/${textss.textname}">下载</a>
 						</td>
 					</tr>
 				</c:forEach>

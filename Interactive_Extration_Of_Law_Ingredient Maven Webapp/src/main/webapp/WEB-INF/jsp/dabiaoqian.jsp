@@ -3,12 +3,12 @@
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 	<head>
 	<meta charset="utf-8">
-	<title>投放人员·打标签</title>
+	<title>标注人员·打标签</title>
 	<link href="system-default.css">
 	<link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
 	<script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
@@ -25,14 +25,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      revise();
     }
    }
-	
-	function revise(btn,shuru){
+   
+   function revise(btn,shuru){
 		//alert(obj.id+obj.name);
 		//var id = obj.id	
 	document.getElementById(btn).style.backgroundColor="#32CD32";
 	document.getElementById(btn).textContent=document.getElementById(btn).textContent+"&"+document.getElementById(shuru).value; 
 		
-	};
+	};		
+	
 		function tijiao(){
 		//alert(obj.id+obj.name);
 		//var id = obj.id	
@@ -60,7 +61,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<body>
 <nav class="navbar navbar-default" role="navigation">
       <div class="container-fluid">
-    <div class="navbar-header"> <a class="navbar-brand" href="#">标注人员系统</a> </div>
+    <div class="navbar-header"> <a class="navbar-brand" href="page?path=selectType">标注人员系统</a> </div>
     <div>
           <ul class="nav navbar-nav pull-right">
         <li><a>欢迎你</a></li>
@@ -90,13 +91,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
          <div style="border:2px solid #C9C9C9;margin: 40px;padding: 10px">
 
          
-          <c:foreach item="list" var="word">
-        <button id="${word}" target="_blank" type="button" class="btn btn-default">${word}</button>
+          <c:forEach items="${list}" var="word" varStatus="status">
+        <button id="${status.count}" target="_blank" type="button" class="btn btn-default" style="margin-right:6px;margin-bottom:3px">${word}</button>
         <script type="text/javascript">  
                     $(function (){   
-                        var ulstring="<div align='centre'>"+"<input id='${word}'+'shuru' align='left' style='width:130px;height:30px'></input>"  
-					        +"<button id='biaoqianButton' style='width:45px;height:30px' onclick='revise('${word}','${word}'+'shuru')'>确认</button>"+"</div>";  
-                        $("#${word}").popover({   
+                        var ulstring="<div align='centre'>"+"<input id='${status.count}shuru' align='left' style='width:130px;height:30px'></input>"  
+					        +"<button id='biaoqianButton' style='width:45px;height:30px;' onClick='revise('${status.count}','${status.count}shuru')'>确认</button>"+"</div>";  
+                        $("#${status.count}").popover({   
                             trigger:'manual',
                             placement : 'bottom',    
                             title:'<div style="text-align:left; color:gray; font-size:10%;">标签</div>',  
@@ -116,10 +117,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                             $(_this).popover("hide")  
                                         }  
                                     }, 100);  
-                                    });    
-                    }); 			
+                                    })   
+                    }); 	
+                    
+                    
                    </script> 
-      </c:foreach>
+      </c:forEach>
            </div>
            
            <div align="center"><button id="tijiao" class="btn btn-default" onClick="tijiao()">提交</button></div>
@@ -132,11 +135,5 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!--选择模型类型-->
 
 </body>
-	<script type="text/javascript">
-    $('#select-single').multiselect();
-	
-	$(function (){
-    $("[data-toggle='popover']").popover();
-});
-</script>
+
 </html>

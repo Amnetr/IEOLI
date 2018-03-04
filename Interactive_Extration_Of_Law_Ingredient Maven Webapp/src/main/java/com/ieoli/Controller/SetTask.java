@@ -20,7 +20,7 @@ import com.ieoli.service.TextsService;
 public class SetTask {
 	@Resource
 	TextsService ts;
-	@RequestMapping("/setTask")
+	@RequestMapping(value= "/setTask",produces="text/html;charset=UTF-8")
 	ModelAndView handleRequestInternal(HttpServletRequest request,
 			HttpServletResponse response,HttpSession session) throws Exception {
 		int id = Integer.parseInt(request.getParameter("models"));

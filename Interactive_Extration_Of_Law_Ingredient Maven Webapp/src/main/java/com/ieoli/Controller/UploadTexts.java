@@ -2,8 +2,10 @@ package com.ieoli.Controller;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Iterator;
 import java.util.List;
 
@@ -70,14 +72,18 @@ public class UploadTexts {
                 	    	BufferedReader reader = null;
                 	    	String allString = "";
                 	    	try {
-								reader = new BufferedReader(new FileReader(f));
+
+                	    	FileInputStream fis = new FileInputStream(f);
+								reader = new BufferedReader(new InputStreamReader(fis,"utf-8"));
+
 								String tempString = null;
 								while((tempString =reader.readLine())!=null)
 								{
-									tempString = new String(tempString.getBytes("GBK"),"utf-8");
+									//tempString = new String(tempString.getBytes("GBK"),"utf-8");
 									allString+=tempString+"$";
 								}
 								reader.close();
+								
 							} catch (Exception e) {
 								// TODO: handle exception
 								e.printStackTrace();

@@ -26,12 +26,12 @@ import com.ieoli.service.ModelService;
 import com.ieoli.service.TextsService;
 
 @Controller
-public class PageController extends AbstractController{
+public class PageController{
 @Resource
 ModelService ms;
 	@RequestMapping(value="/page")
 	protected ModelAndView handleRequestInternal(HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
+			HttpServletResponse response,HttpSession session) throws Exception {
 		// TODO Auto-generated method stub
 		String a = request.getParameter("path");
 		String pages = "/WEB-INF/jsp/"+a+".jsp";
@@ -39,12 +39,15 @@ ModelService ms;
 		mav.setViewName(pages);
 		switch(a)
 		{
+		case "selectType":
+			mav.addObject("user",session.getAttribute("user"));
 		case "upload-text":
 		case "chakanModel":
 		case "download":
 			List<ModelEntity> lists = ms.getModels();
 			mav.addObject("list", lists);
 			break;
+		
 		}
 		return mav;
 	}

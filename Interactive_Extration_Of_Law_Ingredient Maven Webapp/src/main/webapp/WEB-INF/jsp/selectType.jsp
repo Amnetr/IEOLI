@@ -28,7 +28,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     
     <div>
         <ul class="nav navbar-nav pull-right">
-           <li><a>欢迎你，${username }</a></li>
+           <li><a>欢迎你，${user.username }</a></li>
                <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">选项 <b class="caret"></b>
                 </a>
