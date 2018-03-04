@@ -25,6 +25,11 @@ function smedit()
 	var desc = document.getElementById("textar").value;
 	var radios 		 = document.getElementsByName("models");
 	var modelid=-1;
+	if(desc=='')
+	{
+	alert("请输入介绍内容");
+	return;
+	}
 	for(var i=0;i<radios.length;i++){
     if(radios[i].checked){
       modelid = radios[i].value;
@@ -77,7 +82,7 @@ function smedit()
 				<td align="center"><a href="page?path=upload-text"><font face="幼圆" size="+2"  color=#9A9A9A style="font-weight:bold">上传文本</font></a></td>
 							<td align="center" valign="top"><img src="./img/1.png"/></td>
 				<td align="center"><p><font face="幼圆" size="+2" style="font-weight: bolder">查看/修改模型</font></p></td>
-								<td align="center" valign="top"><img src="./img/2.png"/></td>
+								<td align="center" valign="top"><img src="./img/1.png"/></td>
 				<td align="center"><a href="page?path=download"><font face="幼圆" size="+2" color=#9A9A9A style="font-weight: bold">查看/下载</font></a></td>
      		</tr>
      		</table>

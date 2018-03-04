@@ -23,6 +23,13 @@ function upload()
 {
 	var form = document.getElementById('upload');
 	var formData = new FormData(form); 
+	var filename = document.getElementById('file').value;
+	if(filename=='')
+	{
+	alert("请选择上传");
+	return;
+	}else
+	{
 	$.ajax({
 			url:"UploadTexts",
 			data:formData,
@@ -34,6 +41,8 @@ function upload()
 			alert("上传成功");
 			}
 		});
+	}
+	
 }
 
 </script>
@@ -81,7 +90,7 @@ function upload()
      		</tr>
      		</table>
      		</div>
-    			<div class="composing" style="height: 40px;"><h3>请选择模型</h3></div>
+    			<div class="composing" style="height: 40px;"><h3>请选择模型（请确保文本是utf-8编码，否则会出现乱码）</h3></div>
     			  <br><font color="red">${sus}</font>
      		  <div class="model-class">
 			<form id="upload" role="form" action="" enctype="multipart/form-data" method="post"> 
@@ -94,7 +103,7 @@ function upload()
 								</p>
 								</div>
 				</c:forEach>
-				  <input type="file"   name="file" multiple/>	<br />	
+				  <input type="file"   name="file" id="file" multiple/>	<br />	
 				   <input type="button" id="Insert" class=" form-control btn btn-primary" value="上传文件" onclick="upload()" >
 				</td>
 				    

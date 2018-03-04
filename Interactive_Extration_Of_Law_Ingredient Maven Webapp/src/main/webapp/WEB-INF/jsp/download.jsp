@@ -24,17 +24,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 function showhandled(modelid)
 {
 	
-	$.ajax({
-			url:"ShowHandLedText",
-			data:{modelid:modelid},
-			method:"post",
-			//dataType:"json"
-			success: function(info) {
-    console.log(info);
-}
-		});
+	window.location.href=("ShowHandLedText?modelid="+modelid);
 }
 
+function download(textname)
+{
+var a=1;
+$.ajax({
+			url:"download",
+			data:{filename:textname},
+			method:"post",
+			//dataType:"json"
+			success:function(result){
+			}
+		});
+}
 </script>
 
 <nav class="navbar navbar-default" role="navigation">
@@ -67,9 +71,9 @@ function showhandled(modelid)
      		<table align="center" width="960px">
      		<tr>
 				<td align="center"><a href="page?path=upload-text"><font face="幼圆" size="+2"  color=#9A9A9A style="font-weight:bold">上传文本</font></a></td>
-							<td align="center" valign="top"><img src="./img/1.png"/></td>
+							<td align="center" valign="top"><img src="./img/2.png"/></td>
 				<td align="center"><a href="page?path=chakanModel"><font face="幼圆" size="+2" color=#9A9A9A style="font-weight: bolder">查看/修改模型</font></a></td>
-								<td align="center" valign="top"><img src="./img/2.png"/></td>
+								<td align="center" valign="top"><img src="./img/1.png"/></td>
 				<td align="center"><p><font face="幼圆" size="+2" style="font-weight: bold">查看/下载</font></p></td>
      		</tr>
      		</table>
@@ -114,19 +118,20 @@ function showhandled(modelid)
 			<tbody>
 				
 					
-					<c:forEach items="${textNames}" var="file">
+					<c:forEach items="${texts}" var="textss">
 					<tr>
 						<td>
 							<div>
-								<a href="#nowhere" >${file.textname}</a>
+								<a href="./texts/${textss.textname}" >${textss.textname}</a>
 							</div>	
 						</td>
 						<td>
-							<span >${file.textid}</span>	
+							<span >${textss.textid}</span>	
 						</td>
 						
 						<td>
-							<a href="#nowhere">下载</a>
+							<!--  <input type="button" id="Insert" class=" form-control btn btn-primary" value="下载" onclick="download('${textss.textname}')">-->
+							 <a href="download?filename=${textss.textname}">下载</a>
 						</td>
 					</tr>
 				</c:forEach>
@@ -141,8 +146,6 @@ function showhandled(modelid)
     </div>
     
   </div>
-
-  <button type="submit" class="btn btn-default">完成</button>
 </form>
    			</div>
     			

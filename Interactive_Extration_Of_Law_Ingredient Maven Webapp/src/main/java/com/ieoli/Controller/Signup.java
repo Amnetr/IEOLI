@@ -29,6 +29,8 @@ public  void getCode(HttpServletRequest request,
 	user.setUsername(username);
 	user.setUserpassword(EncoderPlus.getMD5(password));
 	user.setUsertype(Integer.parseInt(actor));//sasfaf
+	user.setRightanswer(0);
+	user.setWronganswer(0);
 	String failed = "existed";
 	if(userService.getUserByUsername(username)!=null)
 	{

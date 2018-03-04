@@ -22,7 +22,7 @@ public class DownloadController {
 	public ResponseEntity<byte[]> downloadd(HttpServletRequest request,
 			HttpServletResponse response,HttpSession session) throws IOException{
 		String filename=request.getParameter("filename");
-		String path=session.getServletContext().getRealPath("/")+ "TextFiles\\"+filename;
+		String path=session.getServletContext().getRealPath("/")+ "texts\\"+filename;
 		File file=new File(path);
 		HttpHeaders headers =new HttpHeaders();
 		

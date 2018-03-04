@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.enterprise.inject.Model;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -33,14 +34,14 @@ public class HandLedText {
 		response.setCharacterEncoding("UTF-8");
 		ModelAndView mav = new ModelAndView();
 		String modelid = request.getParameter("modelid");
-		//List<ModelEntity> lists = ms.getModels();
-	//	mav.addObject("list", lists);
+		List<ModelEntity> lists = ms.getModels();
+		mav.addObject("list", lists);
 		List<TextEntity> texts=ts.getHandledText(Integer.parseInt(modelid));
-		ArrayList<String> textNames = new ArrayList<String>();
+	//	ArrayList<String> textNames = new ArrayList<String>();
 	/*	for(int i=0;i<texts.size();i++){
 			textNames.add(texts.get(i).getTextname());
 		}*/
-		mav.addObject("textNames",texts);
+		mav.addObject("texts",texts);
 		mav.setViewName("WEB-INF/jsp/download.jsp");
 		return mav;
 	}

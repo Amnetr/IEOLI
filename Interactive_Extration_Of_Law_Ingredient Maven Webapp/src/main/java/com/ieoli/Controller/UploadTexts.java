@@ -59,13 +59,14 @@ public class UploadTexts {
 	            		while(fileite.hasNext())
 	            		{
 	            			 MultipartFile file=fileite.next();  
-	            			 String path = session.getServletContext().getRealPath("/")+"texts\\"+file.getOriginalFilename();
+	            			 long t1= System.currentTimeMillis();
+	            			 String path = session.getServletContext().getRealPath("/")+"texts\\"+t1+file.getOriginalFilename();
 	 	                	File f =new File(path);
 	 	                	file.transferTo(f);
 	 	                	TextEntity te = new TextEntity();
                 	    	te.setCount(0);
                 	    	te.setModelid(id);
-                	    	te.setTextname(file.getOriginalFilename());
+                	    	te.setTextname(t1+file.getOriginalFilename());
                 	    	BufferedReader reader = null;
                 	    	String allString = "";
                 	    	try {
