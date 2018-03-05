@@ -4,6 +4,7 @@ String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%> 
 <!DOCTYPE html>
 <html>
 	<head>
@@ -14,8 +15,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
 	<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<!--下拉复选框插件-->
-	<script type="text/javascript" src="bootstrap-multiselect-master/dist/js/bootstrap-multiselect.js"></script>
-	<link rel="stylesheet" href="bootstrap-multiselect-master/dist/css/bootstrap-multiselect.css" type="text/css"/>
 	<script type="text/javascript">
 	
     //回车事件
@@ -37,11 +36,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		function tijiao(){
 		//alert(obj.id+obj.name);
 		//var id = obj.id	
-          var list=document.getElementsByTagName("button").textContent;
-			
+        //  var lists=document.getElementsByTagName("button").InnerText;
+			var list = new Array();
+			var max = ${fn:length(list)};
+		for ( var i = 1 ; i <= max ; i++)
+		{
+		list[i]= document.getElementById(i).textContent;
+		}
+		var lists=list.join("$");
+		var a = "fuck you";
 			$.ajax({
-				url:"#",
-				data:{list:list},
+				url:"submitResult",
+				data:{result:lists},
 				method:"post",
 				//dataType:"json"
 				success:function(result){
@@ -90,13 +96,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
          
          <div style="border:2px solid #C9C9C9;margin: 40px;padding: 10px">
 
-         
           <c:forEach items="${list}" var="word" varStatus="status">
         <button id="${status.count}" target="_blank" type="button" class="btn btn-default" style="margin-right:6px;margin-bottom:3px">${word}</button>
-        <script type="text/javascript">  
+    <script type="text/javascript">  
                     $(function (){   
-                        var ulstring="<div align='centre'>"+"<input id='${status.count}shuru' align='left' style='width:130px;height:30px'></input>"  
-					        +"<button id='biaoqianButton' style='width:45px;height:30px;' onClick='revise('${status.count}','${status.count}shuru')'>确认</button>"+"</div>";  
+                        var ulstring=("<div align='centre'>"+"<input id='${status.count}shuru' type='text' align='left' style='width:130px;height:30px'></input>"  
+					        +"<button id='biaoqianButton' style='width:45px;height:30px;' onclick=\"revise('${status.count}','${status.count}shuru' )\" >确认</button>"+"</div>");  
                         $("#${status.count}").popover({   
                             trigger:'manual',
                             placement : 'bottom',    
@@ -104,24 +109,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             html: 'true',   
                             content : ulstring,  
                             animation: false  
-                        }) .on("mouseenter", function () {  
+                    								    }) .on("mouseenter", function () {  
                                     var _this = this;  
                                     $(this).popover("show");  
                                     $(this).siblings(".popover").on("mouseleave", function () {  
                                         $(_this).popover('hide');  
-                                    });  
-                                }).on("mouseleave", function () {  
+                                   																 }
+                                   								);  
+                        														        }
+                        										).on("mouseleave", function () {  
                                     var _this = this;  
                                     setTimeout(function () {  
                                         if (!$(".popover:hover").length) {  
                                             $(_this).popover("hide")  
-                                        }  
-                                    }, 100);  
-                                    })   
-                    }); 	
+                                        									}  
+                                   							 }, 100
+                                   				);  
+                                   																 }
+                                   									)   
+                   							 }); 	
                     
                     
-                   </script> 
+                   </script>
       </c:forEach>
            </div>
            

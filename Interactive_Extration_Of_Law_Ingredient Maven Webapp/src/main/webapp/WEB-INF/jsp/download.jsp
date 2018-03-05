@@ -27,9 +27,8 @@ function showhandled(modelid)
 	window.location.href=("ShowHandLedText?modelid="+modelid);
 }
 
-function download(textname)
+function downloadd(textname)
 {
-var a=1;
 $.ajax({
 			url:"download",
 			data:{filename:textname},
@@ -130,8 +129,9 @@ $.ajax({
 						</td>
 						
 						<td>
-							<!--  <input type="button" id="Insert" class=" form-control btn btn-primary" value="下载" onclick="download('${textss.textname}')">-->
-							 <a href="./texts/${textss.textname}">下载</a>
+							<!--   <input type="button" id="Insert" class=" form-control btn btn-primary" value="下载" onclick="download('${textss.textname}')">-->
+							<a href="download?filename=${textss.textname}" >下载</a>
+							
 						</td>
 					</tr>
 				</c:forEach>

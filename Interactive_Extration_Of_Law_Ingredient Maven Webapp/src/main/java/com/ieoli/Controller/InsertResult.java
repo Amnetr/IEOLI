@@ -1,7 +1,10 @@
 package com.ieoli.Controller;
 
 import java.security.MessageDigest;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Enumeration;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -10,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.ieoli.entity.ResultEntity;
@@ -29,15 +33,15 @@ public class InsertResult {
 	@Resource
 	private ResultsService rs;
 	
-	@RequestMapping("/submitResult")
+	@RequestMapping(value="/submitResult")
 	public void insertResult(HttpServletRequest request,
 			HttpServletResponse response,HttpSession session) throws Exception {
 		String result=request.getParameter("result");
 		String UID=request.getParameter("userid");
+	
 		int userid=Integer.parseInt(UID);
 		String TID=request.getParameter("textid");
 		int textid=Integer.parseInt(TID);
-		
 		String outcome=null;
 		//TextEntity text=ts.getTextByID(textid);
 		TextEntity text=textBehavior.getByID(textid);
