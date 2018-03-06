@@ -54,17 +54,24 @@ public class TextsServiceImpl implements TextsService {
 		String label=resultMapper.selectByPrimaryKey(resultid).getLabel();
 		String word[]=article.split("\\$");
 		String labels[]=label.split("\\$");
-		Arrays.sort(labels);
+		int sort[]=new int[labels.length];
+		//Arrays.sort(labels);
 		//去除单词编号
 		for(int i=0;i<labels.length;i++){
 			String withoutNum[]=labels[i].split("_");
 			labels[i]=withoutNum[1];
+			sort[i]=Integer.parseInt(withoutNum[0])-1;
 		}
+		//附上标签
+		for(int i=0;i<sort.length;i++){
+			word[sort[i]]=word[sort[i]]+"_"+labels[sort[i]];
+		}
+		
 		File text=new File(path);
 		FileOutputStream outputStream = new FileOutputStream(text);
-		BufferedWriter bufferedWriter=new BufferedWriter(new OutputStreamWriter(outputStream));
-		for(int i=0;i<word.length&&i<labels.length;i++){
-			bufferedWriter.write(word[i]+"    "+labels[i]+"\r\n");
+		BufferedWriter bufferedWriter=new BufferedWriter(new OutputStreamWriter(outputStream,"utf-8"));
+		for(int i=0;i<word.length;i++){
+			bufferedWriter.write(word[i]+"\r\n");
 		}
 		bufferedWriter.flush();
 		bufferedWriter.close();

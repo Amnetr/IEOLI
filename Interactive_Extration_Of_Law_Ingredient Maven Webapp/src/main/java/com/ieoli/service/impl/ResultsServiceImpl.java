@@ -28,7 +28,7 @@ public class ResultsServiceImpl implements ResultsService {
 		// TODO Auto-generated method stub
 		ResultEntityExample resultExample=new ResultEntityExample();
 		resultExample.createCriteria().andTextidEqualTo(textid);
-		List<ResultEntity> results=resultMapper.selectByExample(resultExample);
+		List<ResultEntity> results=resultMapper.selectByExampleWithBLOBs(resultExample);
 		
 		return results;
 	}

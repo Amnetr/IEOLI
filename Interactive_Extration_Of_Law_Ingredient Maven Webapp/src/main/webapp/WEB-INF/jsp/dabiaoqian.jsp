@@ -44,7 +44,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		list[i]= document.getElementById(i).textContent;
 		}
 		var lists=list.join("$");
-		var a = "fuck you";
 			$.ajax({
 				url:"submitResult",
 				data:{result:lists},
@@ -52,7 +51,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				//dataType:"json"
 				success:function(result){
 					
-						alert("提交成功");
+						alert(result);
 		
 					
 				}

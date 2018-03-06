@@ -25,6 +25,7 @@ public class SetTask {
 			HttpServletResponse response,HttpSession session) throws Exception {
 		int id = Integer.parseInt(request.getParameter("models"));
 		TextEntity te = ts.getTextByModel(id);
+		session.setAttribute("text", te);
 		String[] stringlist;
 		String article = te.getArticle();
 		stringlist  = article.split("\\$");
