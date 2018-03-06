@@ -48,6 +48,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      	<div class="col-md-2"></div>
      	<div class="col-md-8">
      		<h3>挑选类型&nbsp;&nbsp;查看规则 </h3>
+     		<p>${result }</p>
     			<div class="composing" style="height: 40px;"></div>
      		  <div class="model-class">
      		  	

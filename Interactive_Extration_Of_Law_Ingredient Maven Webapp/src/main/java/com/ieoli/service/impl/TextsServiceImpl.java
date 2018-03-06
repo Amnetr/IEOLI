@@ -81,7 +81,7 @@ public class TextsServiceImpl implements TextsService {
 	public TextEntity getTextByModel(int id) {
 		// TODO Auto-generated method stub
 		TextEntityExample tee = new TextEntityExample();
-		tee.createCriteria().andModelidEqualTo(id);
+		tee.createCriteria().andModelidEqualTo(id).andCountLessThan(3);
 		List<TextEntity> te = textMapper.selectByExampleWithBLOBs(tee);
 		int number;
 		Random random =new Random(System.currentTimeMillis());
