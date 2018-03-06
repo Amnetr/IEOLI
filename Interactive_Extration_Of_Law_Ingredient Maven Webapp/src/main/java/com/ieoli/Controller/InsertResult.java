@@ -85,6 +85,8 @@ public class InsertResult {
 	    			break;
 	    		case 100://全对
 	    			for(int i=0;i<3;i++){
+	    				results.get(i).setIstrue(true);
+	    				rs.updateResult(results.get(i));
 	    				UserEntity user=us.getUserByID(results.get(i).getUserid());
 	    				//UserEntity user=userBehavior.getByID(results.get(i).getUserid());
     					user.setRightanswer(user.getRightanswer()+1); 
@@ -96,18 +98,19 @@ public class InsertResult {
 	    			//textBehavior.generateFile(textid,results.get(0).getResultid(),path);
 	    			break;
 	    		default:
-	    			text.setCount(2);
-	    			ts.updateText(text);
-	    			//textBehavior.update(text);
-	    			rs.deleteResultByID(results.get(eval).getResultid());
+	    			
 	    			for(int i=0;i<3;i++){
 	    				if(i==eval){
+	    					results.get(i).setIstrue(false);
+		    				rs.updateResult(results.get(i));
 	    					UserEntity user=us.getUserByID(results.get(i).getUserid());
 	    					//UserEntity user=userBehavior.getByID(results.get(i).getUserid());
 	        				user.setWronganswer(user.getWronganswer()+1);
 	        				us.updateUser(user);
 	        				//userBehavior.update(user);
 	    				}else{
+	    					results.get(i).setIstrue(true);
+		    				rs.updateResult(results.get(i));
 	    					UserEntity user=us.getUserByID(results.get(i).getUserid());
 	    					//UserEntity user=userBehavior.getByID(results.get(i).getUserid());
 	    					user.setRightanswer(user.getRightanswer()+1);
@@ -115,6 +118,8 @@ public class InsertResult {
 	    					//userBehavior.update(user);
 	    				}
 	    			}
+	    			String paths=session.getServletContext().getRealPath("/")+ "TextFiles\\"+text.getTextname();
+	    			ts.generateFile(textid,results.get(0).getResultid(),paths);
 	    			break;
 	    		}
 	    	}

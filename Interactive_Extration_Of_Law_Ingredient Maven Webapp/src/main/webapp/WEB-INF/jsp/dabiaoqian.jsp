@@ -52,6 +52,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				success:function(result){
 					
 						alert(result);
+						window.opener=null;
+						window.open('','_self');
+						window.close();
 		
 					
 				}

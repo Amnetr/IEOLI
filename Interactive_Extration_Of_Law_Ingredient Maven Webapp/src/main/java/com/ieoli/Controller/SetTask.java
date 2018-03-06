@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSON;
 import com.ieoli.entity.TextEntity;
+import com.ieoli.entity.UserEntity;
 import com.ieoli.service.TextsService;
 @Controller
 public class SetTask {
@@ -25,7 +26,9 @@ public class SetTask {
 	ModelAndView handleRequestInternal(HttpServletRequest request,
 			HttpServletResponse response,HttpSession session) throws Exception {
 		int id = Integer.parseInt(request.getParameter("models"));
-		TextEntity te = ts.getTextByModel(id);
+		UserEntity user=(UserEntity)session.getAttribute("user");
+		int userid=user.getUserid();
+		TextEntity te = ts.getTextByModel(id,userid);
 		if(te==null)
 		{
 			ModelAndView mav = new ModelAndView();

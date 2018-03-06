@@ -39,4 +39,10 @@ public class ResultsServiceImpl implements ResultsService {
 		resultMapper.deleteByPrimaryKey(id);
 	}
 
+	@Override
+	public void updateResult(ResultEntity result) {
+		// TODO Auto-generated method stub
+		resultMapper.updateByPrimaryKeySelective(result);
+	}
+
 }

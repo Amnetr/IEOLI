@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
@@ -15,6 +16,8 @@ import org.springframework.stereotype.Service;
 
 import com.ieoli.dao.ResultEntityMapper;
 import com.ieoli.dao.TextEntityMapper;
+import com.ieoli.entity.ResultEntity;
+import com.ieoli.entity.ResultEntityExample;
 import com.ieoli.entity.TextEntity;
 import com.ieoli.entity.TextEntityExample;
 import com.ieoli.service.TextsService;
@@ -64,7 +67,7 @@ public class TextsServiceImpl implements TextsService {
 		}
 		//附上标签
 		for(int i=0;i<sort.length;i++){
-			word[sort[i]]=word[sort[i]]+"_"+labels[sort[i]];
+			word[sort[i]]=word[sort[i]]+"_"+labels[i];
 		}
 		
 		File text=new File(path);
@@ -78,24 +81,38 @@ public class TextsServiceImpl implements TextsService {
 	}
 
 	@Override
-	public TextEntity getTextByModel(int id) {
+	public TextEntity getTextByModel(int id,int userid) {
 		// TODO Auto-generated method stub
 		TextEntityExample tee = new TextEntityExample();
 		tee.createCriteria().andModelidEqualTo(id).andCountLessThan(3);
 		List<TextEntity> te = textMapper.selectByExampleWithBLOBs(tee);
+		ResultEntityExample ree=new ResultEntityExample();
+		ree.createCriteria().andUseridEqualTo(userid);
+		List<ResultEntity> re=resultMapper.selectByExample(ree);
+		List<Integer> textsid=new ArrayList<Integer>();
+		for(int i=0;i<te.size();i++){
+			textsid.add(te.get(i).getTextid());
+		}
+		List<Integer> resultsid=new ArrayList<Integer>();
+		for(int i=0;i<re.size();i++){
+			resultsid.add(re.get(i).getTextid());
+		}
+		textsid.removeAll(resultsid);
+		
 		int number;
 		Random random =new Random(System.currentTimeMillis());
-		if(te.size()>1)
+		if(textsid.size()>1)
 		{
-			number = random.nextInt(te.size());
-		}else if(te.size()>=0)
+			number = random.nextInt(textsid.size());
+		}else if(textsid.size()>0)
 		{
 			number=0;
 		}else {
 			return null;
 		}
-		TextEntity pEntity = te.get(number);
-		return te.get(number);
+		
+		TextEntity pEntity = textMapper.selectByPrimaryKey(textsid.get(number));
+		return pEntity;
 		
 	}
 
