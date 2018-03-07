@@ -79,10 +79,10 @@ function smedit()
      	<div style="margin:20px">
      		<table align="center">
      		<tr>
-				<td align="center"><a href="#"><font face="PingHei" size="+2" style="font-weight:400" color="black">上传文本</font></a></td>
-				<td align="center" valign="top"><img class="icons"src="箭头 (1).png"/></td>
-				<td align="center"><a href="page?path=chakanModel"><font face="PingHei" size="+2" style="font-weight:400" color="#9A9A9A">查看/修改模型</font></a></td>
-								<td align="center" valign="top"><img class="icons"src="箭头 (1).png"/></td>
+				<td align="center"><a href="page?path=upload-text"><font face="PingHei" size="+2" style="font-weight:400" color="black">上传文本</font></a></td>
+				<td align="center" valign="top"><img class="icons"src="./img/箭头 (1).png"/></td>
+				<td align="center"><a href="#"><font face="PingHei" size="+2" style="font-weight:400" color="#9A9A9A">查看/修改模型</font></a></td>
+								<td align="center" valign="top"><img class="icons"src="./img/箭头 (1).png"/></td>
 				<td align="center"><a href="page?path=download"><font face="PingHei" size="+2" style="font-weight:400" color="#9A9A9A">查看/下载</font></a></td>
      		</tr>
      		</table>

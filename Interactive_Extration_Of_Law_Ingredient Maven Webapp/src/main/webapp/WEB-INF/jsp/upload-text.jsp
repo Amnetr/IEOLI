@@ -67,35 +67,32 @@ function upload()
     </div>
 	</div>
 </nav>
-<div id="timeline" class="container-timeline">
-<div class="timeline-block">
-	<div class="vertical-timeline-icon lazur-bg">
-		<i class="fa fa-user-md" >
-	</div>
-</div>	
+
+
 </div>
 <!--标题栏-->
-     <div class="headline">
-     <div class="row">
-     	<div class="col-md-2"></div>
-     	<div class="col-md-8">
+     <div class="headline" >
+     <div class="row" style="background-color: #575757;margin-top: -20px;height: 100vh;">
+     	<div class="col-md-2" ></div>
+     	<div class="col-md-8" style="background-color: white;height: 100%;	box-shadow: 0px 6px 5px lightgrey inset;background-image: url(bg.png)">
      		<div style="margin:20px">
-     		<table align="center" width="960px">
+     		<table align="center">
      		<tr>
-				<td align="center"><p><font face="幼圆" size="+2" style="font-weight:bold">上传文本</font></p></td>
-							<td align="center" valign="top"><img src="./img/1.png"/></td>
-				<td align="center"><a href="page?path=chakanModel"><font face="幼圆" size="+2" color=#9A9A9A style="font-weight: bolder">查看/修改模型</font></a></td>
-								<td align="center" valign="top"><img src="./img/2.png"/></td>
-				<td align="center"><a href="page?path=download"><font face="幼圆" size="+2" color=#9A9A9A style="font-weight: bold">查看/下载</font></a></td>
+				<td align="center"><a href="#"><font face="PingHei" size="+2" style="font-weight:400" color="black">上传文本</font></a></td>
+				<td align="center" valign="top"><img class="icons"src="./img/箭头 (1).png"/></td>
+				<td align="center"><a href="page?path=chakanModel"><font face="PingHei" size="+2" style="font-weight:400" color="#9A9A9A">查看/修改模型</font></a></td>
+								<td align="center" valign="top"><img class="icons"src="./img/箭头 (1).png"/></td>
+				<td align="center"><a href="page?path=download"><font face="PingHei" size="+2" style="font-weight:400" color="#9A9A9A">查看/下载</font></a></td>
      		</tr>
      		</table>
      		</div>
-    			<div class="composing" style="height: 40px;"><h3>请选择模型（请确保文本是utf-8编码，否则会出现乱码）</h3></div>
-    			  <br><font color="red">${sus}</font>
-     		  <div class="model-class">
+    			<div class="composing" style="height: 40px;margin-left: 30px;"><h3>请选择模型</h3></div>
+   			  <hr  width=450 color=#987cb9 size=1 class="inside" >
+    			  <font color="red">${sus}</font>
+     		  <div class="model-class" style="margin-left: 30px;">
 			<form id="upload" role="form" action="" enctype="multipart/form-data" method="post"> 
      		<tr>
-				<td align="left">  <c:forEach items="${list}" var="model">
+				<td align="left" >  <c:forEach items="${list}" var="model">
 				<div class="caption" align="left">
 				<label><input id="radios" name="models" type="radio" value="${model.modelid}" checked="checked"/>序号:${model.modelid} </label> 
 								<p id="modeldescription">介绍：${model.modeldescription}</p>
@@ -103,7 +100,15 @@ function upload()
 								</p>
 								</div>
 				</c:forEach>
-				  <input type="file"   name="file" id="file" multiple/>	<br />	
+				<hr>
+			  <div class="composing" style="height: 40px;"><h3>请上传文本</h3></div>
+			  <hr align=left width=450 color=#987cb9 size=1  >
+			  <br>
+				  <input type="file"   name="file" multiple/>	
+				  <br>
+				  <br>
+				  <br>
+				 
 				   <input type="button" id="Insert" class=" form-control btn btn-primary" value="上传文件" onclick="upload()" >
 				</td>
 				    
@@ -112,9 +117,49 @@ function upload()
   </div>
     	
      	</div>
+     	<div class="col-md-2" ></div>
      </div>
      </div>
   <!--选择模型类型-->
 
 </body>
+<style>
+	
+	lable{
+		font-size: 20px;
+		font-weight: 400;
+	}
+	.icons{
+		height: 45px;
+		width:45px;
+	}
+	a:link{
+text-decoration:none;
+}
+	h3{
+		font-family: PingHei;
+		font-size: 25px;
+	}
+	hr{
+		align=left;
+		margin-top: -3px;
+	}
+	.inside{
+		margin-left: 30px;
+	}
+	#Insert{
+		background-color: #EFB336;
+		border:none;
+	}
+	.navbar navbar-default{
+		background-color:lightgrey;
+		opacity:0.6;
+
+	}
+	.headline{
+	
+
+	}
+	
+</style>
 </html>

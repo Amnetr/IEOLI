@@ -4,6 +4,8 @@ String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
 
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,32 +19,46 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+	<div class="background"></div>
     <div class="container">
-        <div class="form row">    
-        	<h3 class="form-title"align="center">登录</h3>
-            <div class="form-horizontal col-md-offset-3" id="login_form" >
-            <form role="form" id="login" action="weblogin" method="post" class="login-form">
-                <div class="col-md-9">
-                    <div class="form-group">
-                    	<i class="fa fa-user fa-lg"></i><!--图标-->
-                        <input class="form-control required" type="text" placeholder="用户名" id="username" name="username" autofocus="autofocus" maxlength="20"/>
-                    </div>
-                    <div class="form-group">
-                    	<i class="fa fa-lock fa-lg"></i>
+    	<div class="row">
+    		<div class="col-md-6 text">
+                            <h1 class="total-title">医学法律文书<br><strong>标注</strong>系统</h1>
+                            <div class="description">
+                            	
+                            </div>
+                        </div>
+                        
+    		<div class="col-md-4 form-box"> 
+        	    <div class="form-top">
+                    <h4 class="form-title"align="center">登录</h4>
+        	    </div>
+    	        <div class="form-horizontal">
+    	    	    <form role="form" action="weblogin" method="post" class="login-form">
+    	    		<div class="form-bottom">
+    	    			<div class="form-group input">
+			            <i class="fa fa-user fa-lg"></i><!--图标-->
+			            <input class="form-control required" type="text" placeholder="用户名" id="username" name="username" autofocus="autofocus" maxlength="20"/>
+			            </div>
+			        <div class="form-group input">
+			            <i class="fa fa-lock fa-lg"></i>
                         <input class="form-control required" type="password" placeholder="密码" id="password" name="password" maxlength="8"/>
-                        <br><font color="red">${Result }</font>
+                        <font color="red"size="2">${Result }</font>
+			        </div>
+			        <div class="form-group">
+                        <button onclick="window.location.href='page?path=Forgetpwd' " type="button" class="btn btn-forget btn-warning pull-left" name="forget">忘记密码</button>
+                        <button onclick="window.location.href='page?path=signup' " type="button" class="btn btn-login btn-warning pull-right" name="login">用户注册</button>
                     </div>
-                    <div class="form-group col-md-offset-9">
-                        <button onclick="window.location.href='page?path=Forgetpwd' " type="button" class="btn btn-forget pull-left" name="forget">忘记密码</button>
-                        <button onclick="window.location.href='page?path=signup' " type="button" class="btn btn-login pull-right" name="login">注册</button>
-                    	
-                      </div>
-                    <div class="form-group col-md-offset-6"align="center">
-                        <button type="submit" class="btn btn-success " name="submit">登录</button>
+                    <div class="form-group login" align="center">
+                        <button type="submit" class="btn btn-warning " name="submit">登录</button>
                     </div>
-                </div>
-                </form>
-            </div>
+    	    		</div>
+			        
+			    </form>
+    	    </div>
+        
+        	
+</div>
         </div>
     </div>
 </body>

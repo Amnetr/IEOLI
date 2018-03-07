@@ -90,40 +90,56 @@ function check()
 }
 
 </script>
+    <div class="background"></div>
     <div class="container">
-        <div class="form row">    
-        	<h3 class="form-title"align="center">注册</h3>
-            <div class="form-horizontal col-md-offset-3" id="login_form" >
-                <div class="col-md-9">
-                	
-                    <div class="form-group">
+    	<div class="row">
+    		<div class="col-md-6 text">
+               <h1 class="total-title">医学法律文书<br><strong>标注</strong>系统</h1>
+                <div class="description">
+                </div>
+            </div>
+        <div class="col-md-4 form-box signup">   
+        	<div class="form-top">
+        		<h4 class="form-title"align="center">注册</h4>
+        	</div>
+        <div class="form-horizontal" id="login_form" >
+            <form role="form" action="weblogin" method="post" class="login-form">
+                <div class="form-bottom">
+                    <div class="form-group input">
                     	<i class="fa fa-user fa-lg"></i><!--图标-->
                         <input class="form-control required" type="text" placeholder="请输入邮箱" id="username" name="username" autofocus="autofocus" maxlength="20"/>
-                          <button onclick="sendmail()" class="btn btn-success " name="submitf">发送验证码</button>
                     </div>
-                                        <div class="form-group">
-                    	<i class="fa fa-user fa-lg"></i><!--图标-->
-                        <input class="form-control required" type="text" placeholder="请输入验证码" id="code" name="code" autofocus="autofocus" maxlength="20"/>
+                    <div class="form-group input checkword">
+                    	
+                    	<span class="form-group input left">
+                    		<!--<i class="fa fa-user fa-lg"></i>-->
+                            <input class="form-control required" type="text" placeholder="请输入验证码" id="code" name="code" autofocus="autofocus" maxlength="20"/>
+                    	</span>
+                    	<span class="form-group input right">
+                    		<button onclick="sendmail()" class="btn btn-warning " name="submitf">发送验证码</button>
+                    	</span>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group input">
                     	<i class="fa fa-lock fa-lg"></i>
                         <input class="form-control required" type="password" placeholder="密码" id="password" name="password" maxlength="8"/>
                     </div>
-                    <form action="" method="post"> 
-<label><input id="radios" name="actor" type="radio" value="0" checked="checked"/>作为标记人员注册  </label> 
-<label><input id="radios" name="actor" type="radio" value="1" />作为投放人员注册 </label> 
-</form> 
-                    <div class="form-group">
+                    <div class="form-group input">
                     	<i class="fa fa-lock fa-lg"></i>
                         <input class="form-control required" type="password" placeholder="再次输入密码" id="repassword" name="repassword" maxlength="8"/>
                     </div>
+                    <form action="" method="post"> 
+                        <label><input id="radios" name="actor" type="radio" value="0" checked="checked"/>作为标记人员注册  </label> 
+                        <label><input id="radios" name="actor" type="radio" value="1" />作为投放人员注册 </label> 
+                    </form> 
+             
                     <div class="form-group col-md-offset-6"align="center">
-                        <button onclick="check()"class="btn btn-success " name="submit">确认</button>
+                        <button onclick="check()"class="btn btn-warning " name="submit" type="submit">确认</button>
                     </div>
-                  
                 </div>
-            </div>
+            </form>
         </div>
+        </div>
+       </div>
     </div>
 </body>
 </html>

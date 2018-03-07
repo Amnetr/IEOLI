@@ -73,9 +73,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <div>
           <ul class="nav navbar-nav pull-right">
         <li><a>欢迎你</a></li>
-        <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown"> ${user.username}<b class="caret"></b> </a>
-              <ul class="dropdown-menu pull-left">
-            <a href="index.action">退出登录</a>
+        <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" > ${user.username}<b class="caret"></b> </a>
+              <ul class="dropdown-menu" style="text-align: center">
+            <a href="index.action" style="text-decoration: none;text-align: center;color: black"  >退出登录</a>
           </ul>
             </li>
       </ul>
@@ -85,18 +85,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <!--标题栏-->
 <div class="headline">
-      <div class="row">
+      <div class="row" style="background-color: #575757;margin-top: -20px;height: 100vh;">
     <div class="col-md-2"></div>
-    <div class="col-md-8">
-          <div class="composing" style="height: 20px;"></div>
+    <div class="middle col-md-8" style="background-color: white;height: 100%;	box-shadow: 0px 6px 5px lightgrey inset;background-image: url(./img/bg.png)">   
           
           
-          <h1 style="top: auto; font-family: youyuan">为以下文本打标签</h1>
+          <h3 style="top: auto; font-family: youyuan;">为以下文本打标签</h1>
           
           
 		
          
-         <div style="border:2px solid #C9C9C9;margin: 40px;padding: 10px">
+         <div style="border:2px solid #C9C9C9;margin: 20px;padding: 10px">
 
           <c:forEach items="${list}" var="word" varStatus="status">
         <button id="${status.count}" target="_blank" type="button" class="btn btn-default" style="margin-right:6px;margin-bottom:3px">${word}</button>
@@ -146,5 +145,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!--选择模型类型-->
 
 </body>
+
+<style>
+
+	#tijiao{
+		background-color: #EFB336;
+		border:none;
+	}.middle{
+		overflow-y: auto;
+	}
+.row{
+		overflow-y: auto;
+	}
+</style>
 
 </html>

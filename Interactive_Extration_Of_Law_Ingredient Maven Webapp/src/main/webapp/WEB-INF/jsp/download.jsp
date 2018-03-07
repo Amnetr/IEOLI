@@ -40,7 +40,7 @@ $.ajax({
 }
 </script>
 
-<nav class="navbar navbar-default" role="navigation">
+<nav class="navbar navbar-default" role="navigation";
 	<div class="container-fluid">
     <div class="navbar-header">
         <a class="navbar-brand" href="#">投放人员系统</a>
@@ -63,17 +63,17 @@ $.ajax({
 
 <!--标题栏-->
      <div class="headline">
-     <div class="row">
+     <div class="row" style="background-color: #575757;margin-top: -20px;height: 100vh;">
      	<div class="col-md-2"></div>
-     	<div class="col-md-8">
+     	<div class="col-md-8" style="background-color: white;height: 100%;	box-shadow: 0px 6px 5px lightgrey inset;background-image: url(bg.png)">
      	<div style="margin:20px">
-     		<table align="center" width="960px">
+     		<table align="center">
      		<tr>
-				<td align="center"><a href="page?path=upload-text"><font face="幼圆" size="+2"  color=#9A9A9A style="font-weight:bold">上传文本</font></a></td>
-							<td align="center" valign="top"><img src="./img/2.png"/></td>
-				<td align="center"><a href="page?path=chakanModel"><font face="幼圆" size="+2" color=#9A9A9A style="font-weight: bolder">查看/修改模型</font></a></td>
-								<td align="center" valign="top"><img src="./img/1.png"/></td>
-				<td align="center"><p><font face="幼圆" size="+2" style="font-weight: bold">查看/下载</font></p></td>
+				<td align="center"><a href="page?path=upload-text"><font face="PingHei" size="+2" style="font-weight:400" color="black">上传文本</font></a></td>
+				<td align="center" valign="top"><img class="icons"src="./img/箭头 (1).png"/></td>
+				<td align="center"><a href="page?path=chakanModel"><font face="PingHei" size="+2" style="font-weight:400" color="#9A9A9A">查看/修改模型</font></a></td>
+								<td align="center" valign="top"><img class="icons"src="./img/箭头 (1).png"/></td>
+				<td align="center"><a href="#"><font face="PingHei" size="+2" style="font-weight:400" color="#9A9A9A">查看/下载</font></a></td>
      		</tr>
      		</table>
      		</div>
@@ -82,6 +82,7 @@ $.ajax({
      <form role="form">
   <div class="form-group">
     <label for="name" style="font-size: 20px">选择文本模型</label>
+    
     
  <div class="form-group" style="margin: 30px">    
      <table align="center" width="960px">
@@ -100,7 +101,7 @@ $.ajax({
      		</table>
     </div>
     
-      <div class="form-group" style="margin: 30px">    
+      <div class="form-group" style="margin-top: 30px">    
       <label for="name" style="font-size:20px;"  >下载（建议右键-目标另存为）</label>
      
 <div>
@@ -158,4 +159,43 @@ $.ajax({
 <script type="text/javascript">
     $('#select-single').multiselect();
 </script>
+<style>
+	
+	lable{
+		font-size: 20px;
+		font-weight: 400;
+	}
+	.icons{
+		height: 45px;
+		width:45px;
+	}
+	a:link{
+text-decoration:none;
+}
+	h3{
+		font-family: PingHei;
+		font-size: 25px;
+	}
+	hr{
+		align=left;
+		margin-top: -3px;
+	}
+	.inside{
+		margin-left: 30px;
+	}
+	#Insert{
+		background-color: #EFB336;
+		border:none;
+	}
+	.navbar navbar-default{
+		background-color:lightgrey;
+		opacity:0.6;
+
+	}
+	.headline{
+	
+
+	}
+	
+</style>
 </html>
