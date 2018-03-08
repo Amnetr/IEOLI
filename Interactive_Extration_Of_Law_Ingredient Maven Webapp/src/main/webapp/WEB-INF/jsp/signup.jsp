@@ -103,7 +103,6 @@ function check()
         		<h4 class="form-title"align="center">注册</h4>
         	</div>
         <div class="form-horizontal" id="login_form" >
-            <form role="form" action="weblogin" method="post" class="login-form">
                 <div class="form-bottom">
                     <div class="form-group input">
                     	<i class="fa fa-user fa-lg"></i><!--图标-->
@@ -127,16 +126,15 @@ function check()
                     	<i class="fa fa-lock fa-lg"></i>
                         <input class="form-control required" type="password" placeholder="再次输入密码" id="repassword" name="repassword" maxlength="8"/>
                     </div>
-                    <form action="" method="post"> 
+                  
                         <label><input id="radios" name="actor" type="radio" value="0" checked="checked"/>作为标记人员注册  </label> 
                         <label><input id="radios" name="actor" type="radio" value="1" />作为投放人员注册 </label> 
-                    </form> 
              
                     <div class="form-group col-md-offset-6"align="center">
-                        <button onclick="check()"class="btn btn-warning " name="submit" type="submit">确认</button>
+                        <button onclick="check()"class="btn btn-warning "  >确认</button>
                     </div>
                 </div>
-            </form>
+       
         </div>
         </div>
        </div>

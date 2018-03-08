@@ -104,7 +104,7 @@ function upload()
 			  <div class="composing" style="height: 40px;"><h3>请上传文本</h3></div>
 			  <hr align=left width=450 color=#987cb9 size=1  >
 			  <br>
-				  <input type="file"   name="file" multiple/>	
+				  <input type="file"  id="file" name="file" multiple/>	
 				  <br>
 				  <br>
 				  <br>

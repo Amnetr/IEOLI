@@ -47,15 +47,17 @@ function check()
 	var password     = document.getElementById("password").value;
 	var repassword   = document.getElementById("repassword").value;
 	var cod          = document.getElementById("code").value;
-	var actor 		 = document.getElementById("actor").value;
 	var reg = /^-?\d+$/; 
-	if (password==repassword)
+	if(aname==""||password==""||cod=="")
+	{
+	alert("请填写完整");
+	}else if (password==repassword)
 	{
 	if(reg.test(cod))
 	{
 	$.ajax({
 			url:"forgetpassword",
-			data:{username:aname,code:cod,password:password,actor:actor},
+			data:{username:aname,code:cod,password:password},
 			method:"post",
 			//dataType:"json"
 			success:function(result){
@@ -97,7 +99,7 @@ function check()
         		<h4 class="form-title"align="center">找回密码</h4>
         	</div>
         <div class="form-horizontal" id="login_form" >
-            <form role="form" action="weblogin" method="post" class="login-form">
+          
                 <div class="form-bottom">
                     <div class="form-group input">
                     	<i class="fa fa-user fa-lg"></i><!--图标-->
@@ -119,14 +121,14 @@ function check()
                     </div>
                     <div class="form-group input">
                     	<i class="fa fa-lock fa-lg"></i>
-                        <input class="form-control required" type="password" placeholder="再次输入密码" id="repassword" name="repassword" maxlength="8"/>
+                        <input class="form-control requir	ed" type="password" placeholder="再次输入密码" id="repassword" name="repassword" maxlength="8"/>
                     </div>
              
-                    <div class="form-group col-md-offset-6"align="center">
-                        <button onclick="check()"class="btn btn-warning " name="submit" type="submit">确认</button>
-                    </div>
+                  
                 </div>
-            </form>
+              <div class="form-group col-md-offset-6"align="center">
+                        <button onclick="check()"class="btn btn-warning " >确认</button>
+                    </div>
         </div>
         </div>
        </div>

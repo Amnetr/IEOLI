@@ -18,6 +18,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="css/style.css">
 </head>
+<script type="text/javascript">
+window.onload=function()
+{
+var bt=document.getElementById("submitlogin");
+bt.onclick=function(){
+if(document.getElementById("username").value=="")
+{
+alert("用户名不能为空!");
+return false;
+} 
+else if(document.getElementById("password").value=="")
+{
+alert("密码不能为空!");
+return false; 
+}
+}
+}
+</script>
 <body>
 	<div class="background"></div>
     <div class="container">
@@ -50,7 +68,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <button onclick="window.location.href='page?path=signup' " type="button" class="btn btn-login btn-warning pull-right" name="login">用户注册</button>
                     </div>
                     <div class="form-group login" align="center">
-                        <button type="submit" class="btn btn-warning " name="submit">登录</button>
+                        <button type="submit" class="btn btn-warning " name="submit" id = "submitlogin">登录</button>
                     </div>
     	    		</div>
 			        

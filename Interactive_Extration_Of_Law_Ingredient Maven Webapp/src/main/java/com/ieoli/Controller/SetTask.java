@@ -31,10 +31,10 @@ public class SetTask {
 		TextEntity te = ts.getTextByModel(id,userid);
 		if(te==null)
 		{
-			ModelAndView mav = new ModelAndView();
-			mav.addObject("result", "该模型没有文本需要打标签");
-			mav.setViewName("/WEB-INF/jsp/selectType.jsp");//打标签页面
-			return mav;
+			ModelAndView maf = new ModelAndView();
+			maf.addObject("result", "该模型没有文本需要打标签");
+			maf.setViewName("/WEB-INF/jsp/selectType.jsp");//打标签页面
+			return maf;
 		}else {
 			session.setAttribute("text", te);
 			String[] stringlist;

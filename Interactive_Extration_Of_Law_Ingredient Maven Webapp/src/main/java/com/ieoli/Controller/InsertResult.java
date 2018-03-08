@@ -93,7 +93,7 @@ public class InsertResult {
     					us.updateUser(user);
     					//userBehavior.update(user);
 	    			}
-	    			String path=session.getServletContext().getRealPath("/")+ "TextFiles\\"+text.getTextname();
+	    			String path=session.getServletContext().getRealPath("/")+ "texts\\"+text.getTextname();
 	    			ts.generateFile(textid,results.get(0).getResultid(),path);
 	    			//textBehavior.generateFile(textid,results.get(0).getResultid(),path);
 	    			break;
@@ -179,7 +179,7 @@ public class InsertResult {
 		for(int i=1;i<result1.length;i++){
 			if(result1[i].contains("&")){
 				String a[]=result1[i].split("\\&");
-				labels+=String.valueOf(i)+"_"+a[1]+"$";
+				labels+=String.valueOf(i)+"&"+a[1]+"$";
 			}
 		}
 		
