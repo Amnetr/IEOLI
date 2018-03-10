@@ -45,7 +45,7 @@ public class TextsServiceImpl implements TextsService {
 	public List<TextEntity> getHandledText(int modelid) {
 		// TODO Auto-generated method stub
 		TextEntityExample textExample=new TextEntityExample();
-		textExample.createCriteria().andCountEqualTo(3).andModelidEqualTo(modelid);
+		textExample.createCriteria().andModelidEqualTo(modelid);
 		List<TextEntity> texts=textMapper.selectByExample(textExample);
 		return texts;
 	}
@@ -54,7 +54,7 @@ public class TextsServiceImpl implements TextsService {
 	public void generateFile(int textid,int resultid,String path) throws IOException {
 		// TODO Auto-generated method stub
 		String article=textMapper.selectByPrimaryKey(textid).getArticle();
-		String label=resultMapper.selectByPrimaryKey(resultid).getLabel();
+		String label=resultMapper.selectByPrimaryKey(resultid).getRegex();
 		String word[]=article.split("\\$");
 		String labels[]=label.split("\\$");
 		int sort[]=new int[labels.length];
@@ -80,39 +80,12 @@ public class TextsServiceImpl implements TextsService {
 		bufferedWriter.close();
 	}
 
-	@Override
-	public TextEntity getTextByModel(int id,int userid) {
+	public List<TextEntity> getTextByModel(int id) {
 		// TODO Auto-generated method stub
 		TextEntityExample tee = new TextEntityExample();
-		tee.createCriteria().andModelidEqualTo(id).andCountLessThan(3);
+		tee.createCriteria().andModelidEqualTo(id);
 		List<TextEntity> te = textMapper.selectByExampleWithBLOBs(tee);
-		ResultEntityExample ree=new ResultEntityExample();
-		ree.createCriteria().andUseridEqualTo(userid);
-		List<ResultEntity> re=resultMapper.selectByExample(ree);
-		List<Integer> textsid=new ArrayList<Integer>();
-		for(int i=0;i<te.size();i++){
-			textsid.add(te.get(i).getTextid());
-		}
-		List<Integer> resultsid=new ArrayList<Integer>();
-		for(int i=0;i<re.size();i++){
-			resultsid.add(re.get(i).getTextid());
-		}
-		textsid.removeAll(resultsid);
-		
-		int number;
-		Random random =new Random(System.currentTimeMillis());
-		if(textsid.size()>1)
-		{
-			number = random.nextInt(textsid.size());
-		}else if(textsid.size()>0)
-		{
-			number=0;
-		}else {
-			return null;
-		}
-		
-		TextEntity pEntity = textMapper.selectByPrimaryKey(textsid.get(number));
-		return pEntity;
+		return te;
 		
 	}
 

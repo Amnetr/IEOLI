@@ -5,8 +5,6 @@ public class TextEntity {
 
     private Integer modelid;
 
-    private Integer count;
-
     private String textname;
 
     private String article;
@@ -25,14 +23,6 @@ public class TextEntity {
 
     public void setModelid(Integer modelid) {
         this.modelid = modelid;
-    }
-
-    public Integer getCount() {
-        return count;
-    }
-
-    public void setCount(Integer count) {
-        this.count = count;
     }
 
     public String getTextname() {

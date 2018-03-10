@@ -100,10 +100,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      	<div class="col-md-2"></div>
      	<div class="col-md-8">
      		<div id="rectrangle"></div>
-     		<h3 id="title">挑选类型&nbsp;&nbsp;查看规则 </h3>
-    			<div class="composing" style="height: 40px;"></div>
+     		<h3 id="title">挑选要素&nbsp;&nbsp; </h3>
+    			<div class="composing" style="height: 40px;">${result}</div>
     			<div class="prepanel">
-    			<p id="pretiltle">查看规则</p>   		
+    			<p id="pretiltle">查看</p>   		
     			<div class="panel-group" id="accordion">	
     				<div class="panel panel-default">
     					<c:forEach items="${list}" var="model">
@@ -111,7 +111,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						        <div class="thumbnail">
 							        <div class="caption" align="center">
 								        <p id="modelid" name="userID">序号:${model.modelid}</p>
-								        <p id="modeldescription">介绍：${model.modeldescription}</p>
+								        <p id="modeldescription">要素：${model.modeldescription}</p>
 								        <p align="center">
 								            <a href="setTask?models=${ model.modelid}" target="_blank" class="btn btn-info" role="button">选择</a>
 								        </p>

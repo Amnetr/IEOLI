@@ -23,12 +23,11 @@ public class ResultsServiceImpl implements ResultsService {
 
 	}
 
-	@Override
-	public List<ResultEntity> getResultByTextID(int textid) {
+	public List<ResultEntity> getResultByModelID(int textid) {
 		// TODO Auto-generated method stub
 		ResultEntityExample resultExample=new ResultEntityExample();
-		resultExample.createCriteria().andTextidEqualTo(textid);
-		List<ResultEntity> results=resultMapper.selectByExampleWithBLOBs(resultExample);
+		resultExample.createCriteria().andModelidEqualTo(textid);
+		List<ResultEntity> results=resultMapper.selectByExample(resultExample);
 		
 		return results;
 	}

@@ -7,7 +7,7 @@ import com.ieoli.entity.ResultEntity;
 public interface ResultsService {
 
 	public void insertResult(ResultEntity result);
-	public List<ResultEntity> getResultByTextID(int textid);
+	public List<ResultEntity> getResultByModelID(int textid);
 	public void deleteResultByID(int id);
 	public void updateResult(ResultEntity result);
 }

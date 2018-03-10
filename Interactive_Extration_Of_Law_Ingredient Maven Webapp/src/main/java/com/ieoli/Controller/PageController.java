@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 
+import com.ieoli.Utils.MailConfig;
 import com.ieoli.entity.ModelEntity;
 import com.ieoli.entity.TextEntity;
 import com.ieoli.service.ModelService;
@@ -47,7 +48,44 @@ ModelService ms;
 			List<ModelEntity> lists = ms.getModels();
 			mav.addObject("list", lists);
 			break;
-		
+		case "nextpage":
+			mav.setViewName("/WEB-INF/jsp/dabiaoqian.jsp");
+			int index = (int) session.getAttribute("index");
+			List<TextEntity> list=(List<TextEntity>) session.getAttribute("text");
+			List<TextEntity> wordlist=new ArrayList<TextEntity>();
+			if(list.size()<2)
+			{
+				wordlist.addAll(list);
+				
+			}else {
+				wordlist.add(list.get(index%list.size()));
+				wordlist.add(list.get((index+1)%list.size()));
+			}
+		index=index+2;
+		session.setAttribute("index", index);
+		mav.addObject("list", wordlist);
+		break;
+		case "beforepage":
+			mav.setViewName("/WEB-INF/jsp/dabiaoqian.jsp");
+			int indexx = (int) session.getAttribute("index");
+			List<TextEntity> listt=(List<TextEntity>) session.getAttribute("text");
+			List<TextEntity> wordlistt=new ArrayList<TextEntity>();
+			if(indexx<2)
+			{
+				indexx = indexx +listt.size();
+			}
+			if(listt.size()<2)
+			{
+				wordlistt.addAll(listt);
+				
+			}else {
+				wordlistt.add(listt.get((indexx-1)%listt.size()));
+				wordlistt.add(listt.get((indexx-2)%listt.size()));
+			}
+			indexx=indexx-2;
+		session.setAttribute("index", indexx);
+		mav.addObject("list", wordlistt);
+		break;
 		}
 		return mav;
 	}

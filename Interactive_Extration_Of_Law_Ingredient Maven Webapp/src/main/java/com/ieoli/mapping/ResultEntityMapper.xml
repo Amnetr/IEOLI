@@ -3,12 +3,11 @@
 <mapper namespace="com.ieoli.dao.ResultEntityMapper" >
   <resultMap id="BaseResultMap" type="com.ieoli.entity.ResultEntity" >
     <id column="resultID" property="resultid" jdbcType="INTEGER" />
-    <result column="textID" property="textid" jdbcType="INTEGER" />
-    <result column="isTrue" property="istrue" jdbcType="BIT" />
+    <result column="modelid" property="modelid" jdbcType="INTEGER" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="regex" property="regex" jdbcType="VARCHAR" />
     <result column="userid" property="userid" jdbcType="INTEGER" />
-  </resultMap>
-  <resultMap id="ResultMapWithBLOBs" type="com.ieoli.entity.ResultEntity" extends="BaseResultMap" >
-    <result column="label" property="label" jdbcType="LONGVARCHAR" />
+    <result column="rate" property="rate" jdbcType="DOUBLE" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -69,28 +68,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    resultID, textID, isTrue, userid
+    resultID, modelid, description, regex, userid, rate
   </sql>
-  <sql id="Blob_Column_List" >
-    label
-  </sql>
-  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.ieoli.entity.ResultEntityExample" >
-    select
-    <if test="distinct" >
-      distinct
-    </if>
-    'true' as QUERYID,
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from results
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null" >
-      order by ${orderByClause}
-    </if>
-  </select>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ieoli.entity.ResultEntityExample" >
     select
     <if test="distinct" >
@@ -106,11 +85,9 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
     from results
     where resultID = #{resultid,jdbcType=INTEGER}
   </select>
@@ -125,10 +102,10 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.ieoli.entity.ResultEntity" >
-    insert into results (resultID, textID, isTrue, 
-      userid, label)
-    values (#{resultid,jdbcType=INTEGER}, #{textid,jdbcType=INTEGER}, #{istrue,jdbcType=BIT}, 
-      #{userid,jdbcType=INTEGER}, #{label,jdbcType=LONGVARCHAR})
+    insert into results (resultID, modelid, description, 
+      regex, userid, rate)
+    values (#{resultid,jdbcType=INTEGER}, #{modelid,jdbcType=INTEGER}, #{description,jdbcType=VARCHAR}, 
+      #{regex,jdbcType=VARCHAR}, #{userid,jdbcType=INTEGER}, #{rate,jdbcType=DOUBLE})
   </insert>
   <insert id="insertSelective" parameterType="com.ieoli.entity.ResultEntity" >
     insert into results
@@ -136,34 +113,40 @@
       <if test="resultid != null" >
         resultID,
       </if>
-      <if test="textid != null" >
-        textID,
+      <if test="modelid != null" >
+        modelid,
       </if>
-      <if test="istrue != null" >
-        isTrue,
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="regex != null" >
+        regex,
       </if>
       <if test="userid != null" >
         userid,
       </if>
-      <if test="label != null" >
-        label,
+      <if test="rate != null" >
+        rate,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="resultid != null" >
         #{resultid,jdbcType=INTEGER},
       </if>
-      <if test="textid != null" >
-        #{textid,jdbcType=INTEGER},
+      <if test="modelid != null" >
+        #{modelid,jdbcType=INTEGER},
       </if>
-      <if test="istrue != null" >
-        #{istrue,jdbcType=BIT},
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="regex != null" >
+        #{regex,jdbcType=VARCHAR},
       </if>
       <if test="userid != null" >
         #{userid,jdbcType=INTEGER},
       </if>
-      <if test="label != null" >
-        #{label,jdbcType=LONGVARCHAR},
+      <if test="rate != null" >
+        #{rate,jdbcType=DOUBLE},
       </if>
     </trim>
   </insert>
@@ -179,30 +162,22 @@
       <if test="record.resultid != null" >
         resultID = #{record.resultid,jdbcType=INTEGER},
       </if>
-      <if test="record.textid != null" >
-        textID = #{record.textid,jdbcType=INTEGER},
+      <if test="record.modelid != null" >
+        modelid = #{record.modelid,jdbcType=INTEGER},
       </if>
-      <if test="record.istrue != null" >
-        isTrue = #{record.istrue,jdbcType=BIT},
+      <if test="record.description != null" >
+        description = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.regex != null" >
+        regex = #{record.regex,jdbcType=VARCHAR},
       </if>
       <if test="record.userid != null" >
         userid = #{record.userid,jdbcType=INTEGER},
       </if>
-      <if test="record.label != null" >
-        label = #{record.label,jdbcType=LONGVARCHAR},
+      <if test="record.rate != null" >
+        rate = #{record.rate,jdbcType=DOUBLE},
       </if>
     </set>
-    <if test="_parameter != null" >
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExampleWithBLOBs" parameterType="map" >
-    update results
-    set resultID = #{record.resultid,jdbcType=INTEGER},
-      textID = #{record.textid,jdbcType=INTEGER},
-      isTrue = #{record.istrue,jdbcType=BIT},
-      userid = #{record.userid,jdbcType=INTEGER},
-      label = #{record.label,jdbcType=LONGVARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -210,9 +185,11 @@
   <update id="updateByExample" parameterType="map" >
     update results
     set resultID = #{record.resultid,jdbcType=INTEGER},
-      textID = #{record.textid,jdbcType=INTEGER},
-      isTrue = #{record.istrue,jdbcType=BIT},
-      userid = #{record.userid,jdbcType=INTEGER}
+      modelid = #{record.modelid,jdbcType=INTEGER},
+      description = #{record.description,jdbcType=VARCHAR},
+      regex = #{record.regex,jdbcType=VARCHAR},
+      userid = #{record.userid,jdbcType=INTEGER},
+      rate = #{record.rate,jdbcType=DOUBLE}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -220,34 +197,31 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.ieoli.entity.ResultEntity" >
     update results
     <set >
-      <if test="textid != null" >
-        textID = #{textid,jdbcType=INTEGER},
+      <if test="modelid != null" >
+        modelid = #{modelid,jdbcType=INTEGER},
       </if>
-      <if test="istrue != null" >
-        isTrue = #{istrue,jdbcType=BIT},
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="regex != null" >
+        regex = #{regex,jdbcType=VARCHAR},
       </if>
       <if test="userid != null" >
         userid = #{userid,jdbcType=INTEGER},
       </if>
-      <if test="label != null" >
-        label = #{label,jdbcType=LONGVARCHAR},
+      <if test="rate != null" >
+        rate = #{rate,jdbcType=DOUBLE},
       </if>
     </set>
     where resultID = #{resultid,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.ieoli.entity.ResultEntity" >
-    update results
-    set textID = #{textid,jdbcType=INTEGER},
-      isTrue = #{istrue,jdbcType=BIT},
-      userid = #{userid,jdbcType=INTEGER},
-      label = #{label,jdbcType=LONGVARCHAR}
-    where resultID = #{resultid,jdbcType=INTEGER}
-  </update>
   <update id="updateByPrimaryKey" parameterType="com.ieoli.entity.ResultEntity" >
     update results
-    set textID = #{textid,jdbcType=INTEGER},
-      isTrue = #{istrue,jdbcType=BIT},
-      userid = #{userid,jdbcType=INTEGER}
+    set modelid = #{modelid,jdbcType=INTEGER},
+      description = #{description,jdbcType=VARCHAR},
+      regex = #{regex,jdbcType=VARCHAR},
+      userid = #{userid,jdbcType=INTEGER},
+      rate = #{rate,jdbcType=DOUBLE}
     where resultID = #{resultid,jdbcType=INTEGER}
   </update>
 </mapper>

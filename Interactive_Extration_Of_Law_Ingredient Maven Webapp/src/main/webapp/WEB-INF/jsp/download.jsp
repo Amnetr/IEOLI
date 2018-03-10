@@ -71,9 +71,9 @@ $.ajax({
      		<tr>
 				<td align="center"><a href="page?path=upload-text"><font face="PingHei" size="+2" style="font-weight:400" color="black">上传文本</font></a></td>
 				<td align="center" valign="top"><img class="icons"src="./img/箭头 (1).png"/></td>
-				<td align="center"><a href="page?path=chakanModel"><font face="PingHei" size="+2" style="font-weight:400" color="#9A9A9A">查看/修改模型</font></a></td>
+				<td align="center"><a href="page?path=chakanModel"><font face="PingHei" size="+2" style="font-weight:400" color="#9A9A9A">查看/修改要素</font></a></td>
 								<td align="center" valign="top"><img class="icons"src="./img/箭头 (1).png"/></td>
-				<td align="center"><a href="#"><font face="PingHei" size="+2" style="font-weight:400" color="#9A9A9A">查看/下载</font></a></td>
+				<td align="center"><a href="#"><font face="PingHei" size="+2" style="font-weight:400" color="#9A9A9A">查看规则</font></a></td>
      		</tr>
      		</table>
      		</div>
@@ -81,7 +81,7 @@ $.ajax({
      		<div style="margin: 40px">
      <form role="form">
   <div class="form-group">
-    <label for="name" style="font-size: 20px">选择文本模型</label>
+    <label for="name" style="font-size: 20px">选择要素</label>
     
     
  <div class="form-group" style="margin: 30px">    
@@ -90,7 +90,7 @@ $.ajax({
 				<td align="left">  <c:forEach items="${list}" var="model">
 				<div class="caption" align="left">
 				<label><input id="radios" onclick= "showhandled('${model.modelid}')"name="models" type="radio" value="${model.modelid}"/>序号:${model.modelid} </label> 
-								<p id="modeldescription">介绍：${model.modeldescription}</p>
+								<p id="modeldescription">要素：${model.modeldescription}</p>
 								<p align="center">
 								</p>
 								</div>
@@ -102,36 +102,36 @@ $.ajax({
     </div>
     
       <div class="form-group" style="margin-top: 30px">    
-      <label for="name" style="font-size:20px;"  >下载（建议右键-目标另存为）</label>
+      <label for="name" style="font-size:20px;"  >规则</label>
      
 <div>
 		<table class="table">
 			<thead>
 				<tr>
 					
-					<th width="400px">文件名</th>
-					<th width="200px">文件号</th>
-					<th width="400px">操作</th>
+					<th width="400px">中文描述</th>
+					<th width="200px">正则表达式</th>
+					<th width="400px">准确率</th>
 					
 				</tr>
 			</thead>
 			<tbody>
 				
 					
-					<c:forEach items="${texts}" var="textss">
+					<c:forEach items="${results}" var="results">
 					<tr>
 						<td>
 							<div>
-								<a href="./texts/${textss.textname}" >${textss.textname}</a>
+								<span>${results.description}</span>
 							</div>	
 						</td>
 						<td>
-							<span >${textss.textid}</span>	
+							<span >${results.regex}</span>	
 						</td>
 						
 						<td>
 							<!--   <input type="button" id="Insert" class=" form-control btn btn-primary" value="下载" onclick="download('${textss.textname}')">-->
-							<a href="download?filename=${textss.textname}" >下载</a>
+							<span >${results.rate }</span>
 							
 						</td>
 					</tr>

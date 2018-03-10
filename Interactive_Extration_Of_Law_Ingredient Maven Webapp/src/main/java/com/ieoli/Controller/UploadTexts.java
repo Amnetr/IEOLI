@@ -66,7 +66,7 @@ public class UploadTexts {
 	 	                	File f =new File(path);
 	 	                	file.transferTo(f);
 	 	                	TextEntity te = new TextEntity();
-                	    	te.setCount(0);
+	 	     
                 	    	te.setModelid(id);
                 	    	te.setTextname(t1+file.getOriginalFilename());
                 	    	BufferedReader reader = null;
@@ -80,7 +80,7 @@ public class UploadTexts {
 								while((tempString =reader.readLine())!=null)
 								{
 									//tempString = new String(tempString.getBytes("GBK"),"utf-8");
-									allString+=tempString+"$";
+									allString+=tempString;
 								}
 								reader.close();
 								

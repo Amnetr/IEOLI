@@ -2,9 +2,7 @@ package com.ieoli.dao;
 
 import com.ieoli.entity.TextEntity;
 import com.ieoli.entity.TextEntityExample;
-
 import java.util.List;
-
 import org.apache.ibatis.annotations.Param;
 
 public interface TextEntityMapper {
@@ -18,7 +16,7 @@ public interface TextEntityMapper {
 
     int insertSelective(TextEntity record);
 
-    List<TextEntity> selectByExampleWithBLOBs(TextEntityExample tee);
+    List<TextEntity> selectByExampleWithBLOBs(TextEntityExample example);
 
     List<TextEntity> selectByExample(TextEntityExample example);
 

@@ -4,7 +4,6 @@
   <resultMap id="BaseResultMap" type="com.ieoli.entity.TextEntity" >
     <id column="textID" property="textid" jdbcType="INTEGER" />
     <result column="ModelID" property="modelid" jdbcType="INTEGER" />
-    <result column="count" property="count" jdbcType="INTEGER" />
     <result column="textName" property="textname" jdbcType="VARCHAR" />
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.ieoli.entity.TextEntity" extends="BaseResultMap" >
@@ -69,7 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    textID, ModelID, count, textName
+    textID, ModelID, textName
   </sql>
   <sql id="Blob_Column_List" >
     article
@@ -125,10 +124,10 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.ieoli.entity.TextEntity" >
-    insert into texts (textID, ModelID, count, 
-      textName, article)
-    values (#{textid,jdbcType=INTEGER}, #{modelid,jdbcType=INTEGER}, #{count,jdbcType=INTEGER}, 
-      #{textname,jdbcType=VARCHAR}, #{article,jdbcType=LONGVARCHAR})
+    insert into texts (textID, ModelID, textName, 
+      article)
+    values (#{textid,jdbcType=INTEGER}, #{modelid,jdbcType=INTEGER}, #{textname,jdbcType=VARCHAR}, 
+      #{article,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.ieoli.entity.TextEntity" >
     insert into texts
@@ -138,9 +137,6 @@
       </if>
       <if test="modelid != null" >
         ModelID,
-      </if>
-      <if test="count != null" >
-        count,
       </if>
       <if test="textname != null" >
         textName,
@@ -155,9 +151,6 @@
       </if>
       <if test="modelid != null" >
         #{modelid,jdbcType=INTEGER},
-      </if>
-      <if test="count != null" >
-        #{count,jdbcType=INTEGER},
       </if>
       <if test="textname != null" >
         #{textname,jdbcType=VARCHAR},
@@ -182,9 +175,6 @@
       <if test="record.modelid != null" >
         ModelID = #{record.modelid,jdbcType=INTEGER},
       </if>
-      <if test="record.count != null" >
-        count = #{record.count,jdbcType=INTEGER},
-      </if>
       <if test="record.textname != null" >
         textName = #{record.textname,jdbcType=VARCHAR},
       </if>
@@ -200,7 +190,6 @@
     update texts
     set textID = #{record.textid,jdbcType=INTEGER},
       ModelID = #{record.modelid,jdbcType=INTEGER},
-      count = #{record.count,jdbcType=INTEGER},
       textName = #{record.textname,jdbcType=VARCHAR},
       article = #{record.article,jdbcType=LONGVARCHAR}
     <if test="_parameter != null" >
@@ -211,7 +200,6 @@
     update texts
     set textID = #{record.textid,jdbcType=INTEGER},
       ModelID = #{record.modelid,jdbcType=INTEGER},
-      count = #{record.count,jdbcType=INTEGER},
       textName = #{record.textname,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -222,9 +210,6 @@
     <set >
       <if test="modelid != null" >
         ModelID = #{modelid,jdbcType=INTEGER},
-      </if>
-      <if test="count != null" >
-        count = #{count,jdbcType=INTEGER},
       </if>
       <if test="textname != null" >
         textName = #{textname,jdbcType=VARCHAR},
@@ -238,7 +223,6 @@
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.ieoli.entity.TextEntity" >
     update texts
     set ModelID = #{modelid,jdbcType=INTEGER},
-      count = #{count,jdbcType=INTEGER},
       textName = #{textname,jdbcType=VARCHAR},
       article = #{article,jdbcType=LONGVARCHAR}
     where textID = #{textid,jdbcType=INTEGER}
@@ -246,7 +230,6 @@
   <update id="updateByPrimaryKey" parameterType="com.ieoli.entity.TextEntity" >
     update texts
     set ModelID = #{modelid,jdbcType=INTEGER},
-      count = #{count,jdbcType=INTEGER},
       textName = #{textname,jdbcType=VARCHAR}
     where textID = #{textid,jdbcType=INTEGER}
   </update>

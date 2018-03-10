@@ -80,13 +80,13 @@ function upload()
      		<tr>
 				<td align="center"><a href="#"><font face="PingHei" size="+2" style="font-weight:400" color="black">上传文本</font></a></td>
 				<td align="center" valign="top"><img class="icons"src="./img/箭头 (1).png"/></td>
-				<td align="center"><a href="page?path=chakanModel"><font face="PingHei" size="+2" style="font-weight:400" color="#9A9A9A">查看/修改模型</font></a></td>
+				<td align="center"><a href="page?path=chakanModel"><font face="PingHei" size="+2" style="font-weight:400" color="#9A9A9A">查看/修改要素</font></a></td>
 								<td align="center" valign="top"><img class="icons"src="./img/箭头 (1).png"/></td>
-				<td align="center"><a href="page?path=download"><font face="PingHei" size="+2" style="font-weight:400" color="#9A9A9A">查看/下载</font></a></td>
+				<td align="center"><a href="page?path=download"><font face="PingHei" size="+2" style="font-weight:400" color="#9A9A9A">查看规则</font></a></td>
      		</tr>
      		</table>
      		</div>
-    			<div class="composing" style="height: 40px;margin-left: 30px;"><h3>请选择模型</h3></div>
+    			<div class="composing" style="height: 40px;margin-left: 30px;"><h3>请选择要素</h3></div>
    			  <hr  width=450 color=#987cb9 size=1 class="inside" >
     			  <font color="red">${sus}</font>
      		  <div class="model-class" style="margin-left: 30px;">
@@ -95,7 +95,7 @@ function upload()
 				<td align="left" >  <c:forEach items="${list}" var="model">
 				<div class="caption" align="left">
 				<label><input id="radios" name="models" type="radio" value="${model.modelid}" checked="checked"/>序号:${model.modelid} </label> 
-								<p id="modeldescription">介绍：${model.modeldescription}</p>
+								<p id="modeldescription">要素：${model.modeldescription}</p>
 								<p align="center">
 								</p>
 								</div>

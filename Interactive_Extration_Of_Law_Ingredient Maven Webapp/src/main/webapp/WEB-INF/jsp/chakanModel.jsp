@@ -81,9 +81,9 @@ function smedit()
      		<tr>
 				<td align="center"><a href="page?path=upload-text"><font face="PingHei" size="+2" style="font-weight:400" color="black">上传文本</font></a></td>
 				<td align="center" valign="top"><img class="icons"src="./img/箭头 (1).png"/></td>
-				<td align="center"><a href="#"><font face="PingHei" size="+2" style="font-weight:400" color="#9A9A9A">查看/修改模型</font></a></td>
+				<td align="center"><a href="#"><font face="PingHei" size="+2" style="font-weight:400" color="#9A9A9A">查看/修改要素</font></a></td>
 								<td align="center" valign="top"><img class="icons"src="./img/箭头 (1).png"/></td>
-				<td align="center"><a href="page?path=download"><font face="PingHei" size="+2" style="font-weight:400" color="#9A9A9A">查看/下载</font></a></td>
+				<td align="center"><a href="page?path=download"><font face="PingHei" size="+2" style="font-weight:400" color="#9A9A9A">查看规则</font></a></td>
      		</tr>
      		</table>
      		</div>
@@ -91,7 +91,7 @@ function smedit()
      		<div style="margin: 40px">
      
   <div class="form-group">
-    <label for="name" style="font-size: 20px">选择文本模型(若不选则为新增模型)</label>
+    <label for="name" style="font-size: 20px">选择要素(若不选则为新增要素)</label>
     
     <div class="form-group" style="margin: 30px">    
      <table align="center" width="960px">
