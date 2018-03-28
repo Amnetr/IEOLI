@@ -46,8 +46,9 @@ public class SetTask {
 			mav.setViewName("/WEB-INF/jsp/selectType.jsp");//打标签页面
 			return mav;
 		}else {
-
+			List<ResultEntity> result= rs.getResultByModelID(id);
 			session.setAttribute("text", te);
+			session.setAttribute("results", result);
 			List<TextEntity> wordList = new ArrayList<TextEntity>();
 			if(te.size()<2)
 			{
@@ -59,6 +60,7 @@ public class SetTask {
 				session.setAttribute("index", 0);
 			}
 			mav.addObject("list", wordList);
+			
 			mav.setViewName("/WEB-INF/jsp/dabiaoqian.jsp");//打标签页面
 			return mav;
 		}

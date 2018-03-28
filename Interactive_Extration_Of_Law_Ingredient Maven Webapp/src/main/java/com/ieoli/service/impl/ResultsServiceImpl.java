@@ -44,4 +44,11 @@ public class ResultsServiceImpl implements ResultsService {
 		resultMapper.updateByPrimaryKeySelective(result);
 	}
 
+	@Override
+	public ResultEntity getResultByID(int resultid) {
+		// TODO Auto-generated method stub
+		
+		return resultMapper.selectByPrimaryKey(resultid);
+	}
+
 }

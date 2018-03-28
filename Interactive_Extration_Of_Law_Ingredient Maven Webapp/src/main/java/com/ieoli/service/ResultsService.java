@@ -10,4 +10,6 @@ public interface ResultsService {
 	public List<ResultEntity> getResultByModelID(int textid);
 	public void deleteResultByID(int id);
 	public void updateResult(ResultEntity result);
+	public ResultEntity getResultByID(int resultid);
+	
 }
