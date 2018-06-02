@@ -77,6 +77,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<span>3、若精确查找内容前无所需匹配的字符请输入“任意字符类型(0)”</span><br />
 			<span>4、字符个数可以为空，默认为匹配任意个数的字符</span><br />
 			<span>5、字符个数若有多种选择，请用逗号隔开</span><br />
+			<span>6、所有标点请使用纯英文标点，使用"[]"将需要精确查找的内容括起来</span><br />
 			<br />
 			<b>举例</b><br />
 			<span>Exp1.</span><br />
@@ -116,9 +117,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<div class="panel-body">
 								<div class="row">
 									<div class="col-lg-8">
-										<p>作者：xxxxxxxxxxxxxx</p>
-								        <p>正确率：0.75</p>
-								        <p>标注时间：yyyy-mm-dd hh:mm</p>
+										<p>作者：${result.userid}</p>
+								        <p>正确率：${result.rate }</p>
+								        <p>标注时间：${result.lastedit }</p>
 									</div>
 									<div class="col-lg-4" style="text-align: center;">
 										<button title="修改规则" class="btn btn-default" 
@@ -169,6 +170,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	function revises(rid,rcontent){
 		var content=document.getElementById(rid+"content").textContent;
 		var update=prompt("修改为：",content);
+		if(update!=null&& update!=""&&update!=content){
 		$.ajax({
 			url:"submitresult",
 			data:{code:"2",description:update,resultid:rid},
@@ -177,9 +179,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			success:function(result){
 				$("#"+rid+"content").text(update);
 					alert(result);
-				
+				window.location.reload();
 			}
 		});
+		}
 	}
 	
 		function tijiao(){
@@ -197,7 +200,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				success:function(result){
 					
 						alert(result);
-					
+					window.location.reload();
 				}
 			});
 		

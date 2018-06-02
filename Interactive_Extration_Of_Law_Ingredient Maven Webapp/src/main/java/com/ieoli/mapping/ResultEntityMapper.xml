@@ -8,6 +8,7 @@
     <result column="regex" property="regex" jdbcType="VARCHAR" />
     <result column="userid" property="userid" jdbcType="INTEGER" />
     <result column="rate" property="rate" jdbcType="DOUBLE" />
+    <result column="lastedit" property="lastedit" jdbcType="DATE" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -68,7 +69,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    resultID, modelid, description, regex, userid, rate
+    resultID, modelid, description, regex, userid, rate, lastedit
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ieoli.entity.ResultEntityExample" >
     select
@@ -103,9 +104,11 @@
   </delete>
   <insert id="insert" parameterType="com.ieoli.entity.ResultEntity" >
     insert into results (resultID, modelid, description, 
-      regex, userid, rate)
+      regex, userid, rate, 
+      lastedit)
     values (#{resultid,jdbcType=INTEGER}, #{modelid,jdbcType=INTEGER}, #{description,jdbcType=VARCHAR}, 
-      #{regex,jdbcType=VARCHAR}, #{userid,jdbcType=INTEGER}, #{rate,jdbcType=DOUBLE})
+      #{regex,jdbcType=VARCHAR}, #{userid,jdbcType=INTEGER}, #{rate,jdbcType=DOUBLE}, 
+      #{lastedit,jdbcType=DATE})
   </insert>
   <insert id="insertSelective" parameterType="com.ieoli.entity.ResultEntity" >
     insert into results
@@ -128,6 +131,9 @@
       <if test="rate != null" >
         rate,
       </if>
+      <if test="lastedit != null" >
+        lastedit,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="resultid != null" >
@@ -147,6 +153,9 @@
       </if>
       <if test="rate != null" >
         #{rate,jdbcType=DOUBLE},
+      </if>
+      <if test="lastedit != null" >
+        #{lastedit,jdbcType=DATE},
       </if>
     </trim>
   </insert>
@@ -177,6 +186,9 @@
       <if test="record.rate != null" >
         rate = #{record.rate,jdbcType=DOUBLE},
       </if>
+      <if test="record.lastedit != null" >
+        lastedit = #{record.lastedit,jdbcType=DATE},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -189,7 +201,8 @@
       description = #{record.description,jdbcType=VARCHAR},
       regex = #{record.regex,jdbcType=VARCHAR},
       userid = #{record.userid,jdbcType=INTEGER},
-      rate = #{record.rate,jdbcType=DOUBLE}
+      rate = #{record.rate,jdbcType=DOUBLE},
+      lastedit = #{record.lastedit,jdbcType=DATE}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -212,6 +225,9 @@
       <if test="rate != null" >
         rate = #{rate,jdbcType=DOUBLE},
       </if>
+      <if test="lastedit != null" >
+        lastedit = #{lastedit,jdbcType=DATE},
+      </if>
     </set>
     where resultID = #{resultid,jdbcType=INTEGER}
   </update>
@@ -221,7 +237,8 @@
       description = #{description,jdbcType=VARCHAR},
       regex = #{regex,jdbcType=VARCHAR},
       userid = #{userid,jdbcType=INTEGER},
-      rate = #{rate,jdbcType=DOUBLE}
+      rate = #{rate,jdbcType=DOUBLE},
+      lastedit = #{lastedit,jdbcType=DATE}
     where resultID = #{resultid,jdbcType=INTEGER}
   </update>
 </mapper>

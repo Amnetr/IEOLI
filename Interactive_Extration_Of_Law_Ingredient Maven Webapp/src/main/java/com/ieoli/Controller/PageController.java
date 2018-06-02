@@ -22,14 +22,18 @@ import org.springframework.web.servlet.mvc.AbstractController;
 
 import com.ieoli.Utils.MailConfig;
 import com.ieoli.entity.ModelEntity;
+import com.ieoli.entity.ResultEntity;
 import com.ieoli.entity.TextEntity;
 import com.ieoli.service.ModelService;
+import com.ieoli.service.ResultsService;
 import com.ieoli.service.TextsService;
 
 @Controller
 public class PageController{
 @Resource
 ModelService ms;
+@Resource
+ResultsService rs;
 	@RequestMapping(value="/page")
 	protected ModelAndView handleRequestInternal(HttpServletRequest request,
 			HttpServletResponse response,HttpSession session) throws Exception {
@@ -64,6 +68,8 @@ ModelService ms;
 		index=index+2;
 		session.setAttribute("index", index);
 		mav.addObject("list", wordlist);
+		List<ResultEntity> result= rs.getResultByModelID((int)session.getAttribute("modelid"));
+		mav.addObject("results", result);
 		break;
 		case "beforepage":
 			mav.setViewName("/WEB-INF/jsp/dabiaoqian.jsp");

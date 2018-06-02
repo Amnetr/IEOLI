@@ -35,7 +35,7 @@ public class SetTask {
 		int userid=user.getUserid();
 		List<TextEntity> te = ts.getTextByModel(id);
 		List<ResultEntity> results=rs.getResultByModelID(id);
-		session.setAttribute("results", results);
+		//session.setAttribute("results", results);
 		session.setAttribute("modelid", id);
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("results",results);
@@ -48,7 +48,7 @@ public class SetTask {
 		}else {
 			List<ResultEntity> result= rs.getResultByModelID(id);
 			session.setAttribute("text", te);
-			session.setAttribute("results", result);
+			mav.addObject("results", result);
 			List<TextEntity> wordList = new ArrayList<TextEntity>();
 			if(te.size()<2)
 			{

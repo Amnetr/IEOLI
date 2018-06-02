@@ -41,7 +41,7 @@ return false;
     <div class="container">
     	<div class="row">
     		<div class="col-md-6 text">
-                            <h1 class="total-title">医学法律文书<br><strong>标注</strong>系统</h1>
+                            <h1 class="total-title">医学法律文书<br><strong>规则提取</strong>系统</h1>
                             <div class="description">
                             	
                             </div>
