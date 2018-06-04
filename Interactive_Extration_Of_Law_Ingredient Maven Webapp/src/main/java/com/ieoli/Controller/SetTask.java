@@ -23,7 +23,16 @@ public class SetTask {
 		int id = Integer.parseInt(request.getParameter("models"));
 		UserEntity user=(UserEntity)session.getAttribute("user");
 		int userid=user.getUserid();
+<<<<<<< HEAD
 		TextEntity te = ts.getTextsByUser(userid,id);
+=======
+		List<TextEntity> te = ts.getTextByModel(id);
+		List<ResultEntity> results=rs.getResultByModelID(id);
+		//session.setAttribute("results", results);
+		session.setAttribute("modelid", id);
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("results",results);
+>>>>>>> c44bd2cf0dd6c5c693298203efc986365d04f3ec
 		if(te==null)
 		{
 			ModelAndView maf = new ModelAndView();
@@ -32,12 +41,18 @@ public class SetTask {
 			return maf;
 		}else {
 			session.setAttribute("text", te);
+<<<<<<< HEAD
 			session.setAttribute("model", id);
 			String[] stringlist;
 			String article = te.getArticle();
 			stringlist  = article.split("\\$");
 			ArrayList<String> wordList = new ArrayList<String>();
 			for(int i = 0 ; i<stringlist.length;i++)
+=======
+			mav.addObject("results", result);
+			List<TextEntity> wordList = new ArrayList<TextEntity>();
+			if(te.size()<2)
+>>>>>>> c44bd2cf0dd6c5c693298203efc986365d04f3ec
 			{
 				String[] temp = stringlist[i].split("\\_");
 				wordList.add(temp[0]);

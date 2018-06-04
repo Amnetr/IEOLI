@@ -22,12 +22,19 @@ import org.springframework.web.servlet.mvc.AbstractController;
 
 import com.ieoli.Utils.MailConfig;
 import com.ieoli.entity.ModelEntity;
+<<<<<<< HEAD
 import com.ieoli.entity.RuleEntity;
 import com.ieoli.entity.TaskEntity;
 import com.ieoli.entity.TextEntity;
 import com.ieoli.service.ModelService;
 import com.ieoli.service.RulesService;
 import com.ieoli.service.TaskService;
+=======
+import com.ieoli.entity.ResultEntity;
+import com.ieoli.entity.TextEntity;
+import com.ieoli.service.ModelService;
+import com.ieoli.service.ResultsService;
+>>>>>>> c44bd2cf0dd6c5c693298203efc986365d04f3ec
 import com.ieoli.service.TextsService;
 
 @Controller
@@ -35,11 +42,15 @@ public class PageController{
 @Resource
 ModelService ms;
 @Resource
+<<<<<<< HEAD
 TaskService ts;
 @Resource
 TextsService tts;
 @Resource
 private RulesService rs;
+=======
+ResultsService rs;
+>>>>>>> c44bd2cf0dd6c5c693298203efc986365d04f3ec
 	@RequestMapping(value="/page")
 	protected ModelAndView handleRequestInternal(HttpServletRequest request,
 			HttpServletResponse response,HttpSession session) throws Exception {
@@ -87,6 +98,8 @@ private RulesService rs;
 		index=index+2;
 		session.setAttribute("index", index);
 		mav.addObject("list", wordlist);
+		List<ResultEntity> result= rs.getResultByModelID((int)session.getAttribute("modelid"));
+		mav.addObject("results", result);
 		break;
 		case "beforepage":
 			mav.setViewName("/WEB-INF/jsp/elementextract.jsp");

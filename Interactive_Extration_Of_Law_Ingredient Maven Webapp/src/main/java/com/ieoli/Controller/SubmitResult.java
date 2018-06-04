@@ -1,5 +1,12 @@
 package com.ieoli.Controller;
 
+<<<<<<< HEAD
+=======
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.LinkedList;
+>>>>>>> c44bd2cf0dd6c5c693298203efc986365d04f3ec
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -73,8 +80,13 @@ protected void handleRequestInternal(HttpServletRequest request,
 			}
 			double rate = right/all;
 			re.setRate(rate);
+<<<<<<< HEAD
 			
 			rs.insertRule(re);
+=======
+			re.setLastedit(new Date());
+			rs.insertResult(re);
+>>>>>>> c44bd2cf0dd6c5c693298203efc986365d04f3ec
 			response.getWriter().write("success!");
 			
 			
@@ -99,8 +111,13 @@ protected void handleRequestInternal(HttpServletRequest request,
 			}
 			double rate = right/all;
 			re.setRate(rate);
+<<<<<<< HEAD
 			
 			rs.updateRule(re);
+=======
+			re.setLastedit(new Date());
+			rs.updateResult(re);
+>>>>>>> c44bd2cf0dd6c5c693298203efc986365d04f3ec
 			response.getWriter().write("success!");
 			
 		}

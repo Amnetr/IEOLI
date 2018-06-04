@@ -11,32 +11,18 @@ import org.springframework.web.servlet.mvc.AbstractController;
 @Controller
 public class WebLoginController extends AbstractController{
 	
-	@RequestMapping("/weblogin")
+	@RequestMapping("/login.action")
 	protected ModelAndView handleRequestInternal(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		// TODO Auto-generated method stub
 		//获取请求的参数
-		String username =request.getParameter("username");
-		String password =request.getParameter("password");
-		ModelAndView mav = new ModelAndView();
 		
-		String result;
-		if(username.equals("root"))
-		{			
-			result = "ok";
-				mav.setViewName("/index.jsp");
-				mav.addObject("result", result);
-			
-		}else
-		{
-			result="密码或用户名错误";
-			mav.setViewName("/index.jsp");
-			mav.addObject("result", result);
-		}
 
+		ModelAndView mav= new ModelAndView();
 		
-		
-		
+		Thread.currentThread();
+		Thread.sleep(10000);
+		mav.setViewName("/WEB-INF/jsp/MyJsp.jsp");
 		return mav;
 	}
 
