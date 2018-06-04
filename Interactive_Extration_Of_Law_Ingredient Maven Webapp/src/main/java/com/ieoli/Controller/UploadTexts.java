@@ -3,7 +3,6 @@ package com.ieoli.Controller;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Iterator;
@@ -16,13 +15,9 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
-import org.springframework.web.servlet.ModelAndView;
-
-import com.ieoli.entity.ModelEntity;
 import com.ieoli.entity.TextEntity;
 import com.ieoli.service.ModelService;
 import com.ieoli.service.TextsService;
@@ -38,8 +33,8 @@ public class UploadTexts {
 			  request.setCharacterEncoding("UTF-8");//你的编码格式
 			  }
 
-		  String modelid = request.getParameter("models");
-		  int id = Integer.parseInt(modelid);
+		 // String modelid = request.getParameter("models");
+		 // int id = Integer.parseInt(modelid);
 	        	         //将当前上下文初始化给  CommonsMutipartResolver （多部分解析器）
 	        CommonsMultipartResolver multipartResolver=new CommonsMultipartResolver(
 	                request.getSession().getServletContext());
@@ -67,7 +62,7 @@ public class UploadTexts {
 	 	                	file.transferTo(f);
 	 	                	TextEntity te = new TextEntity();
 	 	     
-                	    	te.setModelid(id);
+                	    	//te.setModelid(id);
                 	    	te.setTextname(t1+file.getOriginalFilename());
                 	    	BufferedReader reader = null;
                 	    	String allString = "";

@@ -1,8 +1,5 @@
 package com.ieoli.Controller;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -12,22 +9,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.ibatis.annotations.Result;
+//import org.apache.ibatis.annotations.Rule;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
-
-import com.ieoli.entity.ResultEntity;
+import com.ieoli.entity.RuleEntity;
 import com.ieoli.entity.TextEntity;
 import com.ieoli.entity.UserEntity;
-import com.ieoli.service.ResultsService;
+import com.ieoli.service.RulesService;
 import com.ieoli.service.TextsService;
 
 @Controller
 public class SubmitResult {
 
 @Resource
-ResultsService rs;
+RulesService rs;
 @Resource
 TextsService ts;
 @RequestMapping("submitresult")
@@ -45,27 +40,27 @@ protected void handleRequestInternal(HttpServletRequest request,
 			String article= request.getParameter("article");
 			String[] articles=article.split("#");
 			Matcher mat;
-			String result = "";
+			String rule = "";
 			for(int i =0;i<articles.length;i++)
 			{
 				mat=pat.matcher(articles[i]);
 				if(mat.find())
 				{
-					result+="|"+mat.group()+"|";
+					rule+="|"+mat.group()+"|";
 				}
 			}
 				
 			
-			response.getWriter().write(result);
+			response.getWriter().write(rule);
 			
 		}else if(code.equals("1")){
 			// submit
-			ResultEntity re= new ResultEntity();
+			RuleEntity re= new RuleEntity();
 			re.setModelid((int)session.getAttribute("modelid"));
 			re.setDescription(description);
 			re.setRegex(regex);
 			re.setUserid(((UserEntity)session.getAttribute("user")).getUserid());
-			List<TextEntity> texts=ts.getTextByModel((int)session.getAttribute("modelid"));
+			List<TextEntity> texts=ts.getTexts();
 			double right = 0;
 			double all = texts.size();
 			for(int i = 0 ; i <texts.size();i++)
@@ -79,19 +74,19 @@ protected void handleRequestInternal(HttpServletRequest request,
 			double rate = right/all;
 			re.setRate(rate);
 			
-			rs.insertResult(re);
+			rs.insertRule(re);
 			response.getWriter().write("success!");
 			
 			
 		}else{
 			//update
-			String rid= request.getParameter("resultid");
+			String rid= request.getParameter("ruleid");
 			int id=Integer.parseInt(rid);
-			ResultEntity re=rs.getResultByID(id);
+			RuleEntity re=rs.getRuleByID(id);
 			re.setDescription(description);
 			re.setRegex(regex);
 			
-			List<TextEntity> texts=ts.getTextByModel((int)session.getAttribute("modelid"));
+			List<TextEntity> texts=ts.getTexts();
 			double right = 0;
 			double all = texts.size();
 			for(int i = 0 ; i <texts.size();i++)
@@ -105,7 +100,7 @@ protected void handleRequestInternal(HttpServletRequest request,
 			double rate = right/all;
 			re.setRate(rate);
 			
-			rs.updateResult(re);
+			rs.updateRule(re);
 			response.getWriter().write("success!");
 			
 		}

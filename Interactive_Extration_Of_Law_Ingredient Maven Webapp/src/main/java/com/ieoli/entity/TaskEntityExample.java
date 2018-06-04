@@ -3,14 +3,14 @@ package com.ieoli.entity;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TextEntityExample {
+public class TaskEntityExample {
     protected String orderByClause;
 
     protected boolean distinct;
 
     protected List<Criteria> oredCriteria;
 
-    public TextEntityExample() {
+    public TaskEntityExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 
@@ -104,133 +104,133 @@ public class TextEntityExample {
             criteria.add(new Criterion(condition, value1, value2));
         }
 
-        public Criteria andTextidIsNull() {
-            addCriterion("textID is null");
+        public Criteria andTaskidIsNull() {
+            addCriterion("TaskID is null");
             return (Criteria) this;
         }
 
-        public Criteria andTextidIsNotNull() {
-            addCriterion("textID is not null");
+        public Criteria andTaskidIsNotNull() {
+            addCriterion("TaskID is not null");
             return (Criteria) this;
         }
 
-        public Criteria andTextidEqualTo(Integer value) {
-            addCriterion("textID =", value, "textid");
+        public Criteria andTaskidEqualTo(Integer value) {
+            addCriterion("TaskID =", value, "taskid");
             return (Criteria) this;
         }
 
-        public Criteria andTextidNotEqualTo(Integer value) {
-            addCriterion("textID <>", value, "textid");
+        public Criteria andTaskidNotEqualTo(Integer value) {
+            addCriterion("TaskID <>", value, "taskid");
             return (Criteria) this;
         }
 
-        public Criteria andTextidGreaterThan(Integer value) {
-            addCriterion("textID >", value, "textid");
+        public Criteria andTaskidGreaterThan(Integer value) {
+            addCriterion("TaskID >", value, "taskid");
             return (Criteria) this;
         }
 
-        public Criteria andTextidGreaterThanOrEqualTo(Integer value) {
-            addCriterion("textID >=", value, "textid");
+        public Criteria andTaskidGreaterThanOrEqualTo(Integer value) {
+            addCriterion("TaskID >=", value, "taskid");
             return (Criteria) this;
         }
 
-        public Criteria andTextidLessThan(Integer value) {
-            addCriterion("textID <", value, "textid");
+        public Criteria andTaskidLessThan(Integer value) {
+            addCriterion("TaskID <", value, "taskid");
             return (Criteria) this;
         }
 
-        public Criteria andTextidLessThanOrEqualTo(Integer value) {
-            addCriterion("textID <=", value, "textid");
+        public Criteria andTaskidLessThanOrEqualTo(Integer value) {
+            addCriterion("TaskID <=", value, "taskid");
             return (Criteria) this;
         }
 
-        public Criteria andTextidIn(List<Integer> values) {
-            addCriterion("textID in", values, "textid");
+        public Criteria andTaskidIn(List<Integer> values) {
+            addCriterion("TaskID in", values, "taskid");
             return (Criteria) this;
         }
 
-        public Criteria andTextidNotIn(List<Integer> values) {
-            addCriterion("textID not in", values, "textid");
+        public Criteria andTaskidNotIn(List<Integer> values) {
+            addCriterion("TaskID not in", values, "taskid");
             return (Criteria) this;
         }
 
-        public Criteria andTextidBetween(Integer value1, Integer value2) {
-            addCriterion("textID between", value1, value2, "textid");
+        public Criteria andTaskidBetween(Integer value1, Integer value2) {
+            addCriterion("TaskID between", value1, value2, "taskid");
             return (Criteria) this;
         }
 
-        public Criteria andTextidNotBetween(Integer value1, Integer value2) {
-            addCriterion("textID not between", value1, value2, "textid");
+        public Criteria andTaskidNotBetween(Integer value1, Integer value2) {
+            addCriterion("TaskID not between", value1, value2, "taskid");
             return (Criteria) this;
         }
 
-        public Criteria andTextnameIsNull() {
-            addCriterion("textName is null");
+        public Criteria andTaskdescriptionIsNull() {
+            addCriterion("TaskDescription is null");
             return (Criteria) this;
         }
 
-        public Criteria andTextnameIsNotNull() {
-            addCriterion("textName is not null");
+        public Criteria andTaskdescriptionIsNotNull() {
+            addCriterion("TaskDescription is not null");
             return (Criteria) this;
         }
 
-        public Criteria andTextnameEqualTo(String value) {
-            addCriterion("textName =", value, "textname");
+        public Criteria andTaskdescriptionEqualTo(String value) {
+            addCriterion("TaskDescription =", value, "taskdescription");
             return (Criteria) this;
         }
 
-        public Criteria andTextnameNotEqualTo(String value) {
-            addCriterion("textName <>", value, "textname");
+        public Criteria andTaskdescriptionNotEqualTo(String value) {
+            addCriterion("TaskDescription <>", value, "taskdescription");
             return (Criteria) this;
         }
 
-        public Criteria andTextnameGreaterThan(String value) {
-            addCriterion("textName >", value, "textname");
+        public Criteria andTaskdescriptionGreaterThan(String value) {
+            addCriterion("TaskDescription >", value, "taskdescription");
             return (Criteria) this;
         }
 
-        public Criteria andTextnameGreaterThanOrEqualTo(String value) {
-            addCriterion("textName >=", value, "textname");
+        public Criteria andTaskdescriptionGreaterThanOrEqualTo(String value) {
+            addCriterion("TaskDescription >=", value, "taskdescription");
             return (Criteria) this;
         }
 
-        public Criteria andTextnameLessThan(String value) {
-            addCriterion("textName <", value, "textname");
+        public Criteria andTaskdescriptionLessThan(String value) {
+            addCriterion("TaskDescription <", value, "taskdescription");
             return (Criteria) this;
         }
 
-        public Criteria andTextnameLessThanOrEqualTo(String value) {
-            addCriterion("textName <=", value, "textname");
+        public Criteria andTaskdescriptionLessThanOrEqualTo(String value) {
+            addCriterion("TaskDescription <=", value, "taskdescription");
             return (Criteria) this;
         }
 
-        public Criteria andTextnameLike(String value) {
-            addCriterion("textName like", value, "textname");
+        public Criteria andTaskdescriptionLike(String value) {
+            addCriterion("TaskDescription like", value, "taskdescription");
             return (Criteria) this;
         }
 
-        public Criteria andTextnameNotLike(String value) {
-            addCriterion("textName not like", value, "textname");
+        public Criteria andTaskdescriptionNotLike(String value) {
+            addCriterion("TaskDescription not like", value, "taskdescription");
             return (Criteria) this;
         }
 
-        public Criteria andTextnameIn(List<String> values) {
-            addCriterion("textName in", values, "textname");
+        public Criteria andTaskdescriptionIn(List<String> values) {
+            addCriterion("TaskDescription in", values, "taskdescription");
             return (Criteria) this;
         }
 
-        public Criteria andTextnameNotIn(List<String> values) {
-            addCriterion("textName not in", values, "textname");
+        public Criteria andTaskdescriptionNotIn(List<String> values) {
+            addCriterion("TaskDescription not in", values, "taskdescription");
             return (Criteria) this;
         }
 
-        public Criteria andTextnameBetween(String value1, String value2) {
-            addCriterion("textName between", value1, value2, "textname");
+        public Criteria andTaskdescriptionBetween(String value1, String value2) {
+            addCriterion("TaskDescription between", value1, value2, "taskdescription");
             return (Criteria) this;
         }
 
-        public Criteria andTextnameNotBetween(String value1, String value2) {
-            addCriterion("textName not between", value1, value2, "textname");
+        public Criteria andTaskdescriptionNotBetween(String value1, String value2) {
+            addCriterion("TaskDescription not between", value1, value2, "taskdescription");
             return (Criteria) this;
         }
     }

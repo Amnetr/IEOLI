@@ -10,11 +10,11 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.AbstractController;
-
 import com.ieoli.entity.ModelEntity;
+import com.ieoli.entity.TaskEntity;
 import com.ieoli.entity.UserEntity;
 import com.ieoli.service.ModelService;
+import com.ieoli.service.TaskService;
 import com.ieoli.service.UserService;
 
 @Controller
@@ -23,6 +23,8 @@ public class Login{
 UserService userService;
 @Resource
 ModelService ms;
+@Resource
+TaskService ts;
 	@RequestMapping("/weblogin")
 	protected ModelAndView handleRequestInternal(HttpServletRequest request,
 			HttpServletResponse response,HttpSession session) throws Exception {
@@ -37,15 +39,19 @@ ModelService ms;
 		if(userService.login(user))
 		{
 			int actortype =userService.getUserByUsername(username).getUsertype();
-			List<ModelEntity> lists = ms.getModels();
-			mav.addObject("list", lists);
+			
 			if(actortype==1)
 			{
 				
-				mav.setViewName("/WEB-INF/jsp/chakanModel.jsp");//上传人员的主页
-			}else {
-				
-				mav.setViewName("/WEB-INF/jsp/selectType.jsp");//打标签人员主页
+				mav.setViewName("/WEB-INF/jsp/upload.jsp");//上传人员的主页
+			}else if(actortype==0){
+				List<TaskEntity> lists =ts.getTasks();
+				mav.addObject("list", lists);
+				mav.setViewName("/WEB-INF/jsp/task.jsp");//打标签人员主页
+			}else{
+				List<ModelEntity> lists = ms.getModels();
+				mav.addObject("list", lists);
+				mav.setViewName("/WEB-INF/jsp/element.jsp");
 			}
 			session.setAttribute("user", userService.getUserByUsername(username));
 			mav.addObject("Result", "success");

@@ -164,73 +164,133 @@ public class ModelEntityExample {
             return (Criteria) this;
         }
 
-        public Criteria andModeldescriptionIsNull() {
-            addCriterion("ModelDescription is null");
+        public Criteria andModelnameIsNull() {
+            addCriterion("ModelName is null");
             return (Criteria) this;
         }
 
-        public Criteria andModeldescriptionIsNotNull() {
-            addCriterion("ModelDescription is not null");
+        public Criteria andModelnameIsNotNull() {
+            addCriterion("ModelName is not null");
             return (Criteria) this;
         }
 
-        public Criteria andModeldescriptionEqualTo(String value) {
-            addCriterion("ModelDescription =", value, "modeldescription");
+        public Criteria andModelnameEqualTo(String value) {
+            addCriterion("ModelName =", value, "modelname");
             return (Criteria) this;
         }
 
-        public Criteria andModeldescriptionNotEqualTo(String value) {
-            addCriterion("ModelDescription <>", value, "modeldescription");
+        public Criteria andModelnameNotEqualTo(String value) {
+            addCriterion("ModelName <>", value, "modelname");
             return (Criteria) this;
         }
 
-        public Criteria andModeldescriptionGreaterThan(String value) {
-            addCriterion("ModelDescription >", value, "modeldescription");
+        public Criteria andModelnameGreaterThan(String value) {
+            addCriterion("ModelName >", value, "modelname");
             return (Criteria) this;
         }
 
-        public Criteria andModeldescriptionGreaterThanOrEqualTo(String value) {
-            addCriterion("ModelDescription >=", value, "modeldescription");
+        public Criteria andModelnameGreaterThanOrEqualTo(String value) {
+            addCriterion("ModelName >=", value, "modelname");
             return (Criteria) this;
         }
 
-        public Criteria andModeldescriptionLessThan(String value) {
-            addCriterion("ModelDescription <", value, "modeldescription");
+        public Criteria andModelnameLessThan(String value) {
+            addCriterion("ModelName <", value, "modelname");
             return (Criteria) this;
         }
 
-        public Criteria andModeldescriptionLessThanOrEqualTo(String value) {
-            addCriterion("ModelDescription <=", value, "modeldescription");
+        public Criteria andModelnameLessThanOrEqualTo(String value) {
+            addCriterion("ModelName <=", value, "modelname");
             return (Criteria) this;
         }
 
-        public Criteria andModeldescriptionLike(String value) {
-            addCriterion("ModelDescription like", value, "modeldescription");
+        public Criteria andModelnameLike(String value) {
+            addCriterion("ModelName like", value, "modelname");
             return (Criteria) this;
         }
 
-        public Criteria andModeldescriptionNotLike(String value) {
-            addCriterion("ModelDescription not like", value, "modeldescription");
+        public Criteria andModelnameNotLike(String value) {
+            addCriterion("ModelName not like", value, "modelname");
             return (Criteria) this;
         }
 
-        public Criteria andModeldescriptionIn(List<String> values) {
-            addCriterion("ModelDescription in", values, "modeldescription");
+        public Criteria andModelnameIn(List<String> values) {
+            addCriterion("ModelName in", values, "modelname");
             return (Criteria) this;
         }
 
-        public Criteria andModeldescriptionNotIn(List<String> values) {
-            addCriterion("ModelDescription not in", values, "modeldescription");
+        public Criteria andModelnameNotIn(List<String> values) {
+            addCriterion("ModelName not in", values, "modelname");
             return (Criteria) this;
         }
 
-        public Criteria andModeldescriptionBetween(String value1, String value2) {
-            addCriterion("ModelDescription between", value1, value2, "modeldescription");
+        public Criteria andModelnameBetween(String value1, String value2) {
+            addCriterion("ModelName between", value1, value2, "modelname");
             return (Criteria) this;
         }
 
-        public Criteria andModeldescriptionNotBetween(String value1, String value2) {
-            addCriterion("ModelDescription not between", value1, value2, "modeldescription");
+        public Criteria andModelnameNotBetween(String value1, String value2) {
+            addCriterion("ModelName not between", value1, value2, "modelname");
+            return (Criteria) this;
+        }
+
+        public Criteria andSectionIsNull() {
+            addCriterion("Section is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSectionIsNotNull() {
+            addCriterion("Section is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSectionEqualTo(Integer value) {
+            addCriterion("Section =", value, "section");
+            return (Criteria) this;
+        }
+
+        public Criteria andSectionNotEqualTo(Integer value) {
+            addCriterion("Section <>", value, "section");
+            return (Criteria) this;
+        }
+
+        public Criteria andSectionGreaterThan(Integer value) {
+            addCriterion("Section >", value, "section");
+            return (Criteria) this;
+        }
+
+        public Criteria andSectionGreaterThanOrEqualTo(Integer value) {
+            addCriterion("Section >=", value, "section");
+            return (Criteria) this;
+        }
+
+        public Criteria andSectionLessThan(Integer value) {
+            addCriterion("Section <", value, "section");
+            return (Criteria) this;
+        }
+
+        public Criteria andSectionLessThanOrEqualTo(Integer value) {
+            addCriterion("Section <=", value, "section");
+            return (Criteria) this;
+        }
+
+        public Criteria andSectionIn(List<Integer> values) {
+            addCriterion("Section in", values, "section");
+            return (Criteria) this;
+        }
+
+        public Criteria andSectionNotIn(List<Integer> values) {
+            addCriterion("Section not in", values, "section");
+            return (Criteria) this;
+        }
+
+        public Criteria andSectionBetween(Integer value1, Integer value2) {
+            addCriterion("Section between", value1, value2, "section");
+            return (Criteria) this;
+        }
+
+        public Criteria andSectionNotBetween(Integer value1, Integer value2) {
+            addCriterion("Section not between", value1, value2, "section");
             return (Criteria) this;
         }
     }

@@ -1,33 +1,35 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.ieoli.dao.ResultEntityMapper" >
-  <resultMap id="BaseResultMap" type="com.ieoli.entity.ResultEntity" >
-    <id column="resultID" property="resultid" jdbcType="INTEGER" />
-    <result column="modelid" property="modelid" jdbcType="INTEGER" />
-    <result column="description" property="description" jdbcType="VARCHAR" />
-    <result column="regex" property="regex" jdbcType="VARCHAR" />
-    <result column="userid" property="userid" jdbcType="INTEGER" />
-    <result column="rate" property="rate" jdbcType="DOUBLE" />
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ieoli.dao.ResultEntityMapper">
+  <resultMap id="BaseResultMap" type="com.ieoli.entity.ResultEntity">
+    <id column="resultID" jdbcType="INTEGER" property="resultid" />
+    <result column="textID" jdbcType="INTEGER" property="textid" />
+    <result column="modelID" jdbcType="INTEGER" property="modelid" />
+    <result column="isTrue" jdbcType="BIT" property="istrue" />
+    <result column="userid" jdbcType="INTEGER" property="userid" />
   </resultMap>
-  <sql id="Example_Where_Clause" >
-    <where >
-      <foreach collection="oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.ieoli.entity.ResultEntity">
+    <result column="label" jdbcType="LONGVARCHAR" property="label" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
                   and ${criterion.condition}
                 </when>
-                <when test="criterion.singleValue" >
+                <when test="criterion.singleValue">
                   and ${criterion.condition} #{criterion.value}
                 </when>
-                <when test="criterion.betweenValue" >
+                <when test="criterion.betweenValue">
                   and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
                 </when>
-                <when test="criterion.listValue" >
+                <when test="criterion.listValue">
                   and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
                     #{listItem}
                   </foreach>
                 </when>
@@ -38,25 +40,25 @@
       </foreach>
     </where>
   </sql>
-  <sql id="Update_By_Example_Where_Clause" >
-    <where >
-      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
                   and ${criterion.condition}
                 </when>
-                <when test="criterion.singleValue" >
+                <when test="criterion.singleValue">
                   and ${criterion.condition} #{criterion.value}
                 </when>
-                <when test="criterion.betweenValue" >
+                <when test="criterion.betweenValue">
                   and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
                 </when>
-                <when test="criterion.listValue" >
+                <when test="criterion.listValue">
                   and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
                     #{listItem}
                   </foreach>
                 </when>
@@ -67,161 +69,927 @@
       </foreach>
     </where>
   </sql>
-  <sql id="Base_Column_List" >
-    resultID, modelid, description, regex, userid, rate
+  <sql id="Base_Column_List">
+    resultID, textID, modelID, isTrue, userid
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ieoli.entity.ResultEntityExample" >
+  <sql id="Blob_Column_List">
+    label
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.ieoli.entity.ResultEntityExample" resultMap="ResultMapWithBLOBs">
     select
-    <if test="distinct" >
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from results
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.ieoli.entity.ResultEntityExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
       distinct
     </if>
     'true' as QUERYID,
     <include refid="Base_Column_List" />
     from results
-    <if test="_parameter != null" >
+    <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
-    <if test="orderByClause != null" >
+    <if test="orderByClause != null">
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from results
+    where resultID = #{resultid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from results
+    where resultID = #{resultid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.ieoli.entity.ResultEntityExample">
+    delete from results
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.ieoli.entity.ResultEntity">
+    insert into results (resultID, textID, modelID, 
+      isTrue, userid, label
+      )
+    values (#{resultid,jdbcType=INTEGER}, #{textid,jdbcType=INTEGER}, #{modelid,jdbcType=INTEGER}, 
+      #{istrue,jdbcType=BIT}, #{userid,jdbcType=INTEGER}, #{label,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ieoli.entity.ResultEntity">
+    insert into results
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="resultid != null">
+        resultID,
+      </if>
+      <if test="textid != null">
+        textID,
+      </if>
+      <if test="modelid != null">
+        modelID,
+      </if>
+      <if test="istrue != null">
+        isTrue,
+      </if>
+      <if test="userid != null">
+        userid,
+      </if>
+      <if test="label != null">
+        label,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="resultid != null">
+        #{resultid,jdbcType=INTEGER},
+      </if>
+      <if test="textid != null">
+        #{textid,jdbcType=INTEGER},
+      </if>
+      <if test="modelid != null">
+        #{modelid,jdbcType=INTEGER},
+      </if>
+      <if test="istrue != null">
+        #{istrue,jdbcType=BIT},
+      </if>
+      <if test="userid != null">
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="label != null">
+        #{label,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.ieoli.entity.ResultEntityExample" resultType="java.lang.Integer">
+    select count(*) from results
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update results
+    <set>
+      <if test="record.resultid != null">
+        resultID = #{record.resultid,jdbcType=INTEGER},
+      </if>
+      <if test="record.textid != null">
+        textID = #{record.textid,jdbcType=INTEGER},
+      </if>
+      <if test="record.modelid != null">
+        modelID = #{record.modelid,jdbcType=INTEGER},
+      </if>
+      <if test="record.istrue != null">
+        isTrue = #{record.istrue,jdbcType=BIT},
+      </if>
+      <if test="record.userid != null">
+        userid = #{record.userid,jdbcType=INTEGER},
+      </if>
+      <if test="record.label != null">
+        label = #{record.label,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update results
+    set resultID = #{record.resultid,jdbcType=INTEGER},
+      textID = #{record.textid,jdbcType=INTEGER},
+      modelID = #{record.modelid,jdbcType=INTEGER},
+      isTrue = #{record.istrue,jdbcType=BIT},
+      userid = #{record.userid,jdbcType=INTEGER},
+      label = #{record.label,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update results
+    set resultID = #{record.resultid,jdbcType=INTEGER},
+      textID = #{record.textid,jdbcType=INTEGER},
+      modelID = #{record.modelid,jdbcType=INTEGER},
+      isTrue = #{record.istrue,jdbcType=BIT},
+      userid = #{record.userid,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ieoli.entity.ResultEntity">
+    update results
+    <set>
+      <if test="textid != null">
+        textID = #{textid,jdbcType=INTEGER},
+      </if>
+      <if test="modelid != null">
+        modelID = #{modelid,jdbcType=INTEGER},
+      </if>
+      <if test="istrue != null">
+        isTrue = #{istrue,jdbcType=BIT},
+      </if>
+      <if test="userid != null">
+        userid = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="label != null">
+        label = #{label,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where resultID = #{resultid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.ieoli.entity.ResultEntity">
+    update results
+    set textID = #{textid,jdbcType=INTEGER},
+      modelID = #{modelid,jdbcType=INTEGER},
+      isTrue = #{istrue,jdbcType=BIT},
+      userid = #{userid,jdbcType=INTEGER},
+      label = #{label,jdbcType=LONGVARCHAR}
+    where resultID = #{resultid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ieoli.entity.ResultEntity">
+    update results
+    set textID = #{textid,jdbcType=INTEGER},
+      modelID = #{modelid,jdbcType=INTEGER},
+      isTrue = #{istrue,jdbcType=BIT},
+      userid = #{userid,jdbcType=INTEGER}
+    where resultID = #{resultid,jdbcType=INTEGER}
+  </update>
+  <resultMap id="BaseResultMap" type="com.ieoli.entity.ResultEntity">
+    <id column="resultID" jdbcType="INTEGER" property="resultid" />
+    <result column="textID" jdbcType="INTEGER" property="textid" />
+    <result column="isTrue" jdbcType="BIT" property="istrue" />
+    <result column="userid" jdbcType="INTEGER" property="userid" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.ieoli.entity.ResultEntity">
+    <result column="label" jdbcType="LONGVARCHAR" property="label" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    resultID, textID, isTrue, userid
+  </sql>
+  <sql id="Blob_Column_List">
+    label
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.ieoli.entity.ResultEntityExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from results
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.ieoli.entity.ResultEntityExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from results
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from results
+    where resultID = #{resultid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from results
+    where resultID = #{resultid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.ieoli.entity.ResultEntityExample">
+    delete from results
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.ieoli.entity.ResultEntity">
+    insert into results (resultID, textID, isTrue, 
+      userid, label)
+    values (#{resultid,jdbcType=INTEGER}, #{textid,jdbcType=INTEGER}, #{istrue,jdbcType=BIT}, 
+      #{userid,jdbcType=INTEGER}, #{label,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ieoli.entity.ResultEntity">
+    insert into results
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="resultid != null">
+        resultID,
+      </if>
+      <if test="textid != null">
+        textID,
+      </if>
+      <if test="istrue != null">
+        isTrue,
+      </if>
+      <if test="userid != null">
+        userid,
+      </if>
+      <if test="label != null">
+        label,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="resultid != null">
+        #{resultid,jdbcType=INTEGER},
+      </if>
+      <if test="textid != null">
+        #{textid,jdbcType=INTEGER},
+      </if>
+      <if test="istrue != null">
+        #{istrue,jdbcType=BIT},
+      </if>
+      <if test="userid != null">
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="label != null">
+        #{label,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.ieoli.entity.ResultEntityExample" resultType="java.lang.Integer">
+    select count(*) from results
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update results
+    <set>
+      <if test="record.resultid != null">
+        resultID = #{record.resultid,jdbcType=INTEGER},
+      </if>
+      <if test="record.textid != null">
+        textID = #{record.textid,jdbcType=INTEGER},
+      </if>
+      <if test="record.istrue != null">
+        isTrue = #{record.istrue,jdbcType=BIT},
+      </if>
+      <if test="record.userid != null">
+        userid = #{record.userid,jdbcType=INTEGER},
+      </if>
+      <if test="record.label != null">
+        label = #{record.label,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update results
+    set resultID = #{record.resultid,jdbcType=INTEGER},
+      textID = #{record.textid,jdbcType=INTEGER},
+      isTrue = #{record.istrue,jdbcType=BIT},
+      userid = #{record.userid,jdbcType=INTEGER},
+      label = #{record.label,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update results
+    set resultID = #{record.resultid,jdbcType=INTEGER},
+      textID = #{record.textid,jdbcType=INTEGER},
+      isTrue = #{record.istrue,jdbcType=BIT},
+      userid = #{record.userid,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ieoli.entity.ResultEntity">
+    update results
+    <set>
+      <if test="textid != null">
+        textID = #{textid,jdbcType=INTEGER},
+      </if>
+      <if test="istrue != null">
+        isTrue = #{istrue,jdbcType=BIT},
+      </if>
+      <if test="userid != null">
+        userid = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="label != null">
+        label = #{label,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where resultID = #{resultid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.ieoli.entity.ResultEntity">
+    update results
+    set textID = #{textid,jdbcType=INTEGER},
+      isTrue = #{istrue,jdbcType=BIT},
+      userid = #{userid,jdbcType=INTEGER},
+      label = #{label,jdbcType=LONGVARCHAR}
+    where resultID = #{resultid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ieoli.entity.ResultEntity">
+    update results
+    set textID = #{textid,jdbcType=INTEGER},
+      isTrue = #{istrue,jdbcType=BIT},
+      userid = #{userid,jdbcType=INTEGER}
+    where resultID = #{resultid,jdbcType=INTEGER}
+  </update>
+  <resultMap id="BaseResultMap" type="com.ieoli.entity.ResultEntity">
+    <id column="resultID" jdbcType="INTEGER" property="resultid" />
+    <result column="userid" jdbcType="INTEGER" property="userid" />
+    <result column="modelid" jdbcType="INTEGER" property="modelid" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="regex" jdbcType="VARCHAR" property="regex" />
+    <result column="rate" jdbcType="DOUBLE" property="rate" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    resultID, userid, modelid, description, regex, rate
+  </sql>
+  <select id="selectByExample" parameterType="com.ieoli.entity.ResultEntityExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from results
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from results
     where resultID = #{resultid,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from results
     where resultID = #{resultid,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.ieoli.entity.ResultEntityExample" >
+  <delete id="deleteByExample" parameterType="com.ieoli.entity.ResultEntityExample">
     delete from results
-    <if test="_parameter != null" >
+    <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.ieoli.entity.ResultEntity" >
-    insert into results (resultID, modelid, description, 
-      regex, userid, rate)
-    values (#{resultid,jdbcType=INTEGER}, #{modelid,jdbcType=INTEGER}, #{description,jdbcType=VARCHAR}, 
-      #{regex,jdbcType=VARCHAR}, #{userid,jdbcType=INTEGER}, #{rate,jdbcType=DOUBLE})
+  <insert id="insert" parameterType="com.ieoli.entity.ResultEntity">
+    insert into results (resultID, userid, modelid, 
+      description, regex, rate
+      )
+    values (#{resultid,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, #{modelid,jdbcType=INTEGER}, 
+      #{description,jdbcType=VARCHAR}, #{regex,jdbcType=VARCHAR}, #{rate,jdbcType=DOUBLE}
+      )
   </insert>
-  <insert id="insertSelective" parameterType="com.ieoli.entity.ResultEntity" >
+  <insert id="insertSelective" parameterType="com.ieoli.entity.ResultEntity">
     insert into results
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="resultid != null" >
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="resultid != null">
         resultID,
       </if>
-      <if test="modelid != null" >
-        modelid,
-      </if>
-      <if test="description != null" >
-        description,
-      </if>
-      <if test="regex != null" >
-        regex,
-      </if>
-      <if test="userid != null" >
+      <if test="userid != null">
         userid,
       </if>
-      <if test="rate != null" >
+      <if test="modelid != null">
+        modelid,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="regex != null">
+        regex,
+      </if>
+      <if test="rate != null">
         rate,
       </if>
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="resultid != null" >
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="resultid != null">
         #{resultid,jdbcType=INTEGER},
       </if>
-      <if test="modelid != null" >
-        #{modelid,jdbcType=INTEGER},
-      </if>
-      <if test="description != null" >
-        #{description,jdbcType=VARCHAR},
-      </if>
-      <if test="regex != null" >
-        #{regex,jdbcType=VARCHAR},
-      </if>
-      <if test="userid != null" >
+      <if test="userid != null">
         #{userid,jdbcType=INTEGER},
       </if>
-      <if test="rate != null" >
+      <if test="modelid != null">
+        #{modelid,jdbcType=INTEGER},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="regex != null">
+        #{regex,jdbcType=VARCHAR},
+      </if>
+      <if test="rate != null">
         #{rate,jdbcType=DOUBLE},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.ieoli.entity.ResultEntityExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="com.ieoli.entity.ResultEntityExample" resultType="java.lang.Integer">
     select count(*) from results
-    <if test="_parameter != null" >
+    <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
-  <update id="updateByExampleSelective" parameterType="map" >
+  <update id="updateByExampleSelective" parameterType="map">
     update results
-    <set >
-      <if test="record.resultid != null" >
+    <set>
+      <if test="record.resultid != null">
         resultID = #{record.resultid,jdbcType=INTEGER},
       </if>
-      <if test="record.modelid != null" >
-        modelid = #{record.modelid,jdbcType=INTEGER},
-      </if>
-      <if test="record.description != null" >
-        description = #{record.description,jdbcType=VARCHAR},
-      </if>
-      <if test="record.regex != null" >
-        regex = #{record.regex,jdbcType=VARCHAR},
-      </if>
-      <if test="record.userid != null" >
+      <if test="record.userid != null">
         userid = #{record.userid,jdbcType=INTEGER},
       </if>
-      <if test="record.rate != null" >
+      <if test="record.modelid != null">
+        modelid = #{record.modelid,jdbcType=INTEGER},
+      </if>
+      <if test="record.description != null">
+        description = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.regex != null">
+        regex = #{record.regex,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rate != null">
         rate = #{record.rate,jdbcType=DOUBLE},
       </if>
     </set>
-    <if test="_parameter != null" >
+    <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByExample" parameterType="map" >
+  <update id="updateByExample" parameterType="map">
     update results
     set resultID = #{record.resultid,jdbcType=INTEGER},
+      userid = #{record.userid,jdbcType=INTEGER},
       modelid = #{record.modelid,jdbcType=INTEGER},
       description = #{record.description,jdbcType=VARCHAR},
       regex = #{record.regex,jdbcType=VARCHAR},
-      userid = #{record.userid,jdbcType=INTEGER},
       rate = #{record.rate,jdbcType=DOUBLE}
-    <if test="_parameter != null" >
+    <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.ieoli.entity.ResultEntity" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.ieoli.entity.ResultEntity">
     update results
-    <set >
-      <if test="modelid != null" >
-        modelid = #{modelid,jdbcType=INTEGER},
-      </if>
-      <if test="description != null" >
-        description = #{description,jdbcType=VARCHAR},
-      </if>
-      <if test="regex != null" >
-        regex = #{regex,jdbcType=VARCHAR},
-      </if>
-      <if test="userid != null" >
+    <set>
+      <if test="userid != null">
         userid = #{userid,jdbcType=INTEGER},
       </if>
-      <if test="rate != null" >
+      <if test="modelid != null">
+        modelid = #{modelid,jdbcType=INTEGER},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="regex != null">
+        regex = #{regex,jdbcType=VARCHAR},
+      </if>
+      <if test="rate != null">
         rate = #{rate,jdbcType=DOUBLE},
       </if>
     </set>
     where resultID = #{resultid,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.ieoli.entity.ResultEntity" >
+  <update id="updateByPrimaryKey" parameterType="com.ieoli.entity.ResultEntity">
     update results
-    set modelid = #{modelid,jdbcType=INTEGER},
+    set userid = #{userid,jdbcType=INTEGER},
+      modelid = #{modelid,jdbcType=INTEGER},
       description = #{description,jdbcType=VARCHAR},
       regex = #{regex,jdbcType=VARCHAR},
-      userid = #{userid,jdbcType=INTEGER},
       rate = #{rate,jdbcType=DOUBLE}
+    where resultID = #{resultid,jdbcType=INTEGER}
+  </update>
+  <resultMap id="BaseResultMap" type="com.ieoli.entity.ResultEntity">
+    <id column="resultID" jdbcType="INTEGER" property="resultid" />
+    <result column="textID" jdbcType="INTEGER" property="textid" />
+    <result column="isTrue" jdbcType="BIT" property="istrue" />
+    <result column="userid" jdbcType="INTEGER" property="userid" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.ieoli.entity.ResultEntity">
+    <result column="label" jdbcType="LONGVARCHAR" property="label" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    resultID, textID, isTrue, userid
+  </sql>
+  <sql id="Blob_Column_List">
+    label
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.ieoli.entity.ResultEntityExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from results
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.ieoli.entity.ResultEntityExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from results
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from results
+    where resultID = #{resultid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from results
+    where resultID = #{resultid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.ieoli.entity.ResultEntityExample">
+    delete from results
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.ieoli.entity.ResultEntity">
+    insert into results (resultID, textID, isTrue, 
+      userid, label)
+    values (#{resultid,jdbcType=INTEGER}, #{textid,jdbcType=INTEGER}, #{istrue,jdbcType=BIT}, 
+      #{userid,jdbcType=INTEGER}, #{label,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ieoli.entity.ResultEntity">
+    insert into results
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="resultid != null">
+        resultID,
+      </if>
+      <if test="textid != null">
+        textID,
+      </if>
+      <if test="istrue != null">
+        isTrue,
+      </if>
+      <if test="userid != null">
+        userid,
+      </if>
+      <if test="label != null">
+        label,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="resultid != null">
+        #{resultid,jdbcType=INTEGER},
+      </if>
+      <if test="textid != null">
+        #{textid,jdbcType=INTEGER},
+      </if>
+      <if test="istrue != null">
+        #{istrue,jdbcType=BIT},
+      </if>
+      <if test="userid != null">
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="label != null">
+        #{label,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.ieoli.entity.ResultEntityExample" resultType="java.lang.Integer">
+    select count(*) from results
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update results
+    <set>
+      <if test="record.resultid != null">
+        resultID = #{record.resultid,jdbcType=INTEGER},
+      </if>
+      <if test="record.textid != null">
+        textID = #{record.textid,jdbcType=INTEGER},
+      </if>
+      <if test="record.istrue != null">
+        isTrue = #{record.istrue,jdbcType=BIT},
+      </if>
+      <if test="record.userid != null">
+        userid = #{record.userid,jdbcType=INTEGER},
+      </if>
+      <if test="record.label != null">
+        label = #{record.label,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update results
+    set resultID = #{record.resultid,jdbcType=INTEGER},
+      textID = #{record.textid,jdbcType=INTEGER},
+      isTrue = #{record.istrue,jdbcType=BIT},
+      userid = #{record.userid,jdbcType=INTEGER},
+      label = #{record.label,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update results
+    set resultID = #{record.resultid,jdbcType=INTEGER},
+      textID = #{record.textid,jdbcType=INTEGER},
+      isTrue = #{record.istrue,jdbcType=BIT},
+      userid = #{record.userid,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ieoli.entity.ResultEntity">
+    update results
+    <set>
+      <if test="textid != null">
+        textID = #{textid,jdbcType=INTEGER},
+      </if>
+      <if test="istrue != null">
+        isTrue = #{istrue,jdbcType=BIT},
+      </if>
+      <if test="userid != null">
+        userid = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="label != null">
+        label = #{label,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where resultID = #{resultid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.ieoli.entity.ResultEntity">
+    update results
+    set textID = #{textid,jdbcType=INTEGER},
+      isTrue = #{istrue,jdbcType=BIT},
+      userid = #{userid,jdbcType=INTEGER},
+      label = #{label,jdbcType=LONGVARCHAR}
+    where resultID = #{resultid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ieoli.entity.ResultEntity">
+    update results
+    set textID = #{textid,jdbcType=INTEGER},
+      isTrue = #{istrue,jdbcType=BIT},
+      userid = #{userid,jdbcType=INTEGER}
     where resultID = #{resultid,jdbcType=INTEGER}
   </update>
 </mapper>

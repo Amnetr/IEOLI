@@ -3,15 +3,15 @@ package com.ieoli.entity;
 public class ResultEntity {
     private Integer resultid;
 
+    private Integer textid;
+
     private Integer modelid;
 
-    private String description;
-
-    private String regex;
+    private Boolean istrue;
 
     private Integer userid;
 
-    private Double rate;
+    private String label;
 
     public Integer getResultid() {
         return resultid;
@@ -19,6 +19,14 @@ public class ResultEntity {
 
     public void setResultid(Integer resultid) {
         this.resultid = resultid;
+    }
+
+    public Integer getTextid() {
+        return textid;
+    }
+
+    public void setTextid(Integer textid) {
+        this.textid = textid;
     }
 
     public Integer getModelid() {
@@ -29,20 +37,12 @@ public class ResultEntity {
         this.modelid = modelid;
     }
 
-    public String getDescription() {
-        return description;
+    public Boolean getIstrue() {
+        return istrue;
     }
 
-    public void setDescription(String description) {
-        this.description = description == null ? null : description.trim();
-    }
-
-    public String getRegex() {
-        return regex;
-    }
-
-    public void setRegex(String regex) {
-        this.regex = regex == null ? null : regex.trim();
+    public void setIstrue(Boolean istrue) {
+        this.istrue = istrue;
     }
 
     public Integer getUserid() {
@@ -53,11 +53,11 @@ public class ResultEntity {
         this.userid = userid;
     }
 
-    public Double getRate() {
-        return rate;
+    public String getLabel() {
+        return label;
     }
 
-    public void setRate(Double rate) {
-        this.rate = rate;
+    public void setLabel(String label) {
+        this.label = label == null ? null : label.trim();
     }
 }

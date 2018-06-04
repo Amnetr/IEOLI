@@ -16,15 +16,21 @@ public interface ResultEntityMapper {
 
     int insertSelective(ResultEntity record);
 
+    List<ResultEntity> selectByExampleWithBLOBs(ResultEntityExample example);
+
     List<ResultEntity> selectByExample(ResultEntityExample example);
 
     ResultEntity selectByPrimaryKey(Integer resultid);
 
     int updateByExampleSelective(@Param("record") ResultEntity record, @Param("example") ResultEntityExample example);
 
+    int updateByExampleWithBLOBs(@Param("record") ResultEntity record, @Param("example") ResultEntityExample example);
+
     int updateByExample(@Param("record") ResultEntity record, @Param("example") ResultEntityExample example);
 
     int updateByPrimaryKeySelective(ResultEntity record);
+
+    int updateByPrimaryKeyWithBLOBs(ResultEntity record);
 
     int updateByPrimaryKey(ResultEntity record);
 }

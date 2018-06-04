@@ -3,7 +3,9 @@ package com.ieoli.entity;
 public class ModelEntity {
     private Integer modelid;
 
-    private String modeldescription;
+    private String modelname;
+
+    private Integer section;
 
     public Integer getModelid() {
         return modelid;
@@ -13,11 +15,19 @@ public class ModelEntity {
         this.modelid = modelid;
     }
 
-    public String getModeldescription() {
-        return modeldescription;
+    public String getModelname() {
+        return modelname;
     }
 
-    public void setModeldescription(String modeldescription) {
-        this.modeldescription = modeldescription == null ? null : modeldescription.trim();
+    public void setModelname(String modelname) {
+        this.modelname = modelname == null ? null : modelname.trim();
+    }
+
+    public Integer getSection() {
+        return section;
+    }
+
+    public void setSection(Integer section) {
+        this.section = section;
     }
 }

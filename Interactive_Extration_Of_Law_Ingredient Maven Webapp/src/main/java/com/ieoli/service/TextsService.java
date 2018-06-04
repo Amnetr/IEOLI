@@ -11,7 +11,8 @@ public interface TextsService {
 	public TextEntity getTextByID(int id);
 	public void updateText(TextEntity text);
 	public List<TextEntity> getHandledText(int modelid);
-	public List<TextEntity> getTextByModel(int id);
+	public List<TextEntity> getTexts();
+	public TextEntity getTextsByUser(int userId,int taskid);
 	public void generateFile(int textid,int resultid,String path)throws FileNotFoundException, IOException;
 	public void insertFile(TextEntity text);
 }

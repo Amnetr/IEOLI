@@ -11,24 +11,25 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ieoli.service.ModelService;
 @Controller
-public class UploadModels {
+public class UploadElementss {
 	@Resource
 	ModelService ms;
-	@RequestMapping("/UploadModels")
+	@RequestMapping("/UploadElements")
 	ModelAndView handleRequestInternal(HttpServletRequest request,
 			HttpServletResponse response,HttpSession session) throws Exception {
 		String id = request.getParameter("modelid");
 		String description  = request.getParameter("description");
+		int section=Integer.parseInt(request.getParameter("section"));
 		int mid = Integer.parseInt(id);
 		if(mid==-1)
 		{
-			ms.insertModel(description);
+			ms.insertModel(description,section);
 		}else {
-			ms.updateModel(mid, description);
+			ms.updateModel(mid, description,section);
 		}
 		
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/WEB-INF/jsp/chakanModel.jsp");
+		mav.setViewName("/WEB-INF/jsp/editelement.jsp");
 		return mav;
 	}
 }

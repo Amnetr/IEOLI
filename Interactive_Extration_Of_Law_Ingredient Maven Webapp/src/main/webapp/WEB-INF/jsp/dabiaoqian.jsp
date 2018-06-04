@@ -169,17 +169,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	function revises(rid,rcontent){
 		var content=document.getElementById(rid+"content").textContent;
 		var update=prompt("修改为：",content);
-		$.ajax({
-			url:"submitresult",
-			data:{code:"2",description:update,resultid:rid},
-			method:"post",
-			//dataType:"json"
-			success:function(result){
-				$("#"+rid+"content").text(update);
-					alert(result);
-				
-			}
-		});
+		if(update!=null&& update!=""&&update!=content){
+			$.ajax({
+				url:"submitresult",
+				data:{code:"2",description:update,resultid:rid},
+				method:"post",
+				//dataType:"json"
+				success:function(result){
+					$("#"+rid+"content").text(update);
+						alert(result);
+					
+				}
+			});
+		}
+	
 	}
 	
 		function tijiao(){

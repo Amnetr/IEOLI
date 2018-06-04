@@ -14,16 +14,16 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSON;
 import com.ieoli.entity.ModelEntity;
-import com.ieoli.entity.ResultEntity;
+import com.ieoli.entity.RuleEntity;
 import com.ieoli.entity.TextEntity;
 import com.ieoli.service.ModelService;
-import com.ieoli.service.ResultsService;
+import com.ieoli.service.RulesService;
 import com.ieoli.service.TextsService;
 
 @Controller
 public class HandLedText {
 	@Resource
-	private ResultsService ts;
+	private RulesService ts;
 	@Resource
 	ModelService ms;
 	@SuppressWarnings("null")
@@ -38,12 +38,8 @@ public class HandLedText {
 		String modelid = request.getParameter("modelid");
 		List<ModelEntity> lists = ms.getModels();
 		mav.addObject("list", lists);
-		List<ResultEntity> results = ts.getResultByModelID(Integer.parseInt(modelid));
-	//	ArrayList<String> textNames = new ArrayList<String>();
-	/*	for(int i=0;i<texts.size();i++){
-			textNames.add(texts.get(i).getTextname());
-		}*/
-		mav.addObject("results",results);
+		List<RuleEntity> rules = ts.getRuleByModelID(Integer.parseInt(modelid));
+		mav.addObject("rules",rules);
 		mav.setViewName("WEB-INF/jsp/download.jsp");
 		return mav;
 	}

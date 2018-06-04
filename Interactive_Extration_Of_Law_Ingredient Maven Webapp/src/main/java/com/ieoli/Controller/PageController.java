@@ -22,14 +22,24 @@ import org.springframework.web.servlet.mvc.AbstractController;
 
 import com.ieoli.Utils.MailConfig;
 import com.ieoli.entity.ModelEntity;
+import com.ieoli.entity.RuleEntity;
+import com.ieoli.entity.TaskEntity;
 import com.ieoli.entity.TextEntity;
 import com.ieoli.service.ModelService;
+import com.ieoli.service.RulesService;
+import com.ieoli.service.TaskService;
 import com.ieoli.service.TextsService;
 
 @Controller
 public class PageController{
 @Resource
 ModelService ms;
+@Resource
+TaskService ts;
+@Resource
+TextsService tts;
+@Resource
+private RulesService rs;
 	@RequestMapping(value="/page")
 	protected ModelAndView handleRequestInternal(HttpServletRequest request,
 			HttpServletResponse response,HttpSession session) throws Exception {
@@ -40,16 +50,29 @@ ModelService ms;
 		mav.setViewName(pages);
 		switch(a)
 		{
-		case "selectType":
-			mav.addObject("user",session.getAttribute("user"));
-		case "upload-text":
-		case "chakanModel":
+		case "showHandledText":
+			int taskid=Integer.parseInt(request.getParameter("taskid"));
+			List<TextEntity> texts=tts.getHandledText(taskid);
+			mav.addObject("Texts",texts);
 		case "download":
-			List<ModelEntity> lists = ms.getModels();
-			mav.addObject("list", lists);
+		case "edittask":
+			//	mav.addObject("user",session.getAttribute("user"));
+			//case "upload-text":
+			//case "chakanModel":
+			List<TaskEntity> tlists = ts.getTasks();
+			mav.addObject("list", tlists);
+			break;
+		case "showHandledRule":	
+			int modelid=Integer.parseInt(request.getParameter("modelid"));
+			List<RuleEntity> rules = rs.getRuleByModelID(modelid);
+			mav.addObject("Rules",rules);
+		case "showrule":
+		case "editelement":
+			List<ModelEntity> mlists = ms.getModels();
+			mav.addObject("list", mlists);
 			break;
 		case "nextpage":
-			mav.setViewName("/WEB-INF/jsp/dabiaoqian.jsp");
+			mav.setViewName("/WEB-INF/jsp/elementextract.jsp");
 			int index = (int) session.getAttribute("index");
 			List<TextEntity> list=(List<TextEntity>) session.getAttribute("text");
 			List<TextEntity> wordlist=new ArrayList<TextEntity>();
@@ -66,7 +89,7 @@ ModelService ms;
 		mav.addObject("list", wordlist);
 		break;
 		case "beforepage":
-			mav.setViewName("/WEB-INF/jsp/dabiaoqian.jsp");
+			mav.setViewName("/WEB-INF/jsp/elementextract.jsp");
 			int indexx = (int) session.getAttribute("index");
 			List<TextEntity> listt=(List<TextEntity>) session.getAttribute("text");
 			List<TextEntity> wordlistt=new ArrayList<TextEntity>();

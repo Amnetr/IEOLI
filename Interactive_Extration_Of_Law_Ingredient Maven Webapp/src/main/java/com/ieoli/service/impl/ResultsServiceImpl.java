@@ -23,11 +23,12 @@ public class ResultsServiceImpl implements ResultsService {
 
 	}
 
-	public List<ResultEntity> getResultByModelID(int textid) {
+	@Override
+	public List<ResultEntity> getResultByTextID(int textid) {
 		// TODO Auto-generated method stub
 		ResultEntityExample resultExample=new ResultEntityExample();
-		resultExample.createCriteria().andModelidEqualTo(textid);
-		List<ResultEntity> results=resultMapper.selectByExample(resultExample);
+		resultExample.createCriteria().andTextidEqualTo(textid);
+		List<ResultEntity> results=resultMapper.selectByExampleWithBLOBs(resultExample);
 		
 		return results;
 	}
@@ -45,10 +46,13 @@ public class ResultsServiceImpl implements ResultsService {
 	}
 
 	@Override
-	public ResultEntity getResultByID(int resultid) {
+	public List<ResultEntity> getResultByTaskID(int taskid, int textid) {
 		// TODO Auto-generated method stub
+		ResultEntityExample resultExample=new ResultEntityExample();
+		resultExample.createCriteria().andTextidEqualTo(textid).andModelidEqualTo(taskid);
+		List<ResultEntity> results=resultMapper.selectByExampleWithBLOBs(resultExample);
 		
-		return resultMapper.selectByPrimaryKey(resultid);
+		return results;
 	}
 
 }

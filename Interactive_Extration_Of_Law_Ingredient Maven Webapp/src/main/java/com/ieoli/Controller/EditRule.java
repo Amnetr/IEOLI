@@ -12,29 +12,29 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.ieoli.entity.ResultEntity;
+import com.ieoli.entity.RuleEntity;
 import com.ieoli.entity.TextEntity;
 import com.ieoli.entity.UserEntity;
-import com.ieoli.service.ResultsService;
+import com.ieoli.service.RulesService;
 
 @Controller
-public class EditResult {
+public class EditRule {
 	
 @Resource
-private ResultsService rs;
+private RulesService rs;
 @RequestMapping("editresult")
 ModelAndView handleRequestInternal(HttpServletRequest request,
 		HttpServletResponse response,HttpSession session) throws Exception {
-	String id = request.getParameter("result");
+	String id = request.getParameter("rule");
 	String description  = request.getParameter("description");
 	String regex="";//Parsing description to regex;
 	int userid = ((UserEntity)session.getAttribute("user")).getUserid();
-	ResultEntity re= new ResultEntity();
+	RuleEntity re= new RuleEntity();
 	re.setDescription(description);
 	re.setRegex(regex);
-	re.setResultid(Integer.parseInt(id));
+	re.setRuleid(Integer.parseInt(id));
 	re.setUserid(userid);
-	rs.updateResult(re);
+	rs.updateRule(re);
 	List<TextEntity> list=(List<TextEntity>) session.getAttribute("text");
 	List<TextEntity> wordlist=new ArrayList<TextEntity>();
 	int index = (int) session.getAttribute("index");

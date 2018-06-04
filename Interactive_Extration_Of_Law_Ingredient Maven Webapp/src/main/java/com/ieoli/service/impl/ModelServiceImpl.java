@@ -21,25 +21,32 @@ public class ModelServiceImpl implements ModelService{
 		 List<ModelEntity> lists;
 		 ModelEntityExample me = new ModelEntityExample();
 		 me.createCriteria();
-		 me.or().andModeldescriptionIsNotNull();
+		 me.or().andModelnameIsNotNull();
 		 lists = mapper.selectByExample(me);
 		 return lists;
 	}
 	@Override
-	public void insertModel(String description) {
+	public void insertModel(String description,int section) {
 		// TODO Auto-generated method stub
 		ModelEntity meEntity = new ModelEntity();
-		meEntity.setModeldescription(description);
+		meEntity.setModelname(description);
+		meEntity.setSection(section);
 		mapper.insert(meEntity);
 		
 	}
 	@Override
-	public void updateModel(int id, String description) {
+	public void updateModel(int id, String description,int section) {
 		// TODO Auto-generated method stub
 		ModelEntity meEntity = new ModelEntity();
 		meEntity.setModelid(id);
-		meEntity.setModeldescription(description);
+		meEntity.setModelname(description);
+		meEntity.setSection(section);
 		mapper.updateByPrimaryKey(meEntity);
+	}
+	@Override
+	public ModelEntity getModelByID(int id) {
+		// TODO Auto-generated method stub
+		return mapper.selectByPrimaryKey(id);
 	}
 
 }
