@@ -3,21 +3,88 @@
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>注册</title>
 
-    <script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
-    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-<script type="text/javascript" charset="UTF-8" >
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<title>注册</title>
+		<script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+		<link rel="stylesheet" href="plugins/layui/css/layui.css" media="all" />
+		<link rel="stylesheet" href="css/login.css"  media="all"/>
+	</head>
+
+	<body class="beg-login-bg">
+		<div class="beg-login-box">
+			<header>
+				<h1>注册</h1>
+			</header>
+			<div class="beg-login-main">
+				
+					<div class="layui-form-item">
+						<label class="beg-login-icon">
+                        <i class="layui-icon">&#xe612;</i>
+                    </label>
+						<input type="text" id="username" name="username" autocomplete="off" placeholder="请输入邮箱" class="layui-input"  maxlength="20">
+					</div>
+					<div class="layui-form-item">
+						<label class="beg-login-icon pull-left">
+                        <i class="layui-icon">&#xe642;</i>
+                    </label>
+						<input type="text" id="code" name="code"  autocomplete="off" placeholder="请输入验证码 "class="layui-input" maxlength="8">
+						<button onclick="sendmail()" class="layui-btn layui-btn-small" name="submitf">发送验证码</button>
+					</div>
+										<div class="layui-form-item">
+						<label class="beg-login-icon">
+                        <i class="layui-icon">&#xe642;</i>
+                    </label>
+						<input type="password" id="password"name="password" lay-verify="password" autocomplete="off" placeholder="请输入新密码" class="layui-input" maxlength="8">
+					
+					</div>
+										<div class="layui-form-item">
+						<label class="beg-login-icon">
+                        <i class="layui-icon">&#xe642;</i>
+                    </label>
+						<input type="password"id="repassword" name="repassword" lay-verify="password" autocomplete="off" placeholder="再次输入密码" class="layui-input" maxlength="8">
+						
+					</div>
+					
+				
+
+						<div class ="form-group" style="margin-top:5px;">
+						
+						 <button onclick=check(1) class="layui-btn layui-btn-small"  style="margin-top:5px;">作为标注人员注册</button>
+						 </br>
+						 <button onclick=check(2) class="layui-btn layui-btn-small"  style="margin-top:5px;">作为规则提取人员注册</button>
+						 </br>
+						 <button onclick=check(3) class="layui-btn layui-btn-small"  style="margin-top:5px;">作为投放人员注册</button>
+						</div>
+						<div class="beg-clear"></div>
+				
+				
+			</div>
+			
+				  </div>
+		<footer>
+				<p style="color:white">医患纠纷中的法律要素交互式提取</p>
+			</footer>
+		<script type="text/javascript" src="plugins/layui/layui.js"></script>
+		<script>
+			/*layui.use(['layer', 'form'], function() {
+				var layer = layui.layer,
+					$ = layui.jquery,
+					form = layui.form();
+					
+				form.on('submit(login)',function(data){
+					
+					location.href='index.html';
+					return false;
+				});
+			});*/
 function sendmail(){
 		//alert(obj.id+obj.name);
 		//var id = obj.id;
@@ -39,22 +106,17 @@ function sendmail(){
 		});
 	}
 	
-function check()
+function check(actor)
 {
 	var aname        = document.getElementById("username").value;
 	var password     = document.getElementById("password").value;
 	var repassword   = document.getElementById("repassword").value;
 	var cod          = document.getElementById("code").value;
-	var radios 		 = document.getElementsByName("actor");
-	var actor;
-	for(var i=0;i<radios.length;i++){
-    if(radios[i].checked){
-      actor = radios[i].value;
-    break;
-    }
-    }
 	var reg = /^-?\d+$/; 
-	if (password==repassword)
+	if(aname==""||password==""||cod=="")
+	{
+	alert("请填写完整");
+	}else if (password==repassword)
 	{
 	if(reg.test(cod))
 	{
@@ -66,11 +128,10 @@ function check()
 			success:function(result){
 			if(result=="success")
 			{
-			alert("注册成功");
 			window.location.href ="page?path=index";
 			}else if(result=="existed")
 			{
-			alert("用户名已存在");
+			alert("用户名不存在");
 			}
 			else
 			{
@@ -88,56 +149,17 @@ function check()
 	alert("请确认两次密码一致");
 	}
 }
+	</script>
+			<style>
+		.beg-login-box{
+		height:500px;
+		width:500px;
+		}
+	#resure{
+	width:320px;}
+	
 
-</script>
-    <div class="background"></div>
-    <div class="container">
-    	<div class="row">
-    		<div class="col-md-6 text">
-               <h1 class="total-title">医学法律文书<br><strong>标注</strong>系统</h1>
-                <div class="description">
-                </div>
-            </div>
-        <div class="col-md-4 form-box signup">   
-        	<div class="form-top">
-        		<h4 class="form-title"align="center">注册</h4>
-        	</div>
-        <div class="form-horizontal" id="login_form" >
-                <div class="form-bottom">
-                    <div class="form-group input">
-                    	<i class="fa fa-user fa-lg"></i><!--图标-->
-                        <input class="form-control required" type="text" placeholder="请输入邮箱" id="username" name="username" autofocus="autofocus" maxlength="20"/>
-                    </div>
-                    <div class="form-group input checkword">
-                    	
-                    	<span class="form-group input left">
-                    		<!--<i class="fa fa-user fa-lg"></i>-->
-                            <input class="form-control required" type="text" placeholder="请输入验证码" id="code" name="code" autofocus="autofocus" maxlength="20"/>
-                    	</span>
-                    	<span class="form-group input right">
-                    		<button onclick="sendmail()" class="btn btn-warning " name="submitf">发送验证码</button>
-                    	</span>
-                    </div>
-                    <div class="form-group input">
-                    	<i class="fa fa-lock fa-lg"></i>
-                        <input class="form-control required" type="password" placeholder="密码" id="password" name="password" maxlength="8"/>
-                    </div>
-                    <div class="form-group input">
-                    	<i class="fa fa-lock fa-lg"></i>
-                        <input class="form-control required" type="password" placeholder="再次输入密码" id="repassword" name="repassword" maxlength="8"/>
-                    </div>
-                  
-                        <label><input id="radios" name="actor" type="radio" value="0" checked="checked"/>作为标记人员注册  </label> 
-                        <label><input id="radios" name="actor" type="radio" value="1" />作为投放人员注册 </label> 
-             
-                    <div class="form-group col-md-offset-6"align="center">
-                        <button onclick="check()"class="btn btn-warning "  >确认</button>
-                    </div>
-                </div>
-       
-        </div>
-        </div>
-       </div>
-    </div>
-</body>
+		</style>
+	</body>
+
 </html>

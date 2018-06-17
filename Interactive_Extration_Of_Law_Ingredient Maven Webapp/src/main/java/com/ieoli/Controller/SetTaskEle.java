@@ -20,7 +20,7 @@ import com.ieoli.service.TextsService;
 @Controller
 public class SetTaskEle {
 	String subsection="/p";
-	String subword="//$";
+	String subword="\\$";
 	@Resource
 	TextsService ts;
 	@Resource
@@ -59,7 +59,8 @@ public class SetTaskEle {
 					String[] words=subs[section-1].split(subword);
 					String para="";
 					for(int j=0;j<words.length;j++){
-						para+=words[i];
+						
+						para+=words[j].split("_")[0];
 					}
 				    te.get(i).setArticle(para);
 					wordList.add(te.get(i));
@@ -74,7 +75,7 @@ public class SetTaskEle {
 			}else {
 				upload.add(wordList.get(0));
 				upload.add(wordList.get(1));
-				session.setAttribute("index", 0);
+				session.setAttribute("index", 2);
 			}
 			mav.addObject("list", upload);
 			

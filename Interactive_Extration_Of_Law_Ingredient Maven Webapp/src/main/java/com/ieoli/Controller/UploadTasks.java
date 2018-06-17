@@ -15,9 +15,9 @@ public class UploadTasks {
 	@Resource
 	TaskService ms;
 	@RequestMapping("/UploadModels")
-	ModelAndView handleRequestInternal(HttpServletRequest request,
+	void handleRequestInternal(HttpServletRequest request,
 			HttpServletResponse response,HttpSession session) throws Exception {
-		String id = request.getParameter("modelid");
+		String id = request.getParameter("taskid");
 		String description  = request.getParameter("description");
 		int mid = Integer.parseInt(id);
 		if(mid==-1)
@@ -26,9 +26,11 @@ public class UploadTasks {
 		}else {
 			ms.updateTask(mid, description);
 		}
-		
+		/*
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("/WEB-INF/jsp/editTask.jsp");
 		return mav;
+		*/
+		response.getWriter().write("success");
 	}
 }

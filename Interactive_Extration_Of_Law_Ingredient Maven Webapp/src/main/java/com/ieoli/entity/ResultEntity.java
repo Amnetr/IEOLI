@@ -1,7 +1,5 @@
 package com.ieoli.entity;
 
-import java.util.Date;
-
 public class ResultEntity {
     private Integer resultid;
 
@@ -14,8 +12,6 @@ public class ResultEntity {
     private Integer userid;
 
     private String label;
-
-    private Date lastedit;
 
     public Integer getResultid() {
         return resultid;
@@ -63,13 +59,5 @@ public class ResultEntity {
 
     public void setLabel(String label) {
         this.label = label == null ? null : label.trim();
-    }
-
-    public Date getLastedit() {
-        return lastedit;
-    }
-
-    public void setLastedit(Date lastedit) {
-        this.lastedit = lastedit;
     }
 }

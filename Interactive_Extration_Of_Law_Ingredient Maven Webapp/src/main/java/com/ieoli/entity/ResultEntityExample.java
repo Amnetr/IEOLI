@@ -1,8 +1,6 @@
 package com.ieoli.entity;
 
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
 public class ResultEntityExample {
@@ -104,32 +102,6 @@ public class ResultEntityExample {
                 throw new RuntimeException("Between values for " + property + " cannot be null");
             }
             criteria.add(new Criterion(condition, value1, value2));
-        }
-
-        protected void addCriterionForJDBCDate(String condition, Date value, String property) {
-            if (value == null) {
-                throw new RuntimeException("Value for " + property + " cannot be null");
-            }
-            addCriterion(condition, new java.sql.Date(value.getTime()), property);
-        }
-
-        protected void addCriterionForJDBCDate(String condition, List<Date> values, String property) {
-            if (values == null || values.size() == 0) {
-                throw new RuntimeException("Value list for " + property + " cannot be null or empty");
-            }
-            List<java.sql.Date> dateList = new ArrayList<java.sql.Date>();
-            Iterator<Date> iter = values.iterator();
-            while (iter.hasNext()) {
-                dateList.add(new java.sql.Date(iter.next().getTime()));
-            }
-            addCriterion(condition, dateList, property);
-        }
-
-        protected void addCriterionForJDBCDate(String condition, Date value1, Date value2, String property) {
-            if (value1 == null || value2 == null) {
-                throw new RuntimeException("Between values for " + property + " cannot be null");
-            }
-            addCriterion(condition, new java.sql.Date(value1.getTime()), new java.sql.Date(value2.getTime()), property);
         }
 
         public Criteria andResultidIsNull() {
@@ -431,129 +403,6 @@ public class ResultEntityExample {
             addCriterion("userid not between", value1, value2, "userid");
             return (Criteria) this;
         }
-<<<<<<< HEAD
-=======
-
-        public Criteria andRateIsNull() {
-            addCriterion("rate is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andRateIsNotNull() {
-            addCriterion("rate is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andRateEqualTo(Double value) {
-            addCriterion("rate =", value, "rate");
-            return (Criteria) this;
-        }
-
-        public Criteria andRateNotEqualTo(Double value) {
-            addCriterion("rate <>", value, "rate");
-            return (Criteria) this;
-        }
-
-        public Criteria andRateGreaterThan(Double value) {
-            addCriterion("rate >", value, "rate");
-            return (Criteria) this;
-        }
-
-        public Criteria andRateGreaterThanOrEqualTo(Double value) {
-            addCriterion("rate >=", value, "rate");
-            return (Criteria) this;
-        }
-
-        public Criteria andRateLessThan(Double value) {
-            addCriterion("rate <", value, "rate");
-            return (Criteria) this;
-        }
-
-        public Criteria andRateLessThanOrEqualTo(Double value) {
-            addCriterion("rate <=", value, "rate");
-            return (Criteria) this;
-        }
-
-        public Criteria andRateIn(List<Double> values) {
-            addCriterion("rate in", values, "rate");
-            return (Criteria) this;
-        }
-
-        public Criteria andRateNotIn(List<Double> values) {
-            addCriterion("rate not in", values, "rate");
-            return (Criteria) this;
-        }
-
-        public Criteria andRateBetween(Double value1, Double value2) {
-            addCriterion("rate between", value1, value2, "rate");
-            return (Criteria) this;
-        }
-
-        public Criteria andRateNotBetween(Double value1, Double value2) {
-            addCriterion("rate not between", value1, value2, "rate");
-            return (Criteria) this;
-        }
-
-        public Criteria andLasteditIsNull() {
-            addCriterion("lastedit is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andLasteditIsNotNull() {
-            addCriterion("lastedit is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andLasteditEqualTo(Date value) {
-            addCriterionForJDBCDate("lastedit =", value, "lastedit");
-            return (Criteria) this;
-        }
-
-        public Criteria andLasteditNotEqualTo(Date value) {
-            addCriterionForJDBCDate("lastedit <>", value, "lastedit");
-            return (Criteria) this;
-        }
-
-        public Criteria andLasteditGreaterThan(Date value) {
-            addCriterionForJDBCDate("lastedit >", value, "lastedit");
-            return (Criteria) this;
-        }
-
-        public Criteria andLasteditGreaterThanOrEqualTo(Date value) {
-            addCriterionForJDBCDate("lastedit >=", value, "lastedit");
-            return (Criteria) this;
-        }
-
-        public Criteria andLasteditLessThan(Date value) {
-            addCriterionForJDBCDate("lastedit <", value, "lastedit");
-            return (Criteria) this;
-        }
-
-        public Criteria andLasteditLessThanOrEqualTo(Date value) {
-            addCriterionForJDBCDate("lastedit <=", value, "lastedit");
-            return (Criteria) this;
-        }
-
-        public Criteria andLasteditIn(List<Date> values) {
-            addCriterionForJDBCDate("lastedit in", values, "lastedit");
-            return (Criteria) this;
-        }
-
-        public Criteria andLasteditNotIn(List<Date> values) {
-            addCriterionForJDBCDate("lastedit not in", values, "lastedit");
-            return (Criteria) this;
-        }
-
-        public Criteria andLasteditBetween(Date value1, Date value2) {
-            addCriterionForJDBCDate("lastedit between", value1, value2, "lastedit");
-            return (Criteria) this;
-        }
-
-        public Criteria andLasteditNotBetween(Date value1, Date value2) {
-            addCriterionForJDBCDate("lastedit not between", value1, value2, "lastedit");
-            return (Criteria) this;
-        }
->>>>>>> c44bd2cf0dd6c5c693298203efc986365d04f3ec
     }
 
     public static class Criteria extends GeneratedCriteria {

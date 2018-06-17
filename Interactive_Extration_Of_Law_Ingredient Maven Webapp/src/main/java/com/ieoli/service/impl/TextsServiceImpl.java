@@ -78,13 +78,13 @@ public class TextsServiceImpl implements TextsService {
 		//Arrays.sort(labels);
 		//去除单词编号
 		for(int i=0;i<labels.length;i++){
-			String withoutNum[]=labels[i].split("_");
+			String withoutNum[]=labels[i].split("&");
 			labels[i]=withoutNum[1];
 			sort[i]=Integer.parseInt(withoutNum[0])-1;
 		}
 		//附上标签
 		for(int i=0;i<sort.length;i++){
-			word[sort[i]]=word[sort[i]]+"_"+labels[i];
+			word[sort[i]]=word[sort[i]]+"&"+labels[i];
 		}
 		
 		File text=new File(path);
@@ -110,7 +110,7 @@ public class TextsServiceImpl implements TextsService {
 		// TODO Auto-generated method stub
 		TextEntityExample textExample=new TextEntityExample();
 		textExample.createCriteria();
-		List<TextEntity> texts=textMapper.selectByExample(textExample);
+		List<TextEntity> texts=textMapper.selectByExampleWithBLOBs(textExample);
 		return texts;
 	}
 
@@ -131,7 +131,7 @@ public class TextsServiceImpl implements TextsService {
 		}
 		
 		ResultEntityExample ree=new ResultEntityExample();
-		ree.createCriteria().andUseridEqualTo(userid);
+		ree.createCriteria().andUseridEqualTo(userid).andModelidEqualTo(taskid);
 		List<ResultEntity> re=resultMapper.selectByExample(ree);
 		List<Integer> textsid=new ArrayList<Integer>();
 		for(int i=0;i<te.size();i++){

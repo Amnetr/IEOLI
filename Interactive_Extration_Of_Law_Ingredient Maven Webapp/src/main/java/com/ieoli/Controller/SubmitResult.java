@@ -1,12 +1,6 @@
 package com.ieoli.Controller;
 
-<<<<<<< HEAD
-=======
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
-import java.util.LinkedList;
->>>>>>> c44bd2cf0dd6c5c693298203efc986365d04f3ec
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -16,9 +10,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+
 //import org.apache.ibatis.annotations.Rule;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+
 import com.ieoli.entity.RuleEntity;
 import com.ieoli.entity.TextEntity;
 import com.ieoli.entity.UserEntity;
@@ -80,13 +76,7 @@ protected void handleRequestInternal(HttpServletRequest request,
 			}
 			double rate = right/all;
 			re.setRate(rate);
-<<<<<<< HEAD
-			
 			rs.insertRule(re);
-=======
-			re.setLastedit(new Date());
-			rs.insertResult(re);
->>>>>>> c44bd2cf0dd6c5c693298203efc986365d04f3ec
 			response.getWriter().write("success!");
 			
 			
@@ -97,7 +87,7 @@ protected void handleRequestInternal(HttpServletRequest request,
 			RuleEntity re=rs.getRuleByID(id);
 			re.setDescription(description);
 			re.setRegex(regex);
-			
+			re.setLastupdatetime(new Date());
 			List<TextEntity> texts=ts.getTexts();
 			double right = 0;
 			double all = texts.size();
@@ -111,13 +101,7 @@ protected void handleRequestInternal(HttpServletRequest request,
 			}
 			double rate = right/all;
 			re.setRate(rate);
-<<<<<<< HEAD
-			
 			rs.updateRule(re);
-=======
-			re.setLastedit(new Date());
-			rs.updateResult(re);
->>>>>>> c44bd2cf0dd6c5c693298203efc986365d04f3ec
 			response.getWriter().write("success!");
 			
 		}
@@ -131,11 +115,14 @@ public static String replace(String a){
 	String regex4 = "\\[[\u4e00-\u9fa5]+\\]";
 	String regex5 = "\u6c49\u5b57";
 	String regex6 = "\u5b57\u7b26\u4e32";
+	String regex7 = "\\\\n";
 	String rep1 = "\\\\d";
 	String rep2 = "\\{";
 	String rep3 = "\\}";
 	String rep5 = "\\[\\\\u4e00-\\\\u9fa5\\]";
 	String rep6 = "\\[\\\\u4e00-\\\\u9fa5_a-zA-Z0-9]";
+	String rep7 = "\\|";
+	
 	
 	//变换数字类型
 	Pattern p = Pattern.compile(regex1);
@@ -159,19 +146,17 @@ public static String replace(String a){
     }
     m.appendTail(sb1);
     temp = sb1.toString();
-    
-	//去除方括号
-    
+
     p = Pattern.compile("\\\\u005b");
     m = p.matcher(temp);
 	temp = m.replaceAll("");
 	p = Pattern.compile("\\\\u005d");
 	m = p.matcher(temp);
 	temp = m.replaceAll("");
-	 
+	
 	p = Pattern.compile("\\[");
 	m = p.matcher(temp);
-	temp = m.replaceAll("\\\\");
+	temp = m.replaceAll("");   //改前为////
 	p = Pattern.compile("\\]");
 	m = p.matcher(temp);
 	temp = m.replaceAll("");
@@ -183,6 +168,11 @@ public static String replace(String a){
 	p = Pattern.compile(regex6);
 	m = p.matcher(temp);
 	temp = m.replaceAll(rep6);
+	
+	//变换换行
+    p = Pattern.compile(regex7);
+	m = p.matcher(temp);
+	temp = m.replaceAll(rep7);
 	
 	//字符串类型转换			
 	p = Pattern.compile("\\{\\}");

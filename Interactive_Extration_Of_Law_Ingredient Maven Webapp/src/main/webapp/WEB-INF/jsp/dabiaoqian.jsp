@@ -15,143 +15,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
 	<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<!--下拉复选框插件-->
-	</head>
-	<body>
-<nav class="navbar navbar-default" role="navigation">
-      <div class="container-fluid">
-    <div class="navbar-header"> <a class="navbar-brand" href="page?path=selectType">标注人员系统</a> </div>
-    <div>
-          <ul class="nav navbar-nav pull-right">
-        <li><a>欢迎你</a></li>
-        <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" > ${user.username}<b class="caret"></b> </a>
-              <ul class="dropdown-menu" style="text-align: center">
-            <a href="index.action" style="text-decoration: none;text-align: center;color: black"  >退出登录</a>
-          </ul>
-            </li>
-      </ul>
-        </div>
-  </div>
-    </nav>
-    
-    
-    <div class="container" style="height: auto;">
-			<div class="row">
-				
-				<div class="col-sm-12 col-lg-8" style="border-right: 0px #3C3C3C solid;margin-top: 30px; height: auto;">
-					
-					<h2 class="page-header" >请从以下文本提取相关要素</h2>
-					
-					<div  style="margin-bottom: 10px;border: 0px;">
-						
-						<c:forEach items="${list}" var="word" varStatus="status">
-                      <div id="${status.index}" class="thumbnail">
-                           <p class="pull-left"><span class="badge" style="background-color:#122B40;">${status.count}</span></p><br></br>
-                             <p id="article${status.index}" class="article"> ${word.article}</p>
-                      </div>
-                   
-                   </c:forEach>
-						
-							
-					</div>
-					
-					<div style="margin-bottom: 30px;text-align: center;">
-						 <button id="fanye" class="btn btn-default" onClick="window.location.href='page?path=nextpage	'">下一页</button>
-					</div>
-					
-					<form role="form"  action="" method="post" style="margin:0px auto;">
-					<div class="row">
-						     	<div class="col-md-8" style="margin-bottom: 30px;"> <input  id="bcontent"  type="text" class="form-control" placeholder="请输入规则描述" /></div>
-			<div class="col-md-4">
-				<div><input type="button" class=" btn btn-warning" onclick="tijiao()" value="提交" />
-			 <input type="button" class=" btn btn-default" onclick="ceshi()" value="测试" /></div>
-				
-			</div>
-			 </div>
-		</form>
-		
-		<div  style="margin-top: 10px;margin-bottom: 30px;border: 0px;">
-			<b>书写规范：</b>
-			<h4 align="center"><b>字符类型（字符个数）[精确查找内容]</b> </h4>
-			<span>1、字符类型可为“数字”、“汉字”、“字符串”，其中“字符串”可匹配到任意字符</span><br />
-			<span>2、字符类型、字符个数对应精确查找内容前的字符</span><br />
-			<span>3、若精确查找内容前无所需匹配的字符请输入“任意字符类型(0)”</span><br />
-			<span>4、字符个数可以为空，默认为匹配任意个数的字符</span><br />
-			<span>5、字符个数若有多种选择，请用逗号隔开</span><br />
-			<span>6、所有标点请使用纯英文标点，使用"[]"将需要精确查找的内容括起来</span><br />
-			<br />
-			<b>举例</b><br />
-			<span>Exp1.</span><br />
-			<i>匹配项：</i> 2018年3月17日<br />
-		
-			<i>规则：</i>数字(4)[年]数字(1,2)[月]数字(1,2)[日]<br />
-				<span>Exp2.</span><br />
-			<i>匹配项：</i> 《高等数学》<br />
-			<i>规则：</i>数字(0)[《]汉字()[》]<br />
-				<span>Exp3.</span><br />
-			<i>匹配项：</i> 《高等数学_A》<br />
-			<i>规则：</i>数字(0)[《]字符串()[》]<br />
-
-		</div>
-		
-				</div>
-				
-				<div class="col-sm-12 col-lg-4 " style="border-left: 1px purple solid">
-					<h3 class="page-header" style="opacity: 1;color: purple;">已有要素规则</h3>
-					
-					<script type="text/javascript">
-						$('.collapse').collapse()
-					</script>
-					
-					
-					 <c:forEach items="${results}" var="result" varStatus="status">
-                       <div class="panel panel-default">
-							<div class="panel-heading">
-							<h4 class="panel-title">
-								<a data-toggle="collapse"  href="#c${status.index}">
-									<span id="${result.resultid }content">${result.description}</span> 
-									<span class="caret"></span>
-								</a>
-							</h4>
-						</div>
-						<div id="c${status.index}" class="panel-collapse collapse ">
-							<div class="panel-body">
-								<div class="row">
-									<div class="col-lg-8">
-										<p>作者：${result.userid}</p>
-								        <p>正确率：${result.rate }</p>
-								        <p>标注时间：${result.lastedit }</p>
-									</div>
-									<div class="col-lg-4" style="text-align: center;">
-										<button title="修改规则" class="btn btn-default" 
-										onclick="revises('${result.resultid }','${result.description}')"
-										type="button"  >
-										<span class="glyphicon glyphicon-edit"></span>
-										</button>
-									</div>
-								</div>
-								
-								
-							</div>
-							
-						</div>
-						</div>
-		            
-                   </c:forEach>
-					
-					</div>
-				
-				</div>
-			
-			</div>
-    
-    
-    
-    <!-- ------------------------------------------------------------------------------------------------------------------ -->
-
-<!--标题栏-->
-
-<!--选择模型类型-->
-    <script type="text/javascript">  
+	<script type="text/javascript">
+	
+    //回车事件
 	document.onkeydown=keyListener;
    function keyListener(e){
     if(e.keyCode == 13){
@@ -162,119 +28,124 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    function revise(btn,shuru){
 		//alert(obj.id+obj.name);
 		//var id = obj.id	
-	document.getElementById(btn).style.backgroundColor="#EFB336";
+	document.getElementById(btn).style.backgroundColor="#32CD32";
 	document.getElementById(btn).textContent=document.getElementById(btn).textContent+"&"+document.getElementById(shuru).value; 
 		
 	};		
-	
-	function revises(rid,rcontent){
-		var content=document.getElementById(rid+"content").textContent;
-		var update=prompt("修改为：",content);
-		if(update!=null&& update!=""&&update!=content){
-<<<<<<< HEAD
-			$.ajax({
-				url:"submitresult",
-				data:{code:"2",description:update,resultid:rid},
-				method:"post",
-				//dataType:"json"
-				success:function(result){
-					$("#"+rid+"content").text(update);
-						alert(result);
-					
-				}
-			});
-		}
-	
-=======
-		$.ajax({
-			url:"submitresult",
-			data:{code:"2",description:update,resultid:rid},
-			method:"post",
-			//dataType:"json"
-			success:function(result){
-				$("#"+rid+"content").text(update);
-					alert(result);
-				window.location.reload();
-			}
-		});
-		}
->>>>>>> c44bd2cf0dd6c5c693298203efc986365d04f3ec
-	}
 	
 		function tijiao(){
 		//alert(obj.id+obj.name);
 		//var id = obj.id	
         //  var lists=document.getElementsByTagName("button").InnerText;
-			var content=document.getElementById("bcontent").value;
-			
-
+			var list = new Array();
+			var max = ${fn:length(list)};
+		for ( var i = 1 ; i <= max ; i++)
+		{
+		list[i]= document.getElementById(i).textContent;
+		}
+		var lists=list.join("$");
 			$.ajax({
-				url:"submitresult",
-				data:{code:"1",description:content},
+				url:"submitHT",
+				data:{result:lists},
 				method:"post",
 				//dataType:"json"
 				success:function(result){
 					
 						alert(result);
-					window.location.reload();
-				}
-			});
+						window.opener=null;
+						window.open('','_self');
+						window.close();
 		
-	}
-		
-		function ceshi(){
-		//alert(obj.id+obj.name);
-		//var id = obj.id	
-        //  var lists=document.getElementsByTagName("button").InnerText;
-		
-			var content=document.getElementById("bcontent").value;
-			var article=document.getElementById("article0").textContent+"#"+document.getElementById("article1").textContent;
-
-			$.ajax({
-				url:"submitresult",
-				data:{code:"0",description:content,article:article},
-				method:"post",
-				//dataType:"json"
-				success:function(result){
-					
-						alert(result);
-					
-				}
-			});
-		
-	}
-			function fanye(){
-		//alert(obj.id+obj.name);
-		//var id = obj.id	
-        //  var lists=document.getElementsByTagName("button").InnerText;
-		
-			$.ajax({
-				url:"page?path=nextpage",
-				method:"post",
-				//dataType:"json"
-				success:function(result){
-
 					
 				}
 			});
 		
 	};
+		
+		
+	
+	</script>
+	</head>
+	<body>
+
+<!--标题栏-->
+<div class="headline">
+      <div class="row" style="margin-top: -20px;height: 100vh;">
+    <div class="col-md-2"></div>
+    <div class="middle col-md-8" style="background-color: white;height: 100%;background-image: url(./img/bg.png)">   
+          
+
+         <div style="border:2px solid #C9C9C9;margin: 40px;padding: 10px">
+
+          <c:forEach items="${list}" var="word" varStatus="status">
+          <c:choose>
+           <c:when test="${word=='/p'}">
+          <div> <p id="${status.count}"></p></div>
+            
+          </c:when>
+          <c:otherwise> 
+            <button id="${status.count}" target="_blank" type="button" class="btn btn-default" style="margin-right:6px;margin-bottom:3px">${word}</button>
+    <script type="text/javascript">  
+                    $(function (){   
+                        var ulstring=("<div align='centre'>"+"<input id='${status.count}shuru' type='text' align='left' style='width:130px;height:30px'></input>"  
+					        +"<button id='biaoqianButton' style='width:45px;height:30px;' onclick=\"revise('${status.count}','${status.count}shuru' )\" >确认</button>"+"</div>");  
+                        $("#${status.count}").popover({   
+                            trigger:'manual',
+                            placement : 'bottom',    
+                            title:'<div style="text-align:left; color:gray; font-size:10%;">标签</div>',  
+                            html: 'true',   
+                            content : ulstring,  
+                            animation: false  
+                    								    }) .on("mouseenter", function () {  
+                                    var _this = this;  
+                                    $(this).popover("show");  
+                                    $(this).siblings(".popover").on("mouseleave", function () {  
+                                        $(_this).popover('hide');  
+                                   																 }
+                                   								);  
+                        														        }
+                        										).on("mouseleave", function () {  
+                                    var _this = this;  
+                                    setTimeout(function () {  
+                                        if (!$(".popover:hover").length) {  
+                                            $(_this).popover("hide")  
+                                        									}  
+                                   							 }, 100
+                                   				);  
+                                   																 }
+                                   									)   
+                   							 }); 	
+                    
+                    
                    </script>
+          </c:otherwise>
+          </c:choose>
+      
+      </c:forEach>
+           </div>
+           
+           <div align="center"><button id="tijiao" class="btn btn-default" onClick="tijiao()">提交</button></div>
+           
+           
+        </div>
+    <div class="col-md-2"></div>
+  </div>
+    </div>
+<!--选择模型类型-->
+
 </body>
 
 <style>
-	.input-border{
-		border:2px solid #C9C9C9;margin: 20px;padding: 10px
-	}
-	.row{
+
+	#tijiao{
+		background-color: #1AA094;
+		border:none;
+	}.middle{
 		overflow-y: auto;
 	}
-	#tijiao{
-		background-color: #EFB336;
-		border:none;
-	}
-	.middle{
+.row{
 		overflow-y: auto;
 	}
 </style>
+
 </html>

@@ -4,11 +4,14 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.springframework.stereotype.Service;
+
 import com.ieoli.dao.TaskEntityMapper;
 import com.ieoli.entity.TaskEntity;
 import com.ieoli.entity.TaskEntityExample;
 import com.ieoli.service.TaskService;
 
+@Service("taskservice")
 public class TaskSeriviceImpl implements TaskService {
 
 	@Resource

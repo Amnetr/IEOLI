@@ -75,7 +75,7 @@ public class UploadTexts {
 								while((tempString =reader.readLine())!=null)
 								{
 									//tempString = new String(tempString.getBytes("GBK"),"utf-8");
-									allString+=tempString;
+									allString+=tempString+"$";
 								}
 								reader.close();
 								

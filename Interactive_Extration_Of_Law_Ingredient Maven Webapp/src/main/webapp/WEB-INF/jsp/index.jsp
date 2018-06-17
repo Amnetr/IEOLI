@@ -3,23 +3,77 @@
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
-
-
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>登录</title>
 
-    <script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
-    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="css/style.css">
-</head>
-<script type="text/javascript">
-window.onload=function()
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<title>登录</title>
+		<script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+		<link rel="stylesheet" href="plugins/layui/css/layui.css" media="all" />
+		<link rel="stylesheet" href="css/login.css" />
+	</head>
+
+	<body class="beg-login-bg">
+		<div class="beg-login-box">
+			<header>
+				<h1>登录</h1>
+			</header>
+			<div class="beg-login-main">
+				<form action="weblogin" class="layui-form" method="post">
+					<div class="layui-form-item">
+						<label class="beg-login-icon">
+                        <i class="layui-icon">&#xe612;</i>
+                    </label>
+						<input type="text" name="username" lay-verify="username" autocomplete="off" placeholder="这里输入登录名" class="layui-input"  maxlength="20">
+					</div>
+					<div class="layui-form-item">
+						<label class="beg-login-icon">
+                        <i class="layui-icon">&#xe642;</i>
+                    </label>
+						<input type="password" name="password" lay-verify="password" autocomplete="off" placeholder="这里输入密码" class="layui-input" maxlength="8">
+						 <font color="red"size="2">${Result }</font>
+					</div>
+					<div class="layui-form-item">
+			
+						
+						  
+					<div class="form-group">
+						<button onclick="window.location.href='page?path=forgetpassword' " type="button" class="layui-btn layui-btn-primary layui-btn-small btn-forget " name="forget"style="width:40%">忘记密码</button>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<button onclick="window.location.href='page?path=signup' " type="button" class="layui-btn layui-btn-primary layui-btn-small btn-login " style="width:40%"name="login" >用户注册</button>
+						</div>
+						<div class ="form-group login" style="margin-top:5px;">
+						
+						 <button type="submit" class="layui-btn btn-warning " name="submit" id = "submitlogin" >登录</button>
+						</div>
+						<div class="beg-clear"></div>
+					</div>
+				</form>
+			</div>
+			
+		</div>
+		<footer>
+				<p>医患纠纷中的法律要素交互式提取</p>
+			</footer>
+		<script type="text/javascript" src="plugins/layui/layui.js"></script>
+		<script>
+			/*layui.use(['layer', 'form'], function() {
+				var layer = layui.layer,
+					$ = layui.jquery,
+					form = layui.form();
+					
+				form.on('submit(login)',function(data){
+					
+					location.href='index.html';
+					return false;
+				});
+			});*/
+			window.onload=function()
 {
 var bt=document.getElementById("submitlogin");
 bt.onclick=function(){
@@ -35,49 +89,16 @@ return false;
 }
 }
 }
-</script>
-<body>
-	<div class="background"></div>
-    <div class="container">
-    	<div class="row">
-    		<div class="col-md-6 text">
-                            <h1 class="total-title">医学法律文书<br><strong>规则提取</strong>系统</h1>
-                            <div class="description">
-                            	
-                            </div>
-                        </div>
-                        
-    		<div class="col-md-4 form-box"> 
-        	    <div class="form-top">
-                    <h4 class="form-title"align="center">登录</h4>
-        	    </div>
-    	        <div class="form-horizontal">
-    	    	    <form role="form" action="weblogin" method="post" class="login-form">
-    	    		<div class="form-bottom">
-    	    			<div class="form-group input">
-			            <i class="fa fa-user fa-lg"></i><!--图标-->
-			            <input class="form-control required" type="text" placeholder="用户名" id="username" name="username" autofocus="autofocus" maxlength="20"/>
-			            </div>
-			        <div class="form-group input">
-			            <i class="fa fa-lock fa-lg"></i>
-                        <input class="form-control required" type="password" placeholder="密码" id="password" name="password" maxlength="8"/>
-                        <font color="red"size="2">${Result }</font>
-			        </div>
-			        <div class="form-group">
-                        <button onclick="window.location.href='page?path=Forgetpwd' " type="button" class="btn btn-forget btn-warning pull-left" name="forget">忘记密码</button>
-                        <button onclick="window.location.href='page?path=signup' " type="button" class="btn btn-login btn-warning pull-right" name="login">用户注册</button>
-                    </div>
-                    <div class="form-group login" align="center">
-                        <button type="submit" class="btn btn-warning " name="submit" id = "submitlogin">登录</button>
-                    </div>
-    	    		</div>
-			        
-			    </form>
-    	    </div>
-        
-        	
-</div>
-        </div>
-    </div>
-</body>
+		</script>
+		<style>
+		.beg-login-box{
+		height:350px;
+		}
+	#submitlogin{
+	width:220px;}
+	
+
+		</style>
+	</body>
+
 </html>
