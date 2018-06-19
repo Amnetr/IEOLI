@@ -57,11 +57,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 						<div class ="form-group" style="margin-top:5px;">
 						
-						 <button onclick=check(1) class="layui-btn layui-btn-small"  style="margin-top:5px;">作为标注人员注册</button>
+						 <button onclick=check(1) class="layui-btn layui-btn-small"  style="margin-top:5px;">注册</button>
 						 </br>
-						 <button onclick=check(2) class="layui-btn layui-btn-small"  style="margin-top:5px;">作为规则提取人员注册</button>
+						<!--   <button onclick=check(2) class="layui-btn layui-btn-small"  style="margin-top:5px;">作为规则提取人员注册</button>
 						 </br>
 						 <button onclick=check(3) class="layui-btn layui-btn-small"  style="margin-top:5px;">作为投放人员注册</button>
+						-->
 						</div>
 						<div class="beg-clear"></div>
 				

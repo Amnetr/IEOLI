@@ -7,7 +7,9 @@ public class ResultEntity {
 
     private Integer modelid;
 
-    private Boolean istrue;
+    private Boolean isstricttrue;
+
+    private Boolean iseasytrue;
 
     private Integer userid;
 
@@ -37,12 +39,20 @@ public class ResultEntity {
         this.modelid = modelid;
     }
 
-    public Boolean getIstrue() {
-        return istrue;
+    public Boolean getIsstricttrue() {
+        return isstricttrue;
     }
 
-    public void setIstrue(Boolean istrue) {
-        this.istrue = istrue;
+    public void setIsstricttrue(Boolean isstricttrue) {
+        this.isstricttrue = isstricttrue;
+    }
+
+    public Boolean getIseasytrue() {
+        return iseasytrue;
+    }
+
+    public void setIseasytrue(Boolean iseasytrue) {
+        this.iseasytrue = iseasytrue;
     }
 
     public Integer getUserid() {

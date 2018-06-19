@@ -11,11 +11,13 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
+import java.util.function.Predicate;
 
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.ieoli.Utils.PropertyUtil;
 import com.ieoli.dao.ResultEntityMapper;
 import com.ieoli.dao.RuleEntityMapper;
 import com.ieoli.dao.TextEntityMapper;
@@ -53,7 +55,14 @@ public class TextsServiceImpl implements TextsService {
 	public List<TextEntity> getHandledText(int modelid) {
 		// TODO Auto-generated method stub
 		ResultEntityExample ree=new ResultEntityExample();
-		ree.createCriteria().andModelidEqualTo(modelid).andIstrueEqualTo(true);
+		int condition = Integer.parseInt(PropertyUtil.getProperty("condition"));
+		if(condition==0)
+		{
+			ree.createCriteria().andModelidEqualTo(modelid).andIsstricttrueEqualTo(true);
+		}else {
+			ree.createCriteria().andModelidEqualTo(modelid).andIseasytrueEqualTo(true);
+		}
+		
 		List<ResultEntity> re=resultMapper.selectByExample(ree);
 		HashSet<Integer> testids=new HashSet<Integer>();
 		for(int i=0;i<re.size();i++){
@@ -115,34 +124,25 @@ public class TextsServiceImpl implements TextsService {
 	}
 
 	@Override
-	public TextEntity getTextsByUser(int userid,int taskid) {
+	public TextEntity getTextsByUser(int userid,List<Integer> taskid) {
 		// TODO Auto-generated method stub
 		TextEntityExample tee = new TextEntityExample();
-		tee.createCriteria();
+		tee.createCriteria().andOnlineEqualTo(0);
 		List<TextEntity> alltext =textMapper.selectByExampleWithBLOBs(tee);
 		List<TextEntity> te=new ArrayList<TextEntity>();
-		for(int i=0;i<alltext.size();i++){
-			TextEntity text=alltext.get(i);
-			int tid=text.getTextid();
-			List<ResultEntity> currentRe=rs.getResultByTaskID(tid, taskid);
-			if(currentRe.size()<3){
-				te.add(text);
+		HashSet<Integer> usernotlike=rs.usernotlike(taskid, userid);
+		HashSet<Integer> noneed= rs.donotneed(taskid);
+		for(TextEntity entity :alltext)
+		{
+			if(!(usernotlike.contains(entity.getTextid())||noneed.contains(entity.getTextid())))
+			{
+				te.add(entity);
 			}
 		}
-		
-		ResultEntityExample ree=new ResultEntityExample();
-		ree.createCriteria().andUseridEqualTo(userid).andModelidEqualTo(taskid);
-		List<ResultEntity> re=resultMapper.selectByExample(ree);
 		List<Integer> textsid=new ArrayList<Integer>();
 		for(int i=0;i<te.size();i++){
 			textsid.add(te.get(i).getTextid());
 		}
-		List<Integer> resultsid=new ArrayList<Integer>();
-		for(int i=0;i<re.size();i++){
-			resultsid.add(re.get(i).getTextid());
-		}
-		textsid.removeAll(resultsid);
-		
 		int number;
 		Random random =new Random(System.currentTimeMillis());
 		if(textsid.size()>1)
@@ -154,9 +154,25 @@ public class TextsServiceImpl implements TextsService {
 		}else {
 			return null;
 		}
-		
 		TextEntity pEntity = textMapper.selectByPrimaryKey(textsid.get(number));
+		pEntity.setOnline(1);
+		textMapper.updateByPrimaryKeySelective(pEntity);
 		return  pEntity;
+	}
+
+	@Override
+	public List<TextEntity> getTextByIDs(List<Integer> textids) {
+		TextEntityExample tee= new TextEntityExample();
+		tee.createCriteria().andTextidIn(textids);
+		return textMapper.selectByExampleWithBLOBs(tee);
+	}
+
+	@Override
+	public void offline(int textid) {
+		TextEntity te= new TextEntity();
+		te.setTextid(textid);
+		te.setOnline(0);
+		textMapper.updateByPrimaryKeySelective(te);		
 	}
 
 }

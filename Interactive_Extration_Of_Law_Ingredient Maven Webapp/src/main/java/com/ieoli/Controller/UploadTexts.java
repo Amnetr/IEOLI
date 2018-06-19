@@ -57,13 +57,13 @@ public class UploadTexts {
 	            		{
 	            			 MultipartFile file=fileite.next();  
 	            			 long t1= System.currentTimeMillis();
-	            			 String path = session.getServletContext().getRealPath("/")+"texts\\"+t1+file.getOriginalFilename();
+	            			 String path = session.getServletContext().getRealPath("/")+"texts\\"+file.getOriginalFilename();
 	 	                	File f =new File(path);
 	 	                	file.transferTo(f);
 	 	                	TextEntity te = new TextEntity();
 	 	     
                 	    	//te.setModelid(id);
-                	    	te.setTextname(t1+file.getOriginalFilename());
+                	    	te.setTextname(file.getOriginalFilename());
                 	    	BufferedReader reader = null;
                 	    	String allString = "";
                 	    	try {
@@ -72,16 +72,45 @@ public class UploadTexts {
 								reader = new BufferedReader(new InputStreamReader(fis,"utf-8"));
 
 								String tempString = null;
-								while((tempString =reader.readLine())!=null)
+								tempString = reader.readLine();
+								if(tempString!=null)
 								{
-									//tempString = new String(tempString.getBytes("GBK"),"utf-8");
-									allString+=tempString+"$";
+									if(tempString.contains(" ")||tempString.equals(""))
+									{
+										do{
+											if(tempString.equals(""))
+											{
+												allString+="/p$";
+											}else {
+												String[] arr= tempString.split(" ");
+												for(String ar:arr)
+												{
+													allString+=ar+"$";
+												}
+											}
+										}while((tempString =reader.readLine())!=null);
+									}else {
+										do{
+											//tempString = new String(tempString.getBytes("GBK"),"utf-8");
+											if(tempString.equals(""))//段落
+											{
+												allString+="/p$";
+											}else {
+												allString+=tempString+"$";
+											}
+										}while((tempString =reader.readLine())!=null);
+									}
 								}
+
+	                	    	te.setArticle(allString);
+	                	    	te.setOnline(0);
+	                	    	tService.insertFile(te);
 								reader.close();
 								
 							} catch (Exception e) {
 								// TODO: handle exception
 								e.printStackTrace();
+								System.out.println(allString.length());
 							}finally{
 								if(reader!=null)
 								{
@@ -91,8 +120,6 @@ public class UploadTexts {
 						                }
 								}
 							}
-                	    	te.setArticle(allString);
-                	    	tService.insertFile(te);
 	 	                	 System.out.println(path);
 	            		}
 	            		

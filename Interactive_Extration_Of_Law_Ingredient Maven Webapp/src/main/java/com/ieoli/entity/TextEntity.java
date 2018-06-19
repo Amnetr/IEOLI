@@ -5,6 +5,8 @@ public class TextEntity {
 
     private String textname;
 
+    private Integer online;
+
     private String article;
 
     public Integer getTextid() {
@@ -21,6 +23,14 @@ public class TextEntity {
 
     public void setTextname(String textname) {
         this.textname = textname == null ? null : textname.trim();
+    }
+
+    public Integer getOnline() {
+        return online;
+    }
+
+    public void setOnline(Integer online) {
+        this.online = online;
     }
 
     public String getArticle() {

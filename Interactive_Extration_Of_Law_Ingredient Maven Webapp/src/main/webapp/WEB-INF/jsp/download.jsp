@@ -40,6 +40,26 @@ $.ajax({
 			}
 		});
 }
+function download()
+{
+var checked = document.getElementsByName("models");
+check_val=[];
+for(k in checked)
+{
+if(checked[k].checked)
+{
+check_val.push(checked[k].value);
+}
+}
+if(check_val.length==0)
+{
+alert("请选择至少一个任务");
+}else
+{
+window.location.href="download?models="+check_val;
+}
+
+}
 </script>
 
 <!--标题栏-->
@@ -49,7 +69,6 @@ $.ajax({
      	<div class="layui-col-md-8" style="background-color: white;height: 100%;">
      		
      		<div style="margin: 40px">
-     <form role="form">
   <div class="form-group">
     <label for="name" style="font-size: 20px">选择文本模型</label>
     
@@ -59,7 +78,7 @@ $.ajax({
      		<tr>
 				<td align="left">  <c:forEach items="${list}" var="model">
 				<div class="caption" align="left">
-				<label><input id="radios" onclick= "showhandled('${model.taskid}')"name="models" type="radio" value="${model.taskid}"/>序号:${model.taskid} </label> 
+				<label><input id="radios" name="models" type="checkbox" value="${model.taskid}"/>序号:${model.taskid} </label> 
 								<p id="modeltaskdescription">介绍：${model.taskdescription}</p>
 								<p align="center">
 								</p>
@@ -71,18 +90,18 @@ $.ajax({
      		</table>
     </div>
     
-      <div class="form-group" style="margin-top: 30px">    
-      <label for="name" style="font-size:20px;"  >下载（建议右键-目标另存为）</label>
+      <div class="form-group" align="center" style="margin-top: 30px">    
+      <button for="name" style="font-size:20px;" onClick="download()" >下载</button>
      
 <div>
 		<table class="table">
 			<thead>
 				<tr>
-					
+					<!--  
 					<th width="400px">文件名</th>
 					<th width="200px">文件号</th>
 					<th width="400px">操作</th>
-					
+					-->
 				</tr>
 			</thead>
 			<tbody>
@@ -117,7 +136,6 @@ $.ajax({
     </div>
     
   </div>
-</form>
    			</div>
     			
      </div>

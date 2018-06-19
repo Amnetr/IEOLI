@@ -82,6 +82,26 @@ window.open('','_self');
 window.close();
  }
 }
+function settask()
+{
+var checked = document.getElementsByName("task");
+check_val=[];
+for(k in checked)
+{
+if(checked[k].checked)
+{
+check_val.push(checked[k].value);
+}
+}
+if(check_val.length==0)
+{
+alert("请选择至少一个任务");
+}else
+{
+window.location.href="setTask?models="+check_val;
+}
+
+}
 </script>
 	<body>
 	
@@ -92,26 +112,24 @@ window.close();
      	<div class="col-md-2"></div>
      	<div class="col-md-8">
      		<div id="rectrangle"></div>
-     		<h3 id="title">挑选类型&nbsp;&nbsp;查看规则 </h3>
+     		<h3 id="title">挑选任务进行标注&nbsp;&nbsp; </h3>
     			
     			<div class="prepanel">
  		
     			<div class="panel-group" id="accordion">	
     				
-    					<c:forEach items="${list}" var="model">
-    						<div style="margin-top: 10px">
-						        <div class="thumbnail">
-							        <div class="caption" align="center">
-								        <p id="taskid" name="userID">序号:${model.taskid}</p>
-								        <p id="taskdescription">介绍：${model.taskdescription}</p>
-								        <p align="center">
-								            <a href="setTask?models=${ model.taskid}" target="_blank" class="btn btn-info" role="button">选择</a>
-								        </p>
+    					<c:forEach items="${list}" var="model" varStatus= "status">
+    						
+							        <div class="caption" align="left">
+							        <input type="checkbox" name = "task" value = "${model.taskid}"></input>
+								        任务：${model.taskdescription}
+								       
 							        </div>
-						        </div>
-					        </div>
+						       
                         </c:forEach>
-                    
+                     <p align="center">
+								            <a onclick="settask()" target="_blank" class="btn btn-info" role="button">选择</a>
+								        </p>
                 </div>
                 </div>
        </div>

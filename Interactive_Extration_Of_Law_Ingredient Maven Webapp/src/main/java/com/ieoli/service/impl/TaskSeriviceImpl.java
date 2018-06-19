@@ -42,5 +42,11 @@ public class TaskSeriviceImpl implements TaskService {
 		meEntity.setTaskdescription(description);
 		mapper.updateByPrimaryKey(meEntity);
 	}
+	@Override
+	public List<TaskEntity> getTaskByIds(List<Integer> ids) {
+		TaskEntityExample tee= new TaskEntityExample();
+		tee.createCriteria().andTaskidIn(ids);
+		return mapper.selectByExample(tee);
+	}
 
 }

@@ -28,6 +28,11 @@
   <listener>
     <listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
   </listener>
+   <listener>     
+       <listener-class>     
+            com.ieoli.Utils.SpringInit
+       </listener-class>     
+</listener>
   <servlet>
     <servlet-name>SpringMVC</servlet-name>
     <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>

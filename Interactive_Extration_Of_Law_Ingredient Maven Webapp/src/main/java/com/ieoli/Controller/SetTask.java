@@ -1,29 +1,42 @@
 package com.ieoli.Controller;
 
 import java.util.ArrayList;
+import java.util.List;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.scheduling.TaskScheduler;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ieoli.entity.TaskEntity;
 import com.ieoli.entity.TextEntity;
 import com.ieoli.entity.UserEntity;
+import com.ieoli.service.TaskService;
 import com.ieoli.service.TextsService;
 @Controller
 public class SetTask {
+	@Resource
+	TaskService tks;
 	@Resource
 	TextsService ts;
 	@RequestMapping(value= "/setTask",produces="text/html;charset=UTF-8")
 	ModelAndView handleRequestInternal(HttpServletRequest request,
 			HttpServletResponse response,HttpSession session) throws Exception {
-		int id = Integer.parseInt(request.getParameter("models"));
+		String ids = request.getParameter("models");
+		String[] idar = ids.split(",");
+		ArrayList<Integer> idl = new ArrayList<>();
+		for(String id:idar)
+		{
+			idl.add(Integer.parseInt(id));
+		}
 		UserEntity user=(UserEntity)session.getAttribute("user");
 		int userid=user.getUserid();
-		TextEntity te = ts.getTextsByUser(userid,id);
+		TextEntity te = ts.getTextsByUser(userid,idl);
 		if(te==null)
 		{
 			ModelAndView maf = new ModelAndView();
@@ -32,7 +45,8 @@ public class SetTask {
 			return maf;
 		}else {
 			session.setAttribute("text", te);
-			session.setAttribute("model", id);
+			session.setAttribute("model", ids);
+			List<TaskEntity> tasks= tks.getTaskByIds(idl);
 			String[] stringlist;
 			String article = te.getArticle();
 			stringlist  = article.split("\\$");
@@ -44,6 +58,7 @@ public class SetTask {
 				wordList.add(temp[0]);
 			}
 			ModelAndView mav = new ModelAndView();
+			mav.addObject("tasks",tasks);
 			mav.addObject("list", wordList);
 			mav.setViewName("/WEB-INF/jsp/dabiaoqian.jsp");//打标签页面
 			return mav;

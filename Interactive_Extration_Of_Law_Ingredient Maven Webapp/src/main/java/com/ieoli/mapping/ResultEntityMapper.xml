@@ -5,7 +5,8 @@
     <id column="resultID" property="resultid" jdbcType="INTEGER" />
     <result column="textID" property="textid" jdbcType="INTEGER" />
     <result column="modelID" property="modelid" jdbcType="INTEGER" />
-    <result column="isTrue" property="istrue" jdbcType="BIT" />
+    <result column="isStrictTrue" property="isstricttrue" jdbcType="BIT" />
+    <result column="isEasyTrue" property="iseasytrue" jdbcType="BIT" />
     <result column="userid" property="userid" jdbcType="INTEGER" />
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.ieoli.entity.ResultEntity" extends="BaseResultMap" >
@@ -70,7 +71,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    resultID, textID, modelID, isTrue, userid
+    resultID, textID, modelID, isStrictTrue, isEasyTrue, userid
   </sql>
   <sql id="Blob_Column_List" >
     label
@@ -127,11 +128,11 @@
   </delete>
   <insert id="insert" parameterType="com.ieoli.entity.ResultEntity" >
     insert into results (resultID, textID, modelID, 
-      isTrue, userid, label
-      )
+      isStrictTrue, isEasyTrue, userid, 
+      label)
     values (#{resultid,jdbcType=INTEGER}, #{textid,jdbcType=INTEGER}, #{modelid,jdbcType=INTEGER}, 
-      #{istrue,jdbcType=BIT}, #{userid,jdbcType=INTEGER}, #{label,jdbcType=LONGVARCHAR}
-      )
+      #{isstricttrue,jdbcType=BIT}, #{iseasytrue,jdbcType=BIT}, #{userid,jdbcType=INTEGER}, 
+      #{label,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.ieoli.entity.ResultEntity" >
     insert into results
@@ -145,8 +146,11 @@
       <if test="modelid != null" >
         modelID,
       </if>
-      <if test="istrue != null" >
-        isTrue,
+      <if test="isstricttrue != null" >
+        isStrictTrue,
+      </if>
+      <if test="iseasytrue != null" >
+        isEasyTrue,
       </if>
       <if test="userid != null" >
         userid,
@@ -165,8 +169,11 @@
       <if test="modelid != null" >
         #{modelid,jdbcType=INTEGER},
       </if>
-      <if test="istrue != null" >
-        #{istrue,jdbcType=BIT},
+      <if test="isstricttrue != null" >
+        #{isstricttrue,jdbcType=BIT},
+      </if>
+      <if test="iseasytrue != null" >
+        #{iseasytrue,jdbcType=BIT},
       </if>
       <if test="userid != null" >
         #{userid,jdbcType=INTEGER},
@@ -194,8 +201,11 @@
       <if test="record.modelid != null" >
         modelID = #{record.modelid,jdbcType=INTEGER},
       </if>
-      <if test="record.istrue != null" >
-        isTrue = #{record.istrue,jdbcType=BIT},
+      <if test="record.isstricttrue != null" >
+        isStrictTrue = #{record.isstricttrue,jdbcType=BIT},
+      </if>
+      <if test="record.iseasytrue != null" >
+        isEasyTrue = #{record.iseasytrue,jdbcType=BIT},
       </if>
       <if test="record.userid != null" >
         userid = #{record.userid,jdbcType=INTEGER},
@@ -213,7 +223,8 @@
     set resultID = #{record.resultid,jdbcType=INTEGER},
       textID = #{record.textid,jdbcType=INTEGER},
       modelID = #{record.modelid,jdbcType=INTEGER},
-      isTrue = #{record.istrue,jdbcType=BIT},
+      isStrictTrue = #{record.isstricttrue,jdbcType=BIT},
+      isEasyTrue = #{record.iseasytrue,jdbcType=BIT},
       userid = #{record.userid,jdbcType=INTEGER},
       label = #{record.label,jdbcType=LONGVARCHAR}
     <if test="_parameter != null" >
@@ -225,7 +236,8 @@
     set resultID = #{record.resultid,jdbcType=INTEGER},
       textID = #{record.textid,jdbcType=INTEGER},
       modelID = #{record.modelid,jdbcType=INTEGER},
-      isTrue = #{record.istrue,jdbcType=BIT},
+      isStrictTrue = #{record.isstricttrue,jdbcType=BIT},
+      isEasyTrue = #{record.iseasytrue,jdbcType=BIT},
       userid = #{record.userid,jdbcType=INTEGER}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -240,8 +252,11 @@
       <if test="modelid != null" >
         modelID = #{modelid,jdbcType=INTEGER},
       </if>
-      <if test="istrue != null" >
-        isTrue = #{istrue,jdbcType=BIT},
+      <if test="isstricttrue != null" >
+        isStrictTrue = #{isstricttrue,jdbcType=BIT},
+      </if>
+      <if test="iseasytrue != null" >
+        isEasyTrue = #{iseasytrue,jdbcType=BIT},
       </if>
       <if test="userid != null" >
         userid = #{userid,jdbcType=INTEGER},
@@ -256,7 +271,8 @@
     update results
     set textID = #{textid,jdbcType=INTEGER},
       modelID = #{modelid,jdbcType=INTEGER},
-      isTrue = #{istrue,jdbcType=BIT},
+      isStrictTrue = #{isstricttrue,jdbcType=BIT},
+      isEasyTrue = #{iseasytrue,jdbcType=BIT},
       userid = #{userid,jdbcType=INTEGER},
       label = #{label,jdbcType=LONGVARCHAR}
     where resultID = #{resultid,jdbcType=INTEGER}
@@ -265,7 +281,8 @@
     update results
     set textID = #{textid,jdbcType=INTEGER},
       modelID = #{modelid,jdbcType=INTEGER},
-      isTrue = #{istrue,jdbcType=BIT},
+      isStrictTrue = #{isstricttrue,jdbcType=BIT},
+      isEasyTrue = #{iseasytrue,jdbcType=BIT},
       userid = #{userid,jdbcType=INTEGER}
     where resultID = #{resultid,jdbcType=INTEGER}
   </update>

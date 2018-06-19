@@ -1,7 +1,11 @@
 package com.ieoli.Controller;
 
 import java.security.MessageDigest;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map.Entry;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -11,6 +15,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.ieoli.Utils.PropertyUtil;
 import com.ieoli.entity.ResultEntity;
 import com.ieoli.entity.TextEntity;
 import com.ieoli.entity.UserEntity;
@@ -21,7 +26,6 @@ import com.ieoli.service.UserService;
 
 @Controller
 public class SubmitHT {
-
 	@Resource
 	private TextsService ts;
 	//private TextBehavior textBehavior;
@@ -32,7 +36,6 @@ public class SubmitHT {
 	private ResultsService rs;
 	@Resource
 	private TaskService tts;
-	
 	@RequestMapping(value="/submitHT")
 	public void insertResult(HttpServletRequest request,
 			HttpServletResponse response,HttpSession session) throws Exception {
@@ -43,150 +46,158 @@ public class SubmitHT {
 		
 		TextEntity Text=(TextEntity)session.getAttribute("text");
 		int textid=Text.getTextid();
-		
-		int modelid=(int) session.getAttribute("model");
-		List<ResultEntity> modelresults=rs.getResultByTaskID(modelid, textid);
-		String outcome=null;
-		TextEntity text=ts.getTextByID(textid);
-		//TextEntity text=textBehavior.getByID(textid);
-		int count=modelresults.size();
-		if(count>=3){
-			outcome="该文书已被标注完毕！";
-		}else{
-			ResultEntity newResult=new ResultEntity();
-			newResult.setLabel(getlabel(result));
-			newResult.setTextid(textid);
-			newResult.setUserid(userid);
-			newResult.setModelid(modelid);
-			rs.insertResult(newResult);
-
-			//ts.updateText(text);
-			//textBehavior.update(text);
-			outcome="标注成功！";
+		ts.offline(textid);
+		String[] models=((String) session.getAttribute("model")).split(",");
+		List<Integer> modelids= new ArrayList<Integer>();
+		for(String temp:models)
+		{
+			modelids.add(Integer.parseInt(temp));
 		}
-		
-		
-	    
-	    	List<ResultEntity> results=rs.getResultByTaskID(modelid, textid);
-	    	if(results.size()==3){
-	    		
-	    		int eval=evaluate(results);
-	    		switch(eval){
-	    		case -1://全错
-	    			for(int i=0;i<3;i++){
-	    				//text.setCount(0);
-	    			//	ts.updateText(text);
-	    				//textBehavior.update(text);
-	    				rs.deleteResultByID(results.get(i).getResultid());
-	    				//对标注人员操作
-	    				UserEntity user=us.getUserByID(results.get(i).getUserid());
-	    				//UserEntity user=userBehavior.getByID(results.get(i).getUserid());
-	    				user.setWronganswer(user.getWronganswer()+1);
-	    				us.updateUser(user);
-	    				//userBehavior.update(user);
-	    			}
-	    			break;
-	    		case 100://全对
-	    			for(int i=0;i<3;i++){
-	    				results.get(i).setIstrue(true);
-	    				rs.updateResult(results.get(i));
-	    				UserEntity user=us.getUserByID(results.get(i).getUserid());
-	    				//UserEntity user=userBehavior.getByID(results.get(i).getUserid());
-    					user.setRightanswer(user.getRightanswer()+1); 
-    					us.updateUser(user);
-    					//userBehavior.update(user);
-	    			}
-	    			String path=session.getServletContext().getRealPath("/")+ "texts\\"+Integer.toString(modelid)+"_"+text.getTextname();
-	    			ts.generateFile(textid,results.get(0).getResultid(),path);
-	    			//textBehavior.generateFile(textid,results.get(0).getResultid(),path);
-	    			break;
-	    		default:
-	    			
-	    			for(int i=0;i<3;i++){
-	    				if(i==eval){
-	    					results.get(i).setIstrue(false);
-		    				rs.updateResult(results.get(i));
-	    					UserEntity user=us.getUserByID(results.get(i).getUserid());
-	    					//UserEntity user=userBehavior.getByID(results.get(i).getUserid());
-	        				user.setWronganswer(user.getWronganswer()+1);
-	        				us.updateUser(user);
-	        				//userBehavior.update(user);
-	    				}else{
-	    					results.get(i).setIstrue(true);
-		    				rs.updateResult(results.get(i));
-	    					UserEntity user=us.getUserByID(results.get(i).getUserid());
-	    					//UserEntity user=userBehavior.getByID(results.get(i).getUserid());
-	    					user.setRightanswer(user.getRightanswer()+1);
-	    					us.updateUser(user);
-	    					//userBehavior.update(user);
-	    				}
-	    			}
-	    			String paths=session.getServletContext().getRealPath("/")+ "texts\\"+Integer.toString(modelid)+"_"+text.getTextname();
-	    			ts.generateFile(textid,results.get((eval+1)%3).getResultid(),paths);
-	    			break;
-	    		}
-	    	}
-	    
-	   
-		response.getOutputStream().write(outcome.getBytes("utf-8"));
-	
+		//modelid-结果列表
+		HashMap<Integer, List<ResultEntity>> map  = new HashMap<>();
+		for(int modelid :modelids)
+		{
+			map.put(modelid, rs.getResultByTaskID(modelid, textid));
+		}
+		HashMap<Integer,String> resultMap = getlabel(result);
+		for(Entry<Integer, String> cur:resultMap.entrySet())//逐个模型评价
+		{
+			ResultEntity re= new ResultEntity();
+			re.setLabel(cur.getValue());
+			re.setModelid(cur.getKey());
+			re.setTextid(textid);
+			re.setUserid(userid);
+			boolean ok = rs.insertResult(re);
+			if(ok)
+			{
+				//进入评估阶段
+				List<ResultEntity> preResult = map.get(cur.getKey());
+				int cond= 0;//反应是否有正确的
+				for(ResultEntity pre: preResult)
+				{
+					if(evaluate(cur.getValue(), pre.getLabel(), Text.getArticle()))
+					{
+						cond=1;
+						rs.setTrue(re);
+						rs.setTrue(pre);
+						break;
+					}
+				}
+				if(cond==0)
+				{
+					if(preResult.size()==1)
+					{
+						//donothing
+					}else {
+						//delete
+						for(ResultEntity pre: preResult)
+						{
+							rs.deleteResultByID(pre.getResultid());
+						}
+					}
+				}
+			}
+		}
+		response.getWriter().write("Success");
 	}
 	
-	private int evaluate(List<ResultEntity> results){
-	/*	//拆分
-		String result1[]=results.get(0).getLabel().split("\\$");
-		String result2[]=results.get(1).getLabel().split("\\$");
-		String result3[]=results.get(2).getLabel().split("\\$");
-		//排序
-		Arrays.sort(result1);
-		Arrays.sort(result2);
-		Arrays.sort(result3);
-		//连接
-		String sortedResult1 = null;
-		for(int i=0;i<result1.length;i++){
-			sortedResult1+=result1[i];
+	private boolean evaluate(String labela,String labelb,String text){
+		int condition = Integer.parseInt(PropertyUtil.getProperty("condition")); //(0为严格模式，1为宽松模式)
+		switch (condition) {
+		case 0:
+			return labela.equals(labelb);
+		default:
+			HashSet<String> awords= getwords(labela, text);
+			HashSet<String> bwords= getwords(labelb, text);
+			HashSet<String> awordsi= getwords(labela, text);
+			HashSet<String> bwordsi= getwords(labelb, text);
+			awords.removeAll(bwords);
+			bwordsi.removeAll(awordsi);
+			if(awords.isEmpty()&&bwordsi.isEmpty())
+			{
+				return true;
+			}else
+			{
+				return false;
+			}
+			
+			
 		}
-		String sortedResult2 = null;
-		for(int i=0;i<result2.length;i++){
-			sortedResult2+=result2[i];
-		}
-		String sortedResult3 = null;
-		for(int i=0;i<result3.length;i++){
-			sortedResult3+=result3[i];
-		}*/
-		//MD5加密
-		String encryptedResult1=MD5(results.get(0).getLabel());
-		String encryptedResult2=MD5(results.get(1).getLabel());
-		String encryptedResult3=MD5(results.get(2).getLabel());
-		//比较
-		boolean comp12=encryptedResult1.equals(encryptedResult2);
-		boolean comp13=encryptedResult1.equals(encryptedResult3);
-		boolean comp23=encryptedResult2.equals(encryptedResult3);
-		if(comp12&&comp13&&comp23){
-			return 100;//都一样
-		}else if(comp12&&!comp13&&!comp23){
-			return 2;//第三个不一样
-		}else if(!comp12&&comp13&&!comp23){
-			return 1;//第二个不一样
-		}else if(!comp12&&!comp13&&comp23){
-			return 0;//第一个不一样
-		}else{
-			return -1;//都不一样
-		}
-		
 	}
-	
-	private String getlabel(String result){
+	private HashSet<String> getwords(String labela,String text)
+	{
+		String[] texts= text.split("\\$");
+		HashSet<String> wordsa= new HashSet<>();
+		String[] labelsa = labela.split("\\$");
+		ArrayList<String> start = new ArrayList<>();
+		ArrayList<String> end = new ArrayList<>();
+		for(String label:labelsa)
+		{
+			if(label.split("_")[2].equals("d"))
+			{
+				int index=Integer.parseInt(label.split("&")[0]);
+				wordsa.add(texts[index-1]);
+			}else if(label.split("_")[2].equals("s")){
+				start.add(label);
+			}else {
+				end.add(label);
+			}
+		}
+		for(String star:start)
+		{
+			int startindex= Integer.parseInt(star.split("&")[0]);
+			String label = star.split("&")[1];
+			label=label.substring(0,label.length()-1);
+			for(String en:end)
+			{
+				int endindex =  Integer.parseInt(en.split("&")[0]);
+				String labelend=  en.split("&")[1];
+				labelend=labelend.substring(0,labelend.length()-1);
+				if(endindex>startindex&&label.equals(labelend))
+				{
+					wordsa.add(getSequence(startindex, endindex, texts));
+				}
+			}
+			
+		}
+		return wordsa;
+	}
+	private String getSequence(int start,int end,String[] texts)
+	{
+		String toR="";
+		for(int i = start;i<=end;i++)
+		{
+			toR+=texts[i-1];
+		}
+		return toR;
+	}
+	private HashMap<Integer, String> getlabel(String result){
 		String result1[]=result.split("\\$");
 		String labels = "";
+		HashMap<Integer, String> gpbymodel = new HashMap<>();
 		for(int i=1;i<result1.length;i++){
 			if(result1[i].contains("&")){
 				String a[]=result1[i].split("\\&");
-				labels+=String.valueOf(i)+"&"+a[1]+"$";
+				for(int j = 1 ; j<a.length;j++)
+				{
+					String label = a[j];
+					String jieduan = a[j].split("_")[0];
+					String model = a[j].split("_")[1];
+					String type = a[j].split("_")[2];
+					if(gpbymodel.containsKey(Integer.parseInt(model)))
+					{
+						String cur =gpbymodel.get(Integer.parseInt(model));
+						cur += "$" +i+"&"+ label;
+						gpbymodel.put(Integer.parseInt(model), cur);
+					}else {
+						gpbymodel.put(Integer.parseInt(model), i+"&"+label);
+					}
+				}
+				
 			}
 		}
 		
-		return labels;
+		return gpbymodel;
 		
 	}
 	

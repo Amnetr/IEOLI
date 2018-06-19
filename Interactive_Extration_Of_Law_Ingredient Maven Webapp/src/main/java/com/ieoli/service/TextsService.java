@@ -12,7 +12,9 @@ public interface TextsService {
 	public void updateText(TextEntity text);
 	public List<TextEntity> getHandledText(int modelid);
 	public List<TextEntity> getTexts();
-	public TextEntity getTextsByUser(int userId,int taskid);
+	public List<TextEntity> getTextByIDs(List<Integer> textids);
+	public TextEntity getTextsByUser(int userId,List<Integer> taskid);
+	public void offline(int textid);
 	public void generateFile(int textid,int resultid,String path)throws FileNotFoundException, IOException;
 	public void insertFile(TextEntity text);
 }

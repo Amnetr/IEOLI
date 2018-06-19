@@ -4,6 +4,7 @@
   <resultMap id="BaseResultMap" type="com.ieoli.entity.TextEntity" >
     <id column="textID" property="textid" jdbcType="INTEGER" />
     <result column="textName" property="textname" jdbcType="VARCHAR" />
+    <result column="online" property="online" jdbcType="INTEGER" />
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.ieoli.entity.TextEntity" extends="BaseResultMap" >
     <result column="article" property="article" jdbcType="LONGVARCHAR" />
@@ -67,7 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    textID, textName
+    textID, textName, online
   </sql>
   <sql id="Blob_Column_List" >
     article
@@ -123,10 +124,10 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.ieoli.entity.TextEntity" >
-    insert into texts (textID, textName, article
-      )
-    values (#{textid,jdbcType=INTEGER}, #{textname,jdbcType=VARCHAR}, #{article,jdbcType=LONGVARCHAR}
-      )
+    insert into texts (textID, textName, online, 
+      article)
+    values (#{textid,jdbcType=INTEGER}, #{textname,jdbcType=VARCHAR}, #{online,jdbcType=INTEGER}, 
+      #{article,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.ieoli.entity.TextEntity" >
     insert into texts
@@ -136,6 +137,9 @@
       </if>
       <if test="textname != null" >
         textName,
+      </if>
+      <if test="online != null" >
+        online,
       </if>
       <if test="article != null" >
         article,
@@ -147,6 +151,9 @@
       </if>
       <if test="textname != null" >
         #{textname,jdbcType=VARCHAR},
+      </if>
+      <if test="online != null" >
+        #{online,jdbcType=INTEGER},
       </if>
       <if test="article != null" >
         #{article,jdbcType=LONGVARCHAR},
@@ -168,6 +175,9 @@
       <if test="record.textname != null" >
         textName = #{record.textname,jdbcType=VARCHAR},
       </if>
+      <if test="record.online != null" >
+        online = #{record.online,jdbcType=INTEGER},
+      </if>
       <if test="record.article != null" >
         article = #{record.article,jdbcType=LONGVARCHAR},
       </if>
@@ -180,6 +190,7 @@
     update texts
     set textID = #{record.textid,jdbcType=INTEGER},
       textName = #{record.textname,jdbcType=VARCHAR},
+      online = #{record.online,jdbcType=INTEGER},
       article = #{record.article,jdbcType=LONGVARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -188,7 +199,8 @@
   <update id="updateByExample" parameterType="map" >
     update texts
     set textID = #{record.textid,jdbcType=INTEGER},
-      textName = #{record.textname,jdbcType=VARCHAR}
+      textName = #{record.textname,jdbcType=VARCHAR},
+      online = #{record.online,jdbcType=INTEGER}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -199,6 +211,9 @@
       <if test="textname != null" >
         textName = #{textname,jdbcType=VARCHAR},
       </if>
+      <if test="online != null" >
+        online = #{online,jdbcType=INTEGER},
+      </if>
       <if test="article != null" >
         article = #{article,jdbcType=LONGVARCHAR},
       </if>
@@ -208,12 +223,14 @@
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.ieoli.entity.TextEntity" >
     update texts
     set textName = #{textname,jdbcType=VARCHAR},
+      online = #{online,jdbcType=INTEGER},
       article = #{article,jdbcType=LONGVARCHAR}
     where textID = #{textid,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.ieoli.entity.TextEntity" >
     update texts
-    set textName = #{textname,jdbcType=VARCHAR}
+    set textName = #{textname,jdbcType=VARCHAR},
+      online = #{online,jdbcType=INTEGER}
     where textID = #{textid,jdbcType=INTEGER}
   </update>
 </mapper>

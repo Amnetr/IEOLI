@@ -284,63 +284,123 @@ public class ResultEntityExample {
             return (Criteria) this;
         }
 
-        public Criteria andIstrueIsNull() {
-            addCriterion("isTrue is null");
+        public Criteria andIsstricttrueIsNull() {
+            addCriterion("isStrictTrue is null");
             return (Criteria) this;
         }
 
-        public Criteria andIstrueIsNotNull() {
-            addCriterion("isTrue is not null");
+        public Criteria andIsstricttrueIsNotNull() {
+            addCriterion("isStrictTrue is not null");
             return (Criteria) this;
         }
 
-        public Criteria andIstrueEqualTo(Boolean value) {
-            addCriterion("isTrue =", value, "istrue");
+        public Criteria andIsstricttrueEqualTo(Boolean value) {
+            addCriterion("isStrictTrue =", value, "isstricttrue");
             return (Criteria) this;
         }
 
-        public Criteria andIstrueNotEqualTo(Boolean value) {
-            addCriterion("isTrue <>", value, "istrue");
+        public Criteria andIsstricttrueNotEqualTo(Boolean value) {
+            addCriterion("isStrictTrue <>", value, "isstricttrue");
             return (Criteria) this;
         }
 
-        public Criteria andIstrueGreaterThan(Boolean value) {
-            addCriterion("isTrue >", value, "istrue");
+        public Criteria andIsstricttrueGreaterThan(Boolean value) {
+            addCriterion("isStrictTrue >", value, "isstricttrue");
             return (Criteria) this;
         }
 
-        public Criteria andIstrueGreaterThanOrEqualTo(Boolean value) {
-            addCriterion("isTrue >=", value, "istrue");
+        public Criteria andIsstricttrueGreaterThanOrEqualTo(Boolean value) {
+            addCriterion("isStrictTrue >=", value, "isstricttrue");
             return (Criteria) this;
         }
 
-        public Criteria andIstrueLessThan(Boolean value) {
-            addCriterion("isTrue <", value, "istrue");
+        public Criteria andIsstricttrueLessThan(Boolean value) {
+            addCriterion("isStrictTrue <", value, "isstricttrue");
             return (Criteria) this;
         }
 
-        public Criteria andIstrueLessThanOrEqualTo(Boolean value) {
-            addCriterion("isTrue <=", value, "istrue");
+        public Criteria andIsstricttrueLessThanOrEqualTo(Boolean value) {
+            addCriterion("isStrictTrue <=", value, "isstricttrue");
             return (Criteria) this;
         }
 
-        public Criteria andIstrueIn(List<Boolean> values) {
-            addCriterion("isTrue in", values, "istrue");
+        public Criteria andIsstricttrueIn(List<Boolean> values) {
+            addCriterion("isStrictTrue in", values, "isstricttrue");
             return (Criteria) this;
         }
 
-        public Criteria andIstrueNotIn(List<Boolean> values) {
-            addCriterion("isTrue not in", values, "istrue");
+        public Criteria andIsstricttrueNotIn(List<Boolean> values) {
+            addCriterion("isStrictTrue not in", values, "isstricttrue");
             return (Criteria) this;
         }
 
-        public Criteria andIstrueBetween(Boolean value1, Boolean value2) {
-            addCriterion("isTrue between", value1, value2, "istrue");
+        public Criteria andIsstricttrueBetween(Boolean value1, Boolean value2) {
+            addCriterion("isStrictTrue between", value1, value2, "isstricttrue");
             return (Criteria) this;
         }
 
-        public Criteria andIstrueNotBetween(Boolean value1, Boolean value2) {
-            addCriterion("isTrue not between", value1, value2, "istrue");
+        public Criteria andIsstricttrueNotBetween(Boolean value1, Boolean value2) {
+            addCriterion("isStrictTrue not between", value1, value2, "isstricttrue");
+            return (Criteria) this;
+        }
+
+        public Criteria andIseasytrueIsNull() {
+            addCriterion("isEasyTrue is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIseasytrueIsNotNull() {
+            addCriterion("isEasyTrue is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIseasytrueEqualTo(Boolean value) {
+            addCriterion("isEasyTrue =", value, "iseasytrue");
+            return (Criteria) this;
+        }
+
+        public Criteria andIseasytrueNotEqualTo(Boolean value) {
+            addCriterion("isEasyTrue <>", value, "iseasytrue");
+            return (Criteria) this;
+        }
+
+        public Criteria andIseasytrueGreaterThan(Boolean value) {
+            addCriterion("isEasyTrue >", value, "iseasytrue");
+            return (Criteria) this;
+        }
+
+        public Criteria andIseasytrueGreaterThanOrEqualTo(Boolean value) {
+            addCriterion("isEasyTrue >=", value, "iseasytrue");
+            return (Criteria) this;
+        }
+
+        public Criteria andIseasytrueLessThan(Boolean value) {
+            addCriterion("isEasyTrue <", value, "iseasytrue");
+            return (Criteria) this;
+        }
+
+        public Criteria andIseasytrueLessThanOrEqualTo(Boolean value) {
+            addCriterion("isEasyTrue <=", value, "iseasytrue");
+            return (Criteria) this;
+        }
+
+        public Criteria andIseasytrueIn(List<Boolean> values) {
+            addCriterion("isEasyTrue in", values, "iseasytrue");
+            return (Criteria) this;
+        }
+
+        public Criteria andIseasytrueNotIn(List<Boolean> values) {
+            addCriterion("isEasyTrue not in", values, "iseasytrue");
+            return (Criteria) this;
+        }
+
+        public Criteria andIseasytrueBetween(Boolean value1, Boolean value2) {
+            addCriterion("isEasyTrue between", value1, value2, "iseasytrue");
+            return (Criteria) this;
+        }
+
+        public Criteria andIseasytrueNotBetween(Boolean value1, Boolean value2) {
+            addCriterion("isEasyTrue not between", value1, value2, "iseasytrue");
             return (Criteria) this;
         }
 
