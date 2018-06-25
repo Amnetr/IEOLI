@@ -463,6 +463,66 @@ public class ResultEntityExample {
             addCriterion("userid not between", value1, value2, "userid");
             return (Criteria) this;
         }
+
+        public Criteria andUsefulIsNull() {
+            addCriterion("useful is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUsefulIsNotNull() {
+            addCriterion("useful is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUsefulEqualTo(Boolean value) {
+            addCriterion("useful =", value, "useful");
+            return (Criteria) this;
+        }
+
+        public Criteria andUsefulNotEqualTo(Boolean value) {
+            addCriterion("useful <>", value, "useful");
+            return (Criteria) this;
+        }
+
+        public Criteria andUsefulGreaterThan(Boolean value) {
+            addCriterion("useful >", value, "useful");
+            return (Criteria) this;
+        }
+
+        public Criteria andUsefulGreaterThanOrEqualTo(Boolean value) {
+            addCriterion("useful >=", value, "useful");
+            return (Criteria) this;
+        }
+
+        public Criteria andUsefulLessThan(Boolean value) {
+            addCriterion("useful <", value, "useful");
+            return (Criteria) this;
+        }
+
+        public Criteria andUsefulLessThanOrEqualTo(Boolean value) {
+            addCriterion("useful <=", value, "useful");
+            return (Criteria) this;
+        }
+
+        public Criteria andUsefulIn(List<Boolean> values) {
+            addCriterion("useful in", values, "useful");
+            return (Criteria) this;
+        }
+
+        public Criteria andUsefulNotIn(List<Boolean> values) {
+            addCriterion("useful not in", values, "useful");
+            return (Criteria) this;
+        }
+
+        public Criteria andUsefulBetween(Boolean value1, Boolean value2) {
+            addCriterion("useful between", value1, value2, "useful");
+            return (Criteria) this;
+        }
+
+        public Criteria andUsefulNotBetween(Boolean value1, Boolean value2) {
+            addCriterion("useful not between", value1, value2, "useful");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

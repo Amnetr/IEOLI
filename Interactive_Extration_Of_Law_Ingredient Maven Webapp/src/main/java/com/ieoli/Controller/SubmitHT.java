@@ -67,6 +67,7 @@ public class SubmitHT {
 			re.setModelid(cur.getKey());
 			re.setTextid(textid);
 			re.setUserid(userid);
+			re.setUseful(true);
 			boolean ok = rs.insertResult(re);
 			if(ok)
 			{
@@ -105,7 +106,7 @@ public class SubmitHT {
 		int condition = Integer.parseInt(PropertyUtil.getProperty("condition")); //(0为严格模式，1为宽松模式)
 		switch (condition) {
 		case 0:
-			return labela.equals(labelb);
+			return MD5(labela).equals(MD5(labelb));
 		default:
 			HashSet<String> awords= getwords(labela, text);
 			HashSet<String> bwords= getwords(labelb, text);

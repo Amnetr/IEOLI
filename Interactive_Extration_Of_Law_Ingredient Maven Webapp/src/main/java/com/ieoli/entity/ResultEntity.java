@@ -13,6 +13,8 @@ public class ResultEntity {
 
     private Integer userid;
 
+    private Boolean useful;
+
     private String label;
 
     public Integer getResultid() {
@@ -61,6 +63,14 @@ public class ResultEntity {
 
     public void setUserid(Integer userid) {
         this.userid = userid;
+    }
+
+    public Boolean getUseful() {
+        return useful;
+    }
+
+    public void setUseful(Boolean useful) {
+        this.useful = useful;
     }
 
     public String getLabel() {

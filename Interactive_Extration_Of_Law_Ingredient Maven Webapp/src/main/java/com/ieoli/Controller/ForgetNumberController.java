@@ -30,6 +30,7 @@ UserService userService;
 				UserEntity user = new UserEntity();
 				user = userService.getUserByUsername((String)session.getAttribute("username"));
 				user.setUserpassword(passwordString);
+				userService.updateUser(user);
 				response.getOutputStream().write("success".getBytes());
 			}else {
 				response.getOutputStream().write("existed".getBytes());

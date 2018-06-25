@@ -121,8 +121,8 @@ window.location.href="setTask?models="+check_val;
     					<c:forEach items="${list}" var="model" varStatus= "status">
     						
 							        <div class="caption" align="left">
-							        <input type="checkbox" name = "task" value = "${model.taskid}"></input>
-								        任务：${model.taskdescription}
+							        <input type="checkbox" name = "task" value = "${model.taskid}" checked></input>
+								        <span style="font-size:25px;margin-right:2px;margin-bottom:3px;backgroundColor:#EEEEEE">任务：${model.taskdescription}</span>
 								       
 							        </div>
 						       

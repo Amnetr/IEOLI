@@ -8,6 +8,7 @@
     <result column="isStrictTrue" property="isstricttrue" jdbcType="BIT" />
     <result column="isEasyTrue" property="iseasytrue" jdbcType="BIT" />
     <result column="userid" property="userid" jdbcType="INTEGER" />
+    <result column="useful" property="useful" jdbcType="BIT" />
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.ieoli.entity.ResultEntity" extends="BaseResultMap" >
     <result column="label" property="label" jdbcType="LONGVARCHAR" />
@@ -71,7 +72,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    resultID, textID, modelID, isStrictTrue, isEasyTrue, userid
+    resultID, textID, modelID, isStrictTrue, isEasyTrue, userid, useful
   </sql>
   <sql id="Blob_Column_List" >
     label
@@ -129,10 +130,10 @@
   <insert id="insert" parameterType="com.ieoli.entity.ResultEntity" >
     insert into results (resultID, textID, modelID, 
       isStrictTrue, isEasyTrue, userid, 
-      label)
+      useful, label)
     values (#{resultid,jdbcType=INTEGER}, #{textid,jdbcType=INTEGER}, #{modelid,jdbcType=INTEGER}, 
       #{isstricttrue,jdbcType=BIT}, #{iseasytrue,jdbcType=BIT}, #{userid,jdbcType=INTEGER}, 
-      #{label,jdbcType=LONGVARCHAR})
+      #{useful,jdbcType=BIT}, #{label,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.ieoli.entity.ResultEntity" >
     insert into results
@@ -154,6 +155,9 @@
       </if>
       <if test="userid != null" >
         userid,
+      </if>
+      <if test="useful != null" >
+        useful,
       </if>
       <if test="label != null" >
         label,
@@ -177,6 +181,9 @@
       </if>
       <if test="userid != null" >
         #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="useful != null" >
+        #{useful,jdbcType=BIT},
       </if>
       <if test="label != null" >
         #{label,jdbcType=LONGVARCHAR},
@@ -210,6 +217,9 @@
       <if test="record.userid != null" >
         userid = #{record.userid,jdbcType=INTEGER},
       </if>
+      <if test="record.useful != null" >
+        useful = #{record.useful,jdbcType=BIT},
+      </if>
       <if test="record.label != null" >
         label = #{record.label,jdbcType=LONGVARCHAR},
       </if>
@@ -226,6 +236,7 @@
       isStrictTrue = #{record.isstricttrue,jdbcType=BIT},
       isEasyTrue = #{record.iseasytrue,jdbcType=BIT},
       userid = #{record.userid,jdbcType=INTEGER},
+      useful = #{record.useful,jdbcType=BIT},
       label = #{record.label,jdbcType=LONGVARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -238,7 +249,8 @@
       modelID = #{record.modelid,jdbcType=INTEGER},
       isStrictTrue = #{record.isstricttrue,jdbcType=BIT},
       isEasyTrue = #{record.iseasytrue,jdbcType=BIT},
-      userid = #{record.userid,jdbcType=INTEGER}
+      userid = #{record.userid,jdbcType=INTEGER},
+      useful = #{record.useful,jdbcType=BIT}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -261,6 +273,9 @@
       <if test="userid != null" >
         userid = #{userid,jdbcType=INTEGER},
       </if>
+      <if test="useful != null" >
+        useful = #{useful,jdbcType=BIT},
+      </if>
       <if test="label != null" >
         label = #{label,jdbcType=LONGVARCHAR},
       </if>
@@ -274,6 +289,7 @@
       isStrictTrue = #{isstricttrue,jdbcType=BIT},
       isEasyTrue = #{iseasytrue,jdbcType=BIT},
       userid = #{userid,jdbcType=INTEGER},
+      useful = #{useful,jdbcType=BIT},
       label = #{label,jdbcType=LONGVARCHAR}
     where resultID = #{resultid,jdbcType=INTEGER}
   </update>
@@ -283,7 +299,8 @@
       modelID = #{modelid,jdbcType=INTEGER},
       isStrictTrue = #{isstricttrue,jdbcType=BIT},
       isEasyTrue = #{iseasytrue,jdbcType=BIT},
-      userid = #{userid,jdbcType=INTEGER}
+      userid = #{userid,jdbcType=INTEGER},
+      useful = #{useful,jdbcType=BIT}
     where resultID = #{resultid,jdbcType=INTEGER}
   </update>
 </mapper>

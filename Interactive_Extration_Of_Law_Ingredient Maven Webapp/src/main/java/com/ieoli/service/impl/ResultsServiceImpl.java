@@ -27,7 +27,7 @@ public class ResultsServiceImpl implements ResultsService {
 	public boolean insertResult(ResultEntity result) {
 		// TODO Auto-generated method stub
 		ResultEntityExample ree = new ResultEntityExample();
-		ree.createCriteria().andTextidEqualTo(result.getTextid()).andUseridEqualTo(result.getUserid()).andModelidEqualTo(result.getModelid());
+		ree.createCriteria().andTextidEqualTo(result.getTextid()).andUseridEqualTo(result.getUserid()).andModelidEqualTo(result.getModelid()).andUsefulEqualTo(true);
 		if(resultMapper.selectByExample(ree).isEmpty())
 		{
 			resultMapper.insert(result);
@@ -44,7 +44,7 @@ public class ResultsServiceImpl implements ResultsService {
 	public List<ResultEntity> getResultByTextID(int textid) {
 		// TODO Auto-generated method stub
 		ResultEntityExample resultExample=new ResultEntityExample();
-		resultExample.createCriteria().andTextidEqualTo(textid);
+		resultExample.createCriteria().andTextidEqualTo(textid).andUsefulEqualTo(true);
 		List<ResultEntity> results=resultMapper.selectByExampleWithBLOBs(resultExample);
 		
 		return results;
@@ -53,7 +53,10 @@ public class ResultsServiceImpl implements ResultsService {
 	@Override
 	public void deleteResultByID(int id) {
 		// TODO Auto-generated method stub
-		resultMapper.deleteByPrimaryKey(id);
+		ResultEntity resultEntity =new ResultEntity();
+		resultEntity.setResultid(id);
+		resultEntity.setUseful(false);
+		resultMapper.updateByPrimaryKeySelective(resultEntity);
 	}
 
 	@Override
@@ -66,7 +69,7 @@ public class ResultsServiceImpl implements ResultsService {
 	public List<ResultEntity> getResultByTaskID(int taskid, int textid) {
 		// TODO Auto-generated method stub
 		ResultEntityExample resultExample=new ResultEntityExample();
-		resultExample.createCriteria().andTextidEqualTo(textid).andModelidEqualTo(taskid);
+		resultExample.createCriteria().andTextidEqualTo(textid).andModelidEqualTo(taskid).andUsefulEqualTo(true);
 		List<ResultEntity> results=resultMapper.selectByExampleWithBLOBs(resultExample);
 		
 		return results;
@@ -76,7 +79,7 @@ public class ResultsServiceImpl implements ResultsService {
 	@Override
 	public HashSet<Integer> usernotlike(List<Integer> taskid, int userid) {
 		ResultEntityExample ree= new ResultEntityExample();
-		ree.createCriteria().andUseridEqualTo(userid).andModelidIn(taskid);//userid这个人对taskid内任务的结果
+		ree.createCriteria().andUseridEqualTo(userid).andModelidIn(taskid).andUsefulEqualTo(true);//userid这个人对taskid内任务的结果
 		List<ResultEntity> results=resultMapper.selectByExample(ree);
 		HashSet<Integer> textids = new HashSet<>();
 		HashMap<Integer, Integer> map = new HashMap<>();
@@ -106,9 +109,9 @@ public class ResultsServiceImpl implements ResultsService {
 		int condition = Integer.parseInt(PropertyUtil.getProperty("condition"));
 		if(condition==0)
 		{
-			ree.createCriteria().andModelidIn(taskid).andIsstricttrueEqualTo(true);//taskid内任务的结果
+			ree.createCriteria().andModelidIn(taskid).andIsstricttrueEqualTo(true).andUsefulEqualTo(true);//taskid内任务的结果
 		}else {
-			ree.createCriteria().andModelidIn(taskid).andIseasytrueEqualTo(true);//taskid内任务的结果
+			ree.createCriteria().andModelidIn(taskid).andIseasytrueEqualTo(true).andUsefulEqualTo(true);//taskid内任务的结果
 		}
 		
 		List<ResultEntity> results=resultMapper.selectByExample(ree);
@@ -144,9 +147,9 @@ public class ResultsServiceImpl implements ResultsService {
 		int condition = Integer.parseInt(PropertyUtil.getProperty("condition"));
 		if(condition==0)
 		{
-			ree.createCriteria().andModelidIn(taskid).andIsstricttrueEqualTo(true);//taskid内任务的结果
+			ree.createCriteria().andModelidIn(taskid).andIsstricttrueEqualTo(true).andUsefulEqualTo(true);//taskid内任务的结果
 		}else {
-			ree.createCriteria().andModelidIn(taskid).andIseasytrueEqualTo(true);//taskid内任务的结果
+			ree.createCriteria().andModelidIn(taskid).andIseasytrueEqualTo(true).andUsefulEqualTo(true);//taskid内任务的结果
 		}
 	
 		List<ResultEntity> results=resultMapper.selectByExampleWithBLOBs(ree);

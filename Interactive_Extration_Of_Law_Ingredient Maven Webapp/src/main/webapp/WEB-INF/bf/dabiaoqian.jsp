@@ -41,13 +41,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    //  revise();
     }
    }
-   //点击按钮  进行修改
-   function revise(id,tsk,spd){
+   function revise(tsk,spd){
 		//alert(obj.id+obj.name);
 		//var id = obj.id
 		
-		editted.push(id);
-		document.getElementById(id).style.backgroundColor="#32CD32";
+		editted.push(curid);
+		document.getElementById(curid).style.backgroundColor="#32CD32";
 		var radio1 = document.getElementsByName("shuru");
 		var valuejieduan =0;
 		for(var i = 0 ; i<radio1.length;i++)
@@ -57,7 +56,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		valuejieduan = radio1[i].value;
 		}
 		}
-		var content =document.getElementById(id).textContent.split("&");
+		var content =document.getElementById(curid).textContent.split("&");
 		var condxx=0;
 		
 		if(content.length>1)//有标签
@@ -78,7 +77,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						content[i]="";
 						if(content.length==2)//只有这一个标签
 						{
-							reset(id);
+							reset();
 						}
 					}
 					
@@ -90,19 +89,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			{
 			if(spd!="0")
 					{
-				document.getElementById(id).textContent+="&"+valuejieduan+"_"+tsk+"_"+spd;
+				document.getElementById(curid).textContent+="&"+valuejieduan+"_"+tsk+"_"+spd;
 				}else
 				{
 				
 				}
 			}else
 			{
-				document.getElementById(id).textContent=content[0];
+				document.getElementById(curid).textContent=content[0];
 				for(var i = 1 ; i<content.length;i++)
 				{
 					if(content[i]!="")
 					{
-					document.getElementById(id).textContent+="&"+content[i];
+					document.getElementById(curid).textContent+="&"+content[i];
 					}
 				}
 			}
@@ -111,8 +110,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		{
 		if(spd!="0")
 			{
-			document.getElementById(id).textContent=document.getElementById(id).textContent.split("&")[0];//原文内容
-			document.getElementById(id).textContent+="&"+valuejieduan+"_"+tsk+"_"+spd;
+			document.getElementById(curid).textContent=document.getElementById(curid).textContent.split("&")[0];//原文内容
+			document.getElementById(curid).textContent+="&"+valuejieduan+"_"+tsk+"_"+spd;
 			}else
 			{
 			
@@ -136,7 +135,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 	update();
 	};		
-	//更新左侧
 	function update()
 	{
 	for(var i = 0 ; i<att.length;i++)
@@ -228,14 +226,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		}
 		}
 	};
-	//重置当前按钮
-	function reset(id)
+	function reset()
 	{
-	document.getElementById(id).style.backgroundColor="#EEEEEE";
-	document.getElementById(id).textContent=document.getElementById(id).textContent.split("&")[0]; 
+	document.getElementById(curid).style.backgroundColor="#EEEEEE";
+	document.getElementById(curid).textContent=document.getElementById(curid).textContent.split("&")[0]; 
 	for(var i = 0 ; i<editted.length;i++)
 	{
-	if(id == editted[i])
+	if(curid == editted[i])
 	{
 	editted[i]=0;
 	}
@@ -252,7 +249,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	}
 	return toR;
 	};
-	//提交按钮
 		function tijiao(){
 		//alert(obj.id+obj.name);
 		//var id = obj.id	
@@ -404,67 +400,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					location.reload();
 				}
             
-            }
-		function getWords(tsk,condition){
-			var text,selection,item;
-			if(navigator.appName=="Microsoft Internet Explorer"){
-				selection=documen.selection.createRange().text;
-			}else{
-				selection=window.getSelection();
-			}
-			if(selection){
-				<!--text=selection.toString().trim().replace(/\s/g,"");获取纯文本-->
-				if(!selection.isCollapsed){<!--判断是否只选中了一个节点-->
-					var anchorNode=selection.anchorNode;<!--获取选中区域的头结点-->
-					var focusNode=selection.focusNode;<!--获取选中区域的尾结点-->
-					var startselfid = anchorNode.id;
-					var endselfid = focusNode.id;
-					var startindex = anchorNode.parentNode.id;
-					var endindex = focusNode.parentNode.id;
-					startindex = (startindex=="")?startselfid:startindex;
-					endindex = (endindex=="")?endselfid:endindex;
-					if(condition==1)
-					{
-					if(startindex == endindex)
-					{
-					revise(startindex,tsk,'d');
-					}else
-					{
-					revise(startindex,tsk,'s');
-					revise(endindex,tsk,'p');
-					}
-					}else
-					{
-					if(startindex!=endindex)
-					{
-					revise(startindex,tsk,'0');
-					revise(endindex,tsk,'0');
-					}else
-					{
-					revise(startindex,tsk,'0');
-					}
-					
-					}
-					
-					//
-					<!--获取选中区域的所有<span>节点内的纯文本-->
-				}else{
-					var node=selection.anchorNode;
-					var index = node.parentNode.id;
-					//
-				}
-			}
-			
-		}
+            }            
 	
 	</script>
 	</head>
 	<body>
 
 <!--标题栏-->
-<div class="container" style ="height: auto;width:100%">
+<div class="container" style ="height: auto;">
       <div class="row" style="margin-top: 0px;height: 100vh; margin-left:0px">
- <div style="border-left: 1px purple solid;float:left;width:10%;">
+ <div class="col-sm-2 col-lg-2" style="border-left: 1px purple solid">
  <h3 id="jieduan1" style= "display:none"> 第一阶段：</h3>
  <c:forEach items="${tasks}" var="task" varStatus="status">
  <div name="jieduan1son" id = "jieduan1-${task.taskid}" style= "display:none">${task.taskdescription }:</div>
@@ -509,7 +454,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    <button class="btn btn-default" onClick="refresh()">换一篇</button>
    <button id="tijiao" class="btn btn-default" onClick="tijiao()">提交标注</button>
     </div>
-    <div class="middle" style="background-color: white;height: 100%;float:left; width:65%;margin-left:5%;margin-right:4%;background-image: url(./img/bg.png)">   
+    <div class="middle col-md-7" style="background-color: white;height: 100%;background-image: url(./img/bg.png)">   
           
 
          <div style="border:2px solid #C9C9C9;margin: 20px;padding: 5px">
@@ -522,9 +467,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             
           </c:when>
           <c:otherwise> 
-          <span id="${status.count}" style="font-size:20px;margin-right:2px;margin-bottom:3px;backgroundColor:#EEEEEE">${word}</span>
+            <span id="${status.count}" target="_blank" onClick="action('${status.count}')" style="font-size:20px;margin-right:2px;margin-bottom:3px;backgroundColor:#EEEEEE">${word}</span>
+  
           </c:otherwise>
           </c:choose>
+      
       </c:forEach>
            </div>
            
@@ -532,7 +479,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
            
            
         </div>
-  <div style="border-right: 1px purple solid;float:left;width:15%">
+  <div class="col-sm-8 col-lg-3" style="border-left: 1px purple solid">
 <div align="centre">
                          <input type="radio" name="shuru" value=1 checked="true" ><span style="font-size:20px">第一阶段</span></input>
                          <input type="radio" name="shuru" value=2><span style="font-size:20px">第二阶段</span></input>
@@ -549,13 +496,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                            <c:forEach items="${tasks}" var="task" varStatus="status">
  <div><span style="font-size:18px;font-weight:bold;color:#00F" >${task.taskid}.${task.taskdescription }：</span></div>
  <div>
- <button onClick="getWords('${task.taskid}','1')"><span style="font-size:16px">标注</span></button>
- <!--  <span>&nbsp;&nbsp;</span>
+ <button onClick="revise('${task.taskid}','s')"><span style="font-size:16px">起始s</span></button>
+ <span>&nbsp;&nbsp;</span>
  <button onClick="revise('${task.taskid}','p')"><span style="font-size:16px">结束p</span></button>
  <span>&nbsp;&nbsp;</span>
  <button onClick="revise('${task.taskid}','d')"><span style="font-size:16px">独立d</span></button>
-  <span>&nbsp;&nbsp;</span>-->
-  <button id="${task.taskid }default" onClick="getWords('${task.taskid}','0')" style="font-size:16px"><span style="font-size:16px">清空</span></button></div>
+  <span>&nbsp;&nbsp;</span>
+  <button id="${task.taskid }default" onClick="revise('${task.taskid}','0')" style="font-size:16px"><span style="font-size:16px">无</span></button></div>
  <div>&nbsp;</div>
  </c:forEach>
                     <!--     <button id="biaoqianButton" style="width:120px;height:30px;" onclick="revise()" >确认</button>

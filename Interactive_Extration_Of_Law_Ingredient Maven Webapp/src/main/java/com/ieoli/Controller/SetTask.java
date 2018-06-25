@@ -1,7 +1,9 @@
 package com.ieoli.Controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Timer;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -13,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ieoli.Utils.RunTimeConf;
 import com.ieoli.entity.TaskEntity;
 import com.ieoli.entity.TextEntity;
 import com.ieoli.entity.UserEntity;
@@ -37,6 +40,13 @@ public class SetTask {
 		UserEntity user=(UserEntity)session.getAttribute("user");
 		int userid=user.getUserid();
 		TextEntity te = ts.getTextsByUser(userid,idl);
+	TextEntity tebef = (TextEntity)session.getAttribute("text");
+	if(tebef!=null)
+	{
+		ts.offline(tebef.getTextid());
+		((Timer)session.getAttribute("timer")).cancel();
+	}
+
 		if(te==null)
 		{
 			ModelAndView maf = new ModelAndView();
@@ -52,7 +62,6 @@ public class SetTask {
 			stringlist  = article.split("\\$");
 			ArrayList<String> wordList = new ArrayList<String>();
 			for(int i = 0 ; i<stringlist.length;i++)
-
 			{
 				String[] temp = stringlist[i].split("\\_");
 				wordList.add(temp[0]);
@@ -61,6 +70,10 @@ public class SetTask {
 			mav.addObject("tasks",tasks);
 			mav.addObject("list", wordList);
 			mav.setViewName("/WEB-INF/jsp/dabiaoqian.jsp");//打标签页面
+			 Timer timer = new Timer();
+				RunTimeConf rtc = new RunTimeConf(timer, te.getTextid());
+			 timer.schedule(rtc, new Date(),10000);
+			 session.setAttribute("timer", timer);
 			return mav;
 		}
 		

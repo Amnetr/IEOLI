@@ -50,7 +50,27 @@ function smedit()
 			}
 		});
 }
-
+function snmedit()
+{
+	var desc = document.getElementById("textar").value;
+	var taskid=-1;
+	if(desc=='')
+	{
+	alert("请输入介绍内容");
+	return;
+	}
+	$.ajax({
+			url:"UploadModels",
+			data:{taskid:taskid,description:desc},
+			method:"post",
+			//dataType:"json"
+			success:function(result){
+			window.location.reload();  
+			alert("成功");
+			
+			}
+		});
+}
 </script>
 
 
@@ -63,7 +83,7 @@ function smedit()
      		<div style="margin: 40px">
      
   <div class="form-group">
-    <label for="name" style="font-size: 20px">选择任务</label>
+    <label for="name" style="font-size: 20px">标注任务</label>
     
     <div class="form-group" style="margin: 30px">    
      <table align="center" width="960px">
@@ -81,7 +101,7 @@ function smedit()
      		</tr>
      		</table>
     </div>
-     <label for="name" style="font-size:20px;"  >任务</label>
+     <label for="name" style="font-size:20px;"  >任务内容</label>
       <div class="form-group" style="margin: 30px">    
      
 	  </br>
@@ -91,6 +111,7 @@ function smedit()
     
   </div>
   <div class="last" style="margin-left:350px;">
+  <button onclick="snmedit()" class="layui-btn " name="button">新增</button>
   <button onclick="smedit()" class="layui-btn " name="button">修改</button>
   			</div>
    			</div>
